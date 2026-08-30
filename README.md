@@ -1,2 +1,2 @@
 # cybersecurity
-Trabalho de TCC da faculdade CUFSA.
+Trabalho de TCC da faculdade CUFSA
