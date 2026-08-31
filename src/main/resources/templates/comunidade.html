@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Comunidade</title>
+    <link rel="stylesheet" href="./comunidade.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="nav-left">
+          <a href="./home.html" class="brand">
+            <img src="../src/imports/Logo_Olho_Digital.png" alt="Olho Digital" />
+            <span>Olho Digital</span>
+          </a>
+
+          <nav class="main-nav" aria-label="Menu principal">
+            <a href="./home.html">Início</a>
+            <a href="./aprender.html">Aprender</a>
+            <a href="./noticias.html">Notícias</a>
+            <a href="./comunidade.html" class="active">Comunidade</a>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar na comunidade..." />
+          </div>
+          <button class="icon-btn" aria-label="Notificações">🔔</button>
+          <button class="profile-btn" id="profileToggle">U</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-shell">
+      <section class="community-header">
+        <div>
+          <h1>Comunidade de Segurança</h1>
+          <p>Compartilhe alertas, experiências e dicas de proteção digital.</p>
+        </div>
+      </section>
+
+      <section class="composer panel">
+        <h2>Publicar alerta</h2>
+        <textarea id="newPost" rows="4" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
+        <div class="composer-actions">
+          <select id="postType">
+            <option value="experiencia">Experiência</option>
+            <option value="alerta">Alerta</option>
+            <option value="dica">Dica</option>
+          </select>
+          <button type="button" class="primary-btn" id="publishBtn">Publicar</button>
+        </div>
+      </section>
+
+      <section class="feed">
+        <article class="post-card panel">
+          <div class="post-header">
+            <div class="author">
+              <span class="avatar pink">M</span>
+              <div>
+                <strong>Maria Silva</strong>
+                <small>Há 2 horas</small>
+              </div>
+            </div>
+            <span class="tag alerta">alerta</span>
+          </div>
+          <p>Recebi um email falso do meu banco pedindo para confirmar dados urgentes...</p>
+          <div class="post-actions">
+            <button>👍 24</button>
+            <button>💬 8</button>
+            <button>🔖 Salvar</button>
+          </div>
+        </article>
+
+        <article class="post-card panel">
+          <div class="post-header">
+            <div class="author">
+              <span class="avatar blue">J</span>
+              <div>
+                <strong>João Pedro</strong>
+                <small>Há 5 horas</small>
+              </div>
+            </div>
+            <span class="tag experiencia">experiencia</span>
+          </div>
+          <p>Minha conta do Instagram foi hackeada semana passada. Ative 2FA e agora uso em todas as minhas contas.</p>
+          <div class="post-actions">
+            <button>👍 45</button>
+            <button>💬 12</button>
+            <button>🔖 Salvar</button>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./comunidade.js"></script>
+  </body>
+</html>

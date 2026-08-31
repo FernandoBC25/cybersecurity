@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Notícias</title>
+    <link rel="stylesheet" href="./noticias.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="nav-left">
+          <a href="./home.html" class="brand">
+            <img src="../src/imports/Logo_Olho_Digital.png" alt="Olho Digital" />
+            <span>Olho Digital</span>
+          </a>
+
+          <nav class="main-nav" aria-label="Menu principal">
+            <a href="./home.html">Início</a>
+            <a href="./aprender.html">Aprender</a>
+            <a href="./noticias.html" class="active">Notícias</a>
+            <a href="./comunidade.html">Comunidade</a>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar notícias..." />
+          </div>
+          <button class="icon-btn" aria-label="Notificações">🔔</button>
+          <button class="profile-btn" id="profileToggle">U</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-shell">
+      <section class="page-header">
+        <div class="title-wrap">
+          <span class="section-icon">📰</span>
+          <h1>Notícias de Cibersegurança</h1>
+        </div>
+        <p>Casos reais de ataques cibernéticos - desde grandes corporações até pessoas comuns.</p>
+      </section>
+
+      <div class="filter-group">
+        <button type="button" class="filter-btn active">Todas</button>
+        <button type="button" class="filter-btn">Casos Famosos</button>
+        <button type="button" class="filter-btn">Cotidiano</button>
+      </div>
+
+      <section class="highlight-banner">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <h2>Importante: Ninguém está 100% seguro</h2>
+          <p>
+            Até mesmo as empresas mais preparadas do mundo, com bilhões investidos em segurança,
+            sofrem ataques cibernéticos bem-sucedidos. NASA, Microsoft, Google, bancos - todos já foram vítimas.
+          </p>
+        </div>
+      </section>
+
+      <section class="news-list">
+        <article class="news-card">
+          <div class="news-body">
+            <span class="tag">Empresas</span>
+            <h3>NASA sofre ataque cibernético e dados de missões são expostos</h3>
+            <small>15 de Maio, 2026</small>
+            <p>Uma falha em software de terceiros permitiu acesso a sistemas internos...</p>
+            <div class="news-meta">
+              <span class="impact high">Alto</span>
+              <span>Aprendizado: cadeia de fornecedores é um ponto crítico.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-body">
+            <span class="tag">Instituições</span>
+            <h3>Banco Central do Brasil identifica tentativa de invasão massiva</h3>
+            <small>12 de Maio, 2026</small>
+            <p>O Banco Central brasileiro bloqueou uma tentativa de ataque DDoS que visava derrubar sistemas do PIX.</p>
+            <div class="news-meta">
+              <span class="impact critical">Crítico</span>
+              <span>Infraestruturas críticas exigem monitoramento 24/7.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-body">
+            <span class="tag">Cotidiano</span>
+            <h3>Aposentada de São Paulo perde R$ 80 mil em golpe do falso funcionário do banco</h3>
+            <small>14 de Maio, 2026</small>
+            <p>Uma senhora recebeu um telefonema de alguém se passando por funcionário do banco...</p>
+            <div class="news-meta">
+              <span class="impact medium">Médio</span>
+              <span>Bancos nunca pedem senhas ou códigos por telefone.</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./noticias.js"></script>
+  </body>
+</html>

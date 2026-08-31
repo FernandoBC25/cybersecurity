@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Aprender</title>
+    <link rel="stylesheet" href="./aprender.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="nav-left">
+          <a href="./home.html" class="brand">
+            <img src="../src/imports/Logo_Olho_Digital.png" alt="Olho Digital" />
+            <span>Olho Digital</span>
+          </a>
+
+          <nav class="main-nav" aria-label="Menu principal">
+            <a href="./home.html">Início</a>
+            <a href="./aprender.html" class="active">Aprender</a>
+            <a href="./noticias.html">Notícias</a>
+            <a href="./comunidade.html">Comunidade</a>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar conteúdo..." />
+          </div>
+          <button class="icon-btn" aria-label="Notificações">🔔</button>
+          <button class="profile-btn" id="profileToggle">U</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-shell">
+      <section class="page-header">
+        <h1>Central de Aprendizado</h1>
+        <p>Expanda seus conhecimentos em cibersegurança.</p>
+      </section>
+
+      <section class="learning-section">
+        <div class="section-head">
+          <div class="section-title">
+            <span class="section-icon">📘</span>
+            <h2>Cursos</h2>
+          </div>
+          <button type="button" class="text-btn">Ver todos</button>
+        </div>
+
+        <div class="course-grid">
+          <article class="course-card">
+            <div class="course-banner blue">
+              <span class="level">Iniciante</span>
+              <h3>Fundamentos de Cibersegurança</h3>
+            </div>
+            <div class="course-body">
+              <div class="meta-row"><span>8 horas</span><span>⭐ 4.8</span></div>
+              <div class="meta-row"><span>24 aulas</span><span>1.250 alunos</span></div>
+              <button type="button" class="primary-btn block">Começar</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-banner blue">
+              <span class="level">Iniciante</span>
+              <h3>Proteção Contra Phishing</h3>
+            </div>
+            <div class="course-body">
+              <div class="meta-row"><span>4 horas</span><span>⭐ 4.9</span></div>
+              <div class="meta-row"><span>12 aulas</span><span>980 alunos</span></div>
+              <button type="button" class="primary-btn block">Começar</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-banner purple">
+              <span class="level">Intermediário</span>
+              <h3>Segurança de Redes</h3>
+            </div>
+            <div class="course-body">
+              <div class="meta-row"><span>12 horas</span><span>⭐ 4.7</span></div>
+              <div class="meta-row"><span>32 aulas</span><span>750 alunos</span></div>
+              <button type="button" class="primary-btn block">Começar</button>
+            </div>
+          </article>
+
+          <article class="course-card">
+            <div class="course-banner red">
+              <span class="level">Avançado</span>
+              <h3>Análise de Malware</h3>
+            </div>
+            <div class="course-body">
+              <div class="meta-row"><span>16 horas</span><span>⭐ 4.9</span></div>
+              <div class="meta-row"><span>40 aulas</span><span>420 alunos</span></div>
+              <button type="button" class="primary-btn block">Começar</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="learning-section">
+        <div class="section-head">
+          <div class="section-title">
+            <span class="section-icon">🎥</span>
+            <h2>Vídeo Aulas</h2>
+          </div>
+          <button type="button" class="text-btn">Assistir tudo</button>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-thumb thumb-one">▶</div>
+            <div class="video-info">
+              <h3>Como criar senhas seguras</h3>
+              <div class="meta-row"><span>12:34</span><span>15,2k views</span></div>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-thumb thumb-two">▶</div>
+            <div class="video-info">
+              <h3>Identificando emails de phishing</h3>
+              <div class="meta-row"><span>18:45</span><span>23,1k views</span></div>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-thumb thumb-three">▶</div>
+            <div class="video-info">
+              <h3>Configurando autenticação de dois fatores</h3>
+              <div class="meta-row"><span>10:22</span><span>19,8k views</span></div>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-thumb thumb-four">▶</div>
+            <div class="video-info">
+              <h3>Navegação segura na internet</h3>
+              <div class="meta-row"><span>15:16</span><span>12,5k views</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="learning-section">
+        <div class="section-head">
+          <div class="section-title">
+            <span class="section-icon">🧪</span>
+            <h2>Laboratórios</h2>
+          </div>
+        </div>
+
+        <div class="lab-list">
+          <div class="lab-item">
+            <h3>Simulação de Ataque de Phishing</h3>
+            <span class="difficulty easy">Fácil</span>
+            <p>Aprenda a identificar emails maliciosos em um ambiente seguro.</p>
+          </div>
+          <div class="lab-item">
+            <h3>Análise de Tráfego de Rede</h3>
+            <span class="difficulty medium">Médio</span>
+            <p>Use ferramentas para analisar e identificar atividades suspeitas.</p>
+          </div>
+          <div class="lab-item">
+            <h3>Pen Testing Básico</h3>
+            <span class="difficulty hard">Difícil</span>
+            <p>Pratique técnicas éticas de teste de penetração.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./aprender.js"></script>
+  </body>
+</html>

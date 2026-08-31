@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Cibersegurança</title>
+    <meta
+      name="description"
+      content="Portal educacional sobre cibersegurança, tipos de ataques e boas práticas digitais."
+    />
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <a href="./index.html" class="brand">
+          <img src="../src/imports/Logo_Olho_Digital.png" alt="Olho Digital" />
+          <span>Olho Digital</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navegação principal">
+          <a href="#sobre">Sobre</a>
+          <a href="#ataques">Tipos de Ataques</a>
+          <a href="#recursos">Recursos</a>
+          <a href="#dados">Estatísticas</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="./login.html" class="link-btn">Login</a>
+          <a href="./register.html" class="primary-btn">Cadastrar</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Aprenda a proteger o que importa</p>
+            <h1>
+              Entenda a importância da
+              <span>Cibersegurança</span>
+            </h1>
+            <p class="lead">
+              Um portal educacional sobre segurança digital, tipos de ataques cibernéticos
+              e como proteger suas informações no mundo conectado.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#sobre" class="primary-btn">Começar a Aprender</a>
+              <a href="#ataques" class="secondary-btn">Ver Tipos de Ataques</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-strip">
+          <div class="container strip-grid">
+            <div class="strip-item">
+              <span class="icon">🎓</span>
+              <div>
+                <strong>Para todos os níveis</strong>
+                <small>Do iniciante ao avançado</small>
+              </div>
+            </div>
+            <div class="strip-item">
+              <span class="icon">✅</span>
+              <div>
+                <strong>Conteúdo confiável</strong>
+                <small>Informação clara e relevante</small>
+              </div>
+            </div>
+            <div class="strip-item">
+              <span class="icon">👥</span>
+              <div>
+                <strong>Comunidade ativa</strong>
+                <small>Aprenda com outras pessoas</small>
+              </div>
+            </div>
+            <div class="strip-item">
+              <span class="icon">🔄</span>
+              <div>
+                <strong>Sempre atualizado</strong>
+                <small>Novas informações regularmente</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sobre" class="section light">
+        <div class="container split-grid">
+          <div>
+            <h2>O que é Cibersegurança?</h2>
+            <p>
+              Cibersegurança é a prática de proteger sistemas, redes e programas de ataques digitais.
+              Esses ataques geralmente visam acessar, alterar ou destruir informações sensíveis, extorquir
+              dinheiro de usuários ou interromper processos normais de negócios.
+            </p>
+            <p>
+              Com o aumento da conectividade digital, a cibersegurança tornou-se essencial para empresas,
+              governos e indivíduos. A proteção adequada envolve múltiplas camadas de segurança distribuídas
+              pelos computadores, redes, programas e dados.
+            </p>
+
+            <div class="info-list">
+              <div class="info-item">
+                <div class="icon-box">🛡️</div>
+                <div>
+                  <h3>Proteção de Dados</h3>
+                  <p>Segurança de informações pessoais e corporativas</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="icon-box">🔒</div>
+                <div>
+                  <h3>Segurança de Rede</h3>
+                  <p>Proteção contra acessos não autorizados</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="icon-box">🔑</div>
+                <div>
+                  <h3>Autenticação</h3>
+                  <p>Verificação de identidade e controle de acesso</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="highlight-card">
+            <h3>Por que é Importante?</h3>
+            <ul>
+              <li>Proteção contra roubo de identidade e fraudes financeiras</li>
+              <li>Preservação da privacidade pessoal e empresarial</li>
+              <li>Continuidade dos negócios e serviços essenciais</li>
+              <li>Conformidade com leis e regulamentações (LGPD)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="ataques" class="section">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow blue">Tipos de Ataques</p>
+            <h2>Entenda as ameaças mais comuns</h2>
+          </div>
+
+          <div class="attack-grid">
+            <article class="attack-card selected" data-attack="phishing">
+              <span class="attack-icon">🐛</span>
+              <h3>Phishing</h3>
+              <p>Engana usuários para revelar informações confidenciais.</p>
+            </article>
+            <article class="attack-card" data-attack="malware">
+              <span class="attack-icon">⚠️</span>
+              <h3>Malware</h3>
+              <p>Software malicioso usado para danificar ou controlar sistemas.</p>
+            </article>
+            <article class="attack-card" data-attack="ddos">
+              <span class="attack-icon">📡</span>
+              <h3>DDoS</h3>
+              <p>Sobrecarrega serviços e derruba sites com tráfego excessivo.</p>
+            </article>
+            <article class="attack-card" data-attack="sql-injection">
+              <span class="attack-icon">🗄️</span>
+              <h3>SQL Injection</h3>
+              <p>Manipula consultas para acessar ou alterar dados sensíveis.</p>
+            </article>
+            <article class="attack-card" data-attack="mitm">
+              <span class="attack-icon">👁️</span>
+              <h3>Man-in-the-Middle</h3>
+              <p>Intercepta comunicação entre duas partes para roubar dados.</p>
+            </article>
+            <article class="attack-card" data-attack="ransomware">
+              <span class="attack-icon">🔐</span>
+              <h3>Ransomware</h3>
+              <p>Criptografa arquivos e exige dinheiro para recuperar o acesso.</p>
+            </article>
+          </div>
+
+          <div id="attack-detail" class="attack-detail">
+            <h3>Phishing</h3>
+            <p>
+              O phishing é responsável por 90% das violações de dados. Ataques incluem e-mails fraudulentos,
+              páginas falsas de login e mensagens de texto maliciosas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="recursos" class="section light">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow blue">Recursos</p>
+            <h2>Ferramentas para aprender e se proteger</h2>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-icon blue">🔑</span>
+              <h3>Gerador de senhas</h3>
+              <p>Crie senhas fortes para proteger suas contas.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon purple">🧪</span>
+              <h3>Laboratórios práticos</h3>
+              <p>Aprenda segurança colocando o conhecimento em prática.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon red">🔔</span>
+              <h3>Alertas inteligentes</h3>
+              <p>Receba informações sobre riscos importantes.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon green">💾</span>
+              <h3>Backup seguro</h3>
+              <p>Descubra como manter seus dados protegidos.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon orange">🗺️</span>
+              <h3>Mapa de ameaças</h3>
+              <p>Visualize ameaças e tendências pelo mundo.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon pink">🛡️</span>
+              <h3>Diagnóstico e vazamentos</h3>
+              <p>Identifique pontos frágeis e possíveis exposições.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="dados" class="section stats-section">
+        <div class="container">
+          <div class="section-header centered">
+            <p class="eyebrow blue">Estatísticas</p>
+            <h2>Dados que mostram a realidade do cenário digital</h2>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <strong>87%</strong>
+              <span>Relataram aumento nas vulnerabilidades ligadas à IA</span>
+              <small>2025</small>
+            </div>
+            <div class="stat-card">
+              <strong>94%</strong>
+              <span>Líderes esperam que a IA molde a segurança em 2026</span>
+              <small>global</small>
+            </div>
+            <div class="stat-card">
+              <strong>73%</strong>
+              <span>Foram afetados ou conhecem alguém afetado por fraude digital</span>
+              <small>2025</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-wrap">
+        <p>© <span id="year"></span> Olho Digital.</p>
+        <div class="footer-links">
+          <a href="./home.html">Área do aluno</a>
+          <a href="./login.html">Login</a>
+          <a href="./register.html">Cadastro</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

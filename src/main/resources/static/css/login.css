@@ -1,0 +1,126 @@
+:root {
+  --blue-900: #0f172a;
+  --blue-700: #1d4ed8;
+  --blue-600: #2563eb;
+  --blue-500: #3b82f6;
+  --blue-100: #dbeafe;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --white: #fff;
+  --red-50: #fef2f2;
+  --red-600: #dc2626;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+a { text-decoration: none; }
+img { max-width: 100%; display: block; }
+input, button { font: inherit; }
+
+.auth-shell {
+  width: min(460px, 100%);
+}
+.auth-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 34px 28px 24px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--white);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.brand-light {
+  color: var(--blue-900);
+}
+.brand img {
+  width: 42px;
+  height: 42px;
+}
+.auth-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.auth-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: var(--blue-900);
+}
+.auth-header p {
+  margin: 8px 0 0;
+  color: var(--slate-600);
+}
+
+form {
+  display: grid;
+  gap: 18px;
+}
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--slate-700);
+  font-weight: 600;
+}
+label input {
+  width: 100%;
+  border: 1px solid var(--slate-300);
+  border-radius: 12px;
+  padding: 14px 14px;
+  outline: none;
+}
+label input:focus {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.primary-btn {
+  border: none;
+  background: var(--blue-600);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.block { display: block; width: 100%; }
+
+.error-box {
+  background: var(--red-50);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--red-600);
+  font-size: 0.94rem;
+}
+.hidden { display: none; }
+
+.switch-link,
+.back-link {
+  text-align: center;
+  margin: 18px 0 0;
+  color: var(--slate-600);
+}
+.switch-link a,
+.back-link a {
+  color: var(--blue-600);
+  font-weight: 700;
+}
+.back-link { margin-top: 22px; }
+
+@media (max-width: 540px) {
+  .auth-card { padding: 28px 18px 18px; }
+}

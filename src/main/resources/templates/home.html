@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Início</title>
+    <link rel="stylesheet" href="./home.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="nav-left">
+          <a href="./home.html" class="brand">
+            <img src="../src/imports/Logo_Olho_Digital.png" alt="Olho Digital" />
+            <span>Olho Digital</span>
+          </a>
+
+          <nav class="main-nav" aria-label="Menu principal">
+            <a href="./home.html" class="active">Início</a>
+            <a href="./aprender.html">Aprender</a>
+            <a href="./noticias.html">Notícias</a>
+            <a href="./comunidade.html">Comunidade</a>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar..." id="searchInput" />
+          </div>
+
+          <button class="icon-btn" aria-label="Notificações">🔔</button>
+
+          <div class="profile-menu-wrap">
+            <button class="profile-btn" id="profileToggle">
+              <span class="avatar" id="profileAvatar">U</span>
+              <span class="profile-name" id="profileName">Usuário</span>
+            </button>
+
+            <div class="profile-dropdown" id="profileDropdown">
+              <button type="button">Configurações</button>
+              <button type="button" id="logoutBtn">Sair</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-shell">
+      <section class="welcome-box">
+        <div>
+          <h2>Olá, <span id="welcomeName">usuário</span>! 👋</h2>
+          <p>Continue aprendendo sobre cibersegurança e proteja-se no mundo digital.</p>
+        </div>
+
+        <div class="alert-banner">
+          <span>⚠️</span>
+          <div>
+            <strong>Necessário Autenticação de Dois Fatores</strong>
+            <p>Proteja sua conta ativando a autenticação de dois fatores para maior segurança.</p>
+            <button type="button">Ativar agora</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card blue">
+          <div class="stat-header">
+            <span class="stat-icon">📘</span>
+            <strong>12</strong>
+          </div>
+          <p>Artigos Lidos</p>
+        </article>
+        <article class="stat-card purple">
+          <div class="stat-header">
+            <span class="stat-icon">🏆</span>
+            <strong>5</strong>
+          </div>
+          <p>Conquistas</p>
+        </article>
+        <article class="stat-card green">
+          <div class="stat-header">
+            <span class="stat-icon">📈</span>
+            <strong>7</strong>
+          </div>
+          <p>Dias Ativos</p>
+        </article>
+      </section>
+
+      <div class="main-grid">
+        <section class="panel left-panel">
+          <div class="panel-head">
+            <h3>Seus Cursos</h3>
+            <a href="./aprender.html">Ver todos →</a>
+          </div>
+
+          <div class="course-list">
+            <article class="course-item">
+              <div class="course-meta">
+                <span class="course-icon">🛡️</span>
+                <div>
+                  <h4>Fundamentos de Cibersegurança</h4>
+                  <small>5 de 8 aulas concluídas</small>
+                </div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-bar"><span style="width: 60%"></span></div>
+                <strong>60%</strong>
+              </div>
+            </article>
+
+            <article class="course-item">
+              <div class="course-meta">
+                <span class="course-icon">🔒</span>
+                <div>
+                  <h4>Proteção de Dados Pessoais</h4>
+                  <small>2 de 6 aulas concluídas</small>
+                </div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-bar"><span style="width: 30%"></span></div>
+                <strong>30%</strong>
+              </div>
+            </article>
+
+            <article class="course-item">
+              <div class="course-meta">
+                <span class="course-icon">⚠️</span>
+                <div>
+                  <h4>Identificação de Ameaças</h4>
+                  <small>4 de 10 aulas concluídas</small>
+                </div>
+              </div>
+              <div class="progress-wrap">
+                <div class="progress-bar"><span style="width: 45%"></span></div>
+                <strong>45%</strong>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <aside class="panel right-panel">
+          <div class="panel-head">
+            <h3>Ameaças em destaque</h3>
+          </div>
+
+          <div class="threat-list">
+            <div class="threat-item">
+              <strong>Novo ataque de Ransomware detectado</strong>
+              <span class="badge danger">alta</span>
+              <small>Há 2 horas</small>
+            </div>
+            <div class="threat-item">
+              <strong>Vulnerabilidade em navegadores</strong>
+              <span class="badge warning">média</span>
+              <small>Há 5 horas</small>
+            </div>
+            <div class="threat-item">
+              <strong>Campanha de phishing ativa</strong>
+              <span class="badge danger">alta</span>
+              <small>Há 1 dia</small>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="panel content-panel">
+        <div class="panel-head">
+          <h3>Artigos Recomendados</h3>
+          <a href="./noticias.html">Ver todos →</a>
+        </div>
+
+        <div class="article-grid">
+          <article class="article-card">
+            <span class="tag blue">Segurança Básica</span>
+            <h4>Como proteger sua senha</h4>
+            <p>Aprenda a criar senhas fortes e evitar vazamentos comuns.</p>
+            <small>5 min de leitura</small>
+          </article>
+          <article class="article-card">
+            <span class="tag red">Ameaças</span>
+            <h4>Reconhecendo ataques de Phishing</h4>
+            <p>Veja como identificar mensagens maliciosas e esquemas de enganação.</p>
+            <small>8 min de leitura</small>
+          </article>
+          <article class="article-card">
+            <span class="tag purple">Legislação</span>
+            <h4>LGPD: O que você precisa saber</h4>
+            <p>Entenda os impactos da legislação e como aplicar boas práticas.</p>
+            <small>10 min de leitura</small>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="./home.js"></script>
+  </body>
+</html>
