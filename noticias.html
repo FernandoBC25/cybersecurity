@@ -3,105 +3,561 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Olho Digital | Notícias</title>
-    <link rel="stylesheet" href="./css/noticias.css" />
+    <title>Olho Digital | Notícias de Educação e Cibersegurança</title>
+    <meta
+      name="description"
+      content="Portal de notícias sobre educação digital, tecnologia e cibersegurança."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="noticias.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="container nav-wrap">
-        <div class="nav-left">
-          <a href="./home.html" class="brand">
-            <img src="./assets/logo.png" alt="Olho Digital" />
-            <span>Olho Digital</span>
-          </a>
+    <header class="hero">
+      <nav class="nav-bar">
+        <div class="logo">Olho Digital</div>
+        <div class="nav-links">
+          <a href="#recentes">Recentes</a>
+          <a href="#historicas">Históricas</a>
+          <a href="#importantes">Importantes</a>
+        </div>
+      </nav>
 
-          <nav class="main-nav" aria-label="Menu principal">
-            <a href="./home.html">Início</a>
-            <a href="./aprender.html">Aprender</a>
-            <a href="./noticias.html" class="active">Notícias</a>
-            <a href="./comunidade.html">Comunidade</a>
-          </nav>
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="eyebrow">Educação digital • Cibersegurança • Tecnologia</p>
+          <h1>Notícias que ajudam a entender o mundo digital</h1>
+          <p>
+            Acompanhe as principais tendências, iniciativas e alertas sobre
+            segurança online, inovação e formação digital.
+          </p>
+          <a class="btn-primary" href="#recentes">Ver notícias</a>
         </div>
 
-        <div class="nav-right">
-          <div class="search-box">
-            <span>⌕</span>
-            <input type="text" placeholder="Buscar notícias..." />
-          </div>
-          <button class="icon-btn" aria-label="Notificações">🔔</button>
-          <button class="profile-btn" id="profileToggle">U</button>
+        <div class="hero-card">
+          <h3>Destaque da semana</h3>
+          <p>
+            Novas políticas públicas impulsionam a educação digital em escolas
+            brasileiras.
+          </p>
+          <span>Atualizado hoje</span>
         </div>
       </div>
     </header>
 
-    <main class="container page-shell">
-      <section class="page-header">
-        <div class="title-wrap">
-          <span class="section-icon">📰</span>
-          <h1>Notícias de Cibersegurança</h1>
+    <main>
+      <section id="recentes" class="section">
+        <div class="section-title">
+          <p class="eyebrow">Últimas notícias</p>
+          <h2>Recentes e em destaque</h2>
         </div>
-        <p>Casos reais de ataques cibernéticos - desde grandes corporações até pessoas comuns.</p>
-      </section>
 
-      <div class="filter-group">
-        <button type="button" class="filter-btn active">Todas</button>
-        <button type="button" class="filter-btn">Casos Famosos</button>
-        <button type="button" class="filter-btn">Cotidiano</button>
-      </div>
+        <div class="cards-grid" id="cardsGrid"></div>
+      </section>
 
       <section class="highlight-banner">
-        <span class="alert-icon">⚠️</span>
         <div>
-          <h2>Importante: Ninguém está 100% seguro</h2>
-          <p>
-            Até mesmo as empresas mais preparadas do mundo, com bilhões investidos em segurança,
-            sofrem ataques cibernéticos bem-sucedidos. NASA, Microsoft, Google, bancos - todos já foram vítimas.
-          </p>
+          <p class="eyebrow">Importante</p>
+          <h2>Alertas de segurança online ganham espaço nas escolas</h2>
         </div>
+        <a class="btn-secondary" href="#importantes">Veja mais</a>
       </section>
 
-      <section class="news-list">
-        <article class="news-card">
-          <div class="news-body">
-            <span class="tag">Empresas</span>
-            <h3>NASA sofre ataque cibernético e dados de missões são expostos</h3>
-            <small>15 de Maio, 2026</small>
-            <p>Uma falha em software de terceiros permitiu acesso a sistemas internos...</p>
-            <div class="news-meta">
-              <span class="impact high">Alto</span>
-              <span>Aprendizado: cadeia de fornecedores é um ponto crítico.</span>
-            </div>
-          </div>
-        </article>
+      <section id="historicas" class="section">
+        <div class="section-title">
+          <p class="eyebrow">Histórias e marcos</p>
+          <h2>Notícias históricas e relevantes</h2>
+        </div>
 
-        <article class="news-card">
-          <div class="news-body">
-            <span class="tag">Instituições</span>
-            <h3>Banco Central do Brasil identifica tentativa de invasão massiva</h3>
-            <small>12 de Maio, 2026</small>
-            <p>O Banco Central brasileiro bloqueou uma tentativa de ataque DDoS que visava derrubar sistemas do PIX.</p>
-            <div class="news-meta">
-              <span class="impact critical">Crítico</span>
-              <span>Infraestruturas críticas exigem monitoramento 24/7.</span>
-            </div>
-          </div>
-        </article>
+        <div class="cards-grid" id="cardsGridHistoricas"></div>
+      </section>
 
-        <article class="news-card">
-          <div class="news-body">
-            <span class="tag">Cotidiano</span>
-            <h3>Aposentada de São Paulo perde R$ 80 mil em golpe do falso funcionário do banco</h3>
-            <small>14 de Maio, 2026</small>
-            <p>Uma senhora recebeu um telefonema de alguém se passando por funcionário do banco...</p>
-            <div class="news-meta">
-              <span class="impact medium">Médio</span>
-              <span>Bancos nunca pedem senhas ou códigos por telefone.</span>
-            </div>
-          </div>
-        </article>
+      <section id="importantes" class="section">
+        <div class="section-title">
+          <p class="eyebrow">Foco da semana</p>
+          <h2>Temas importantes para acompanhar</h2>
+        </div>
+
+        <div class="cards-grid" id="cardsGridImportantes"></div>
+      </section>
+
+      <section class="stats-section">
+        <div class="section-title">
+          <p class="eyebrow">Dados essenciais</p>
+          <h2>O que você precisa saber</h2>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-number">87%</span>
+            <h3>dos jovens</h3>
+            <p>já usam redes sociais com acesso diário, o que reforça a necessidade de educação digital.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-number">1 em 3</span>
+            <h3>ataques</h3>
+            <p>de cibersegurança começa por phishing, golpe simples que pode ser evitado com informação.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-number">+40%</span>
+            <h3>de aumento</h3>
+            <p>no uso de ferramentas digitais em escolas nos últimos anos, mostrando a importância de segurança.</p>
+          </article>
+        </div>
       </section>
     </main>
 
-    <script src="./scripts/noticias.js"></script>
+    <footer>
+      <p>© 2026 Olho Digital. Notícias para formar cidadãos digitais conscientes.</p>
+    </footer>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal" id="articleModal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close" id="closeModal" aria-label="Fechar notícia">×</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <script>
+      const recentesArticles = [
+        {
+          title: 'Escolas investem em alfabetização digital para reduzir riscos online',
+          image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Projetos de educação tecnológica estão levando às salas de aula orientações práticas sobre senhas fortes, privacidade, reconhecimento de golpes e uso responsável das redes sociais. As atividades também ensinam alunos e professores a identificar links suspeitos, revisar permissões de aplicativos e proteger informações pessoais em plataformas de estudo. A proposta é transformar a segurança digital em um hábito cotidiano, integrado ao currículo e à participação das famílias.',
+          source: 'Fonte confiável: Ministério da Educação',
+          date: '18/08/2026',
+          comments: [{ author: 'Ana', text: 'Esses programas fazem muita diferença.', replies: [] }]
+        },
+        {
+          title: 'Campanhas de cibersegurança ganham espaço em universidades brasileiras',
+          image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Universidades brasileiras ampliam campanhas de cibersegurança para orientar estudantes, professores e funcionários sobre phishing, fraude financeira e exposição indevida de dados. As ações incluem simulações de mensagens falsas, encontros com especialistas, cartilhas e canais para denunciar incidentes. Além de reduzir riscos nos ambientes acadêmicos, as instituições querem formar cidadãos capazes de avaliar criticamente informações e comportamentos no espaço digital.',
+          source: 'Fonte confiável: universidades e instituições de pesquisa',
+          date: '16/08/2026',
+          comments: [{ author: 'Bruno', text: 'A prevenção é muito importante.', replies: [] }]
+        },
+        {
+          title: 'Proteção de dados pessoais vira tema central em escolas e famílias',
+          image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80',
+          content:
+            'A proteção de dados pessoais passou a fazer parte das conversas entre escolas e famílias. Especialistas recomendam ensinar crianças e jovens a criar senhas únicas, ativar a verificação em duas etapas, limitar o compartilhamento de fotos e conferir as configurações de privacidade. O debate também aborda publicidade direcionada, coleta de dados por aplicativos e a importância de pedir ajuda diante de abordagens ou conteúdos suspeitos.',
+          source: 'Fonte confiável: Agências de tecnologia e educação',
+          date: '12/08/2026',
+          comments: [{ author: 'Carla', text: 'É um tema que precisa estar na escola.', replies: [] }]
+        },
+        {
+          title: 'Tecnologia e educação precisam andar juntas com segurança',
+          image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Com o crescimento das plataformas digitais de aprendizagem, escolas passaram a lidar com novos desafios de acesso, privacidade e proteção de contas. Especialistas defendem que a segurança online seja ensinada desde os primeiros anos, com linguagem adequada para cada idade e regras claras para estudantes e equipes pedagógicas. O planejamento inclui atualização de sistemas, controle de permissões, cópias de segurança e orientação para responder rapidamente a incidentes.',
+          source: 'Fonte confiável: estudos educacionais e especialistas',
+          date: '09/08/2026',
+          comments: [{ author: 'Davi', text: 'Muito importante ter esse cuidado.', replies: [] }]
+        },
+        {
+          title: 'Uso consciente da IA ganha destaque na formação escolar',
+          image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Professores e estudantes estão discutindo como usar ferramentas de inteligência artificial sem abrir mão da autoria, da privacidade e do pensamento crítico. As escolas analisam como verificar respostas, citar o apoio de sistemas automatizados e evitar o envio de dados pessoais para serviços desconhecidos. A orientação é utilizar a IA como apoio à pesquisa e à criatividade, mantendo a revisão humana e critérios transparentes de avaliação.',
+          source: 'Fonte confiável: educação e inovação digital',
+          date: '07/08/2026',
+          comments: [{ author: 'Eduarda', text: 'A IA precisa ser usada com responsabilidade.', replies: [] }]
+        },
+        {
+          title: 'Mais escolas adotam políticas de segurança digital para alunos',
+          image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Cada vez mais escolas estão formalizando políticas de segurança digital para alunos, professores e famílias. As diretrizes definem como proteger contas institucionais, comunicar conteúdos suspeitos, lidar com cyberbullying e preservar registros de atividades. A formação é acompanhada por exercícios e reuniões periódicas, para que a comunidade escolar saiba prevenir problemas e agir com responsabilidade quando um incidente acontecer.',
+          source: 'Fonte confiável: políticas públicas e educação',
+          date: '04/08/2026',
+          comments: [{ author: 'Fernanda', text: 'Essas ações ajudam muito.', replies: [] }]
+        }
+      ];
+
+      const historicasArticles = [
+        {
+          title: 'Crescimento da preocupação com privacidade digital (2010)',
+          image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Em 2010, o crescimento das redes sociais tornou mais visível a quantidade de dados pessoais compartilhados diariamente. Usuários, pesquisadores e organizações começaram a questionar quem armazenava essas informações, por quanto tempo e com que finalidade. As discussões ajudaram a popularizar práticas como revisar configurações de privacidade, limitar a exposição de localização e compreender os termos de uso das plataformas.',
+          source: 'Fonte confiável: histórico de cibersegurança',
+          date: '15/03/2010',
+          comments: []
+        },
+        {
+          title: 'Segurança digital integrada às políticas educacionais (2016)',
+          image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Em 2016, a segurança digital começou a aparecer com mais frequência em políticas educacionais e projetos pedagógicos. Escolas passaram a discutir cidadania digital, prevenção ao cyberbullying, cuidado com a reputação online e avaliação crítica de informações. A mudança mostrou que preparar alunos para um mundo conectado envolve tanto conhecimento técnico quanto responsabilidade, respeito e capacidade de pedir ajuda.',
+          source: 'Fonte confiável: políticas educacionais internacionais',
+          date: '21/11/2016',
+          comments: []
+        },
+        {
+          title: 'Educação remota acelera busca por ferramentas seguras (2020)',
+          image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80',
+          content:
+            'A expansão da educação remota em 2020 acelerou a adoção de videoconferências, ambientes virtuais e ferramentas de colaboração. Com isso, escolas precisaram revisar controles de acesso, proteção de contas, compartilhamento de links e privacidade de crianças e adolescentes. A experiência também evidenciou a importância de oferecer suporte às famílias e de manter planos de continuidade para as atividades pedagógicas.',
+          source: 'Fonte confiável: estudos de educação remota',
+          date: '18/05/2020',
+          comments: []
+        },
+        {
+          title: 'Inteligência artificial transforma riscos e oportunidades digitais (2024)',
+          image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Em 2024, a inteligência artificial generativa ganhou espaço em experiências de ensino, produção de materiais e apoio à pesquisa. Ao mesmo tempo, cresceram as preocupações com respostas incorretas, autoria, vieses, dados pessoais e uso de conteúdo manipulado. Educadores passaram a buscar critérios para verificar resultados, declarar o uso da tecnologia e preservar o papel do estudante no processo de aprendizagem.',
+          source: 'Fonte confiável: estudos de IA em educação',
+          date: '09/02/2024',
+          comments: []
+        }
+      ];
+
+      const importantesArticles = [
+        {
+          title: 'Proteção de dados pessoais: como preservar suas informações',
+          image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Preservar informações pessoais exige uma combinação de escolhas simples e atenção constante. Use senhas longas e diferentes para cada serviço, ative a autenticação em dois fatores e mantenha celular e aplicativos atualizados. Também vale revisar permissões, desconfiar de urgências em mensagens, evitar redes públicas para operações sensíveis e conferir se um site usa o endereço oficial antes de informar qualquer dado.',
+          source: 'Fonte confiável: segurança de dados e privacidade',
+          date: '15/08/2026',
+          comments: []
+        },
+        {
+          title: 'Uso consciente da tecnologia no dia a dia',
+          image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=80',
+          content:
+            'Usar tecnologia com consciência significa aproveitar seus benefícios sem deixar que ela organize todos os momentos do dia. Defina horários para notificações, faça pausas durante o estudo, ajuste recursos de acessibilidade e escolha fontes confiáveis para se informar. Conversar sobre limites, privacidade e bem-estar ajuda crianças, jovens e adultos a reconhecer sinais de excesso e a buscar equilíbrio no uso de telas.',
+          source: 'Fonte confiável: bem-estar digital e saúde mental',
+          date: '11/08/2026',
+          comments: []
+        },
+        {
+          title: 'Cibersegurança: habilidade essencial para o futuro',
+          image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80',
+          content:
+            'A cibersegurança deixou de ser responsabilidade exclusiva de equipes técnicas e passou a fazer parte da rotina de qualquer organização. Profissionais de diferentes áreas precisam reconhecer tentativas de fraude, proteger credenciais, cuidar de dados e comunicar incidentes. Por isso, escolas e cursos profissionalizantes ampliam atividades sobre segurança, abrindo espaço para carreiras em análise de riscos, privacidade, resposta a incidentes e educação digital.',
+          source: 'Fonte confiável: mercado de trabalho e educação',
+          date: '08/08/2026',
+          comments: []
+        }
+      ];
+
+      function normalizeComment(comment = {}) {
+        return {
+          author: comment.author || 'Leitor',
+          text: comment.text || 'Comentário sem texto.',
+          replies: Array.isArray(comment.replies)
+            ? comment.replies.map((reply) => ({
+                author: reply.author || 'Você',
+                text: reply.text || 'Resposta sem texto.'
+              }))
+            : []
+        };
+      }
+
+      function formatArticleDate(dateValue) {
+        if (!dateValue) {
+          return new Date().toLocaleDateString('pt-BR');
+        }
+
+        if (dateValue instanceof Date) {
+          return dateValue.toLocaleDateString('pt-BR');
+        }
+
+        const text = String(dateValue).trim();
+        if (!text) {
+          return new Date().toLocaleDateString('pt-BR');
+        }
+
+        return text;
+      }
+
+      function normalizeArticle(article) {
+        return {
+          ...article,
+          date: formatArticleDate(article.date),
+          comments: Array.isArray(article.comments)
+            ? article.comments.map(normalizeComment)
+            : []
+        };
+      }
+
+      let articles = recentesArticles.map(normalizeArticle);
+      let historicas = historicasArticles.map(normalizeArticle);
+      let importantes = importantesArticles.map(normalizeArticle);
+      let activeArticleIndex = null;
+      let activeArticleCategory = 'recentes';
+      const modal = document.getElementById('articleModal');
+      const modalBackdrop = document.getElementById('modalBackdrop');
+      const modalContent = document.getElementById('modalContent');
+      const closeModalButton = document.getElementById('closeModal');
+      const cardsGrid = document.getElementById('cardsGrid');
+      const cardsGridHistoricas = document.getElementById('cardsGridHistoricas');
+      const cardsGridImportantes = document.getElementById('cardsGridImportantes');
+
+      function renderCardsForGrid(articlesArray, gridElement) {
+        gridElement.innerHTML = articlesArray
+          .map(
+            (article, index) => {
+              const comments = Array.isArray(article.comments) ? article.comments : [];
+
+              return `
+                <article class="news-card">
+                  <img src="${article.image}" alt="${article.title}" />
+                  <div class="card-content">
+                    <div class="card-meta top-meta">
+                      <span class="card-date">${article.date || 'Hoje'}</span>
+                      <span>💬 ${comments.length}</span>
+                    </div>
+                    <h3>${article.title}</h3>
+                    <p>${article.content.slice(0, 180)}...</p>
+                    <button class="read-more-btn" data-article="${index}">Leia mais</button>
+                  </div>
+                </article>
+              `;
+            }
+          )
+          .join('');
+      }
+
+      function renderCards() {
+        renderCardsForGrid(articles, cardsGrid);
+        renderCardsForGrid(historicas, cardsGridHistoricas);
+        renderCardsForGrid(importantes, cardsGridImportantes);
+      }
+
+      async function loadAutoNews() {
+        try {
+          const response = await fetch('./news.json', { cache: 'no-store' });
+          if (!response.ok) return;
+
+          const data = await response.json();
+          if (!Array.isArray(data) || !data.length) return;
+
+          articles = data.map((item) =>
+            normalizeArticle({
+              title: item.title || 'Notícia atualizada',
+              image:
+                item.image ||
+                recentesArticles[Math.floor(Math.random() * recentesArticles.length)].image,
+              content: item.content || item.description || 'Conteúdo atualizado automaticamente.',
+              source: item.source || 'Fonte confiável',
+              date: item.date || new Date().toLocaleDateString('pt-BR'),
+              comments: []
+            })
+          );
+
+          renderCards();
+
+          if (activeArticleIndex !== null && activeArticleCategory === 'recentes' && articles[activeArticleIndex]) {
+            renderArticle();
+          }
+        } catch (error) {
+          console.warn('Não foi possível carregar notícias automáticas:', error);
+        }
+      }
+
+      function getActiveArticle() {
+        if (activeArticleCategory === 'recentes') return articles[activeArticleIndex];
+        if (activeArticleCategory === 'historicas') return historicas[activeArticleIndex];
+        if (activeArticleCategory === 'importantes') return importantes[activeArticleIndex];
+        return null;
+      }
+
+      function setActiveArticle(article) {
+        if (activeArticleCategory === 'recentes') articles[activeArticleIndex] = article;
+        else if (activeArticleCategory === 'historicas') historicas[activeArticleIndex] = article;
+        else if (activeArticleCategory === 'importantes') importantes[activeArticleIndex] = article;
+      }
+
+      function renderArticle() {
+        const article = normalizeArticle(getActiveArticle());
+        if (!article) return;
+
+        setActiveArticle(article);
+
+        modalContent.innerHTML = `
+          <div class="modal-header">
+            <p class="eyebrow">Notícia completa</p>
+            <h2>${article.title}</h2>
+          </div>
+          <img src="${article.image}" alt="${article.title}" class="modal-image" />
+          <p class="modal-text">${article.content}</p>
+          <div class="article-stats">
+            <span>💬 ${article.comments.length} comentários</span>
+          </div>
+          <div class="interaction-box">
+            <form id="commentForm" class="comment-form">
+              <textarea id="commentInput" placeholder="Escreva seu comentário..." required></textarea>
+              <button type="submit">Publicar comentário</button>
+            </form>
+          </div>
+          <div class="comments-list">
+            ${
+              article.comments.length
+                ? article.comments.map((comment, commentIndex) => `
+                  <div class="comment-item">
+                    <div class="comment-header">
+                      <strong>${comment.author}</strong>
+                    </div>
+                    <p>${comment.text}</p>
+
+                    ${
+                      Array.isArray(comment.replies) && comment.replies.length
+                        ? `
+                          <div class="comment-replies" data-comment-index="${commentIndex}">
+                            ${comment.replies.map((reply) => `
+                              <div class="reply-item">
+                                <strong>${reply.author}</strong>
+                                <p>${reply.text}</p>
+                              </div>
+                            `).join('')}
+                          </div>
+                        `
+                        : ''
+                    }
+
+                    <div class="comment-actions">
+                      <button type="button" class="reply-toggle" data-comment-index="${commentIndex}">Responder</button>
+                    </div>
+
+                    <div class="reply-box hidden" data-comment-index="${commentIndex}">
+                      <textarea class="reply-input" placeholder="Escreva uma resposta..." required></textarea>
+                      <button
+                        type="button"
+                        class="send-reply"
+                        style="background: #0f4f91; color: #ffffff; border: 1px solid #0f4f91; border-radius: 999px; padding: 10px 14px; font-weight: 600; cursor: pointer; align-self: flex-start;"
+                      >
+                        Enviar resposta
+                      </button>
+                    </div>
+                  </div>
+                `).join('')
+                : '<div class="empty-comments">Nenhum comentário ainda.</div>'
+            }
+          </div>
+          <div class="source-box">
+            <h3>Fonte</h3>
+            <p>${article.source}</p>
+          </div>
+        `;
+
+        const commentForm = document.getElementById('commentForm');
+        commentForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const input = document.getElementById('commentInput');
+          const text = input.value.trim();
+
+          if (text) {
+            article.comments = Array.isArray(article.comments) ? article.comments : [];
+            article.comments.unshift({ author: 'Você', text, replies: [] });
+            setActiveArticle(article);
+            input.value = '';
+            renderCards();
+            renderArticle();
+          }
+        });
+
+        modalContent.querySelectorAll('.reply-toggle').forEach((button) => {
+          button.addEventListener('click', () => {
+            const commentIndex = button.dataset.commentIndex;
+            const replyBox = modalContent.querySelector(
+              `.reply-box[data-comment-index="${commentIndex}"]`
+            );
+
+            if (!replyBox) return;
+
+            const isHidden = replyBox.classList.contains('hidden');
+
+            modalContent.querySelectorAll('.reply-box').forEach((box) => {
+              box.classList.add('hidden');
+            });
+
+            if (isHidden) {
+              replyBox.classList.remove('hidden');
+            }
+          });
+        });
+
+        modalContent.querySelectorAll('.send-reply').forEach((button) => {
+          button.addEventListener('click', () => {
+            const commentIndex = Number(
+              button.closest('.reply-box')?.dataset.commentIndex
+            );
+            const textarea = button.closest('.reply-box')?.querySelector('.reply-input');
+            const text = textarea?.value.trim();
+
+            const currentArticle = getActiveArticle();
+            if (!text || !Number.isInteger(commentIndex) || !currentArticle.comments[commentIndex]) return;
+
+            currentArticle.comments[commentIndex].replies = Array.isArray(currentArticle.comments[commentIndex].replies)
+              ? currentArticle.comments[commentIndex].replies
+              : [];
+
+            currentArticle.comments[commentIndex].replies.push({ author: 'Você', text });
+            setActiveArticle(currentArticle);
+            textarea.value = '';
+            renderCards();
+            renderArticle();
+          });
+        });
+      }
+
+      function openModal(index, category = 'recentes') {
+        activeArticleIndex = index;
+        activeArticleCategory = category;
+        renderArticle();
+        modal.classList.add('active');
+        modalBackdrop.classList.add('active');
+        document.body.classList.add('modal-open');
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        modalBackdrop.classList.remove('active');
+        document.body.classList.remove('modal-open');
+      }
+
+      cardsGrid.addEventListener('click', (event) => {
+        const button = event.target.closest('.read-more-btn');
+        if (button) {
+          openModal(Number(button.dataset.article), 'recentes');
+        }
+      });
+
+      cardsGridHistoricas.addEventListener('click', (event) => {
+        const button = event.target.closest('.read-more-btn');
+        if (button) {
+          openModal(Number(button.dataset.article), 'historicas');
+        }
+      });
+
+      cardsGridImportantes.addEventListener('click', (event) => {
+        const button = event.target.closest('.read-more-btn');
+        if (button) {
+          openModal(Number(button.dataset.article), 'importantes');
+        }
+      });
+
+      closeModalButton.addEventListener('click', closeModal);
+      modalBackdrop.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      });
+
+      renderCards();
+      loadAutoNews();
+    </script>
   </body>
 </html>
