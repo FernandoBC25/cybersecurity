@@ -26,7 +26,7 @@
         <div class="nav-right">
           <div class="search-box">
             <span>⌕</span>
-            <input type="text" placeholder="Buscar na comunidade..." />
+            <input type="text" id="communitySearch" placeholder="Buscar na comunidade..." />
           </div>
           <button class="icon-btn" aria-label="Notificações">🔔</button>
           <button class="profile-btn" id="profileToggle">U</button>
@@ -37,64 +37,67 @@
     <main class="container page-shell">
       <section class="community-header">
         <div>
-          <h1>Comunidade de Segurança</h1>
-          <p>Compartilhe alertas, experiências e dicas de proteção digital.</p>
+          <span class="eyebrow">REDE OLHO DIGITAL</span>
+          <h1>Comunidade</h1>
+          <p>Troque experiências e ajude outras pessoas a navegar com mais segurança.</p>
         </div>
       </section>
 
-      <section class="composer panel">
-        <h2>Publicar alerta</h2>
-        <textarea id="newPost" rows="4" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
-        <div class="composer-actions">
-          <select id="postType">
-            <option value="experiencia">Experiência</option>
-            <option value="alerta">Alerta</option>
-            <option value="dica">Dica</option>
-          </select>
-          <button type="button" class="primary-btn" id="publishBtn">Publicar</button>
-        </div>
-      </section>
+      <div class="community-layout">
+        <aside class="community-left">
+          <button type="button" class="primary-btn sidebar-create" id="openComposerSidebar">＋ Nova publicação</button>
+          <section class="side-nav panel">
+            <button class="side-nav-item active" type="button" data-view="feed">⌂ <span>Feed</span></button>
+            <button class="side-nav-item" type="button" data-view="discussoes">◯ <span>Discussões</span></button>
+            <button class="side-nav-item" type="button" data-view="duvidas">? <span>Perguntas</span></button>
+            <button class="side-nav-item" type="button" data-view="tutoriais">▣ <span>Tutoriais</span></button>
+            <button class="side-nav-item" type="button" data-view="projetos">◇ <span>Projetos</span></button>
+            <button class="side-nav-item" type="button" data-view="noticias">▤ <span>Notícias</span></button>
+            <button class="side-nav-item" type="button" data-view="membros">♧ <span>Membros</span></button>
+            <button class="side-nav-item" type="button" data-view="salvos">♡ <span>Salvos</span></button>
+            <div class="side-divider"></div>
+            <span class="side-title">CATEGORIAS</span>
+            <button class="category-link active" type="button" data-filter="Todos">◉ <span>Geral</span></button>
+            <button class="category-link" type="button" data-filter="duvidas">? <span>Dúvidas</span></button>
+            <button class="category-link" type="button" data-filter="tutoriais">✦ <span>Tutoriais</span></button>
+            <button class="category-link" type="button" data-filter="projetos">⌘ <span>Projetos</span></button>
+            <button class="category-link" type="button" data-filter="noticias">● <span>Notícias</span></button>
+          </section>
+        </aside>
 
-      <section class="feed">
-        <article class="post-card panel">
-          <div class="post-header">
-            <div class="author">
-              <span class="avatar pink">M</span>
-              <div>
-                <strong>Maria Silva</strong>
-                <small>Há 2 horas</small>
-              </div>
-            </div>
-            <span class="tag alerta">alerta</span>
-          </div>
-          <p>Recebi um email falso do meu banco pedindo para confirmar dados urgentes...</p>
-          <div class="post-actions">
-            <button>👍 24</button>
-            <button>💬 8</button>
-            <button>🔖 Salvar</button>
-          </div>
-        </article>
+        <section class="feed" id="feed" aria-live="polite"></section>
 
-        <article class="post-card panel">
-          <div class="post-header">
-            <div class="author">
-              <span class="avatar blue">J</span>
-              <div>
-                <strong>João Pedro</strong>
-                <small>Há 5 horas</small>
-              </div>
-            </div>
-            <span class="tag experiencia">experiencia</span>
-          </div>
-          <p>Minha conta do Instagram foi hackeada semana passada. Ative 2FA e agora uso em todas as minhas contas.</p>
-          <div class="post-actions">
-            <button>👍 45</button>
-            <button>💬 12</button>
-            <button>🔖 Salvar</button>
-          </div>
-        </article>
-      </section>
+        <aside class="community-right">
+          <section class="side-panel panel">
+            <div class="panel-heading"><span class="side-icon">●</span><h2>Membros online</h2></div>
+            <p class="online-count"><i></i> 128 online</p>
+            <div class="member-stack"><span class="avatar pink">A</span><span class="avatar blue">C</span><span class="avatar green">M</span><span class="avatar blue">J</span><span class="avatar pink">F</span><span class="more-members">+122</span></div>
+            <button class="outline-btn" type="button" data-view="membros">Ver todos membros</button>
+          </section>
+          <section class="side-panel panel">
+            <div class="panel-heading"><span class="side-icon">▣</span><h2>Próximos eventos</h2></div>
+            <div class="event-item"><strong>15 <small>JUN</small></strong><span><b>Workshop: Docker Avançado</b><small>15 de junho, 19:00<br>Online</small></span></div>
+            <div class="event-item"><strong>22 <small>JUN</small></strong><span><b>Live: Carreira em Desenvolvimento</b><small>22 de junho, 20:00<br>Online</small></span></div>
+            <div class="event-item"><strong>29 <small>JUN</small></strong><span><b>Meetup: Networking</b><small>29 de junho, 18:00<br>São Paulo, SP</small></span></div>
+            <button class="text-btn" type="button">Ver todos eventos</button>
+          </section>
+          <section class="side-panel panel rules-panel">
+            <div class="panel-heading"><span class="side-icon">✓</span><h2>Regras da Comunidade</h2></div>
+            <ol><li>Respeite todos os membros</li><li>Não faça spam ou autopromoção</li><li>Use títulos descritivos</li><li>Pesquise antes de perguntar</li><li>Compartilhe conhecimento!</li></ol>
+            <button class="text-btn" type="button">Ver todas as regras</button>
+          </section>
+        </aside>
+      </div>
     </main>
+
+    <div class="modal-backdrop" id="composerModal" hidden>
+      <section class="composer modal panel" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
+        <div class="modal-header"><div><span class="section-kicker">NOVA CONVERSA</span><h2 id="composerTitle">Criar publicação</h2></div><button class="close-btn" id="closeComposer" aria-label="Fechar">×</button></div>
+        <textarea id="newPost" rows="5" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
+        <div class="upload-row"><label class="upload-btn" for="postImage">▧ Adicionar imagem</label><input id="postImage" type="file" accept="image/*"><span id="imageName">Nenhuma imagem selecionada</span></div>
+        <div class="composer-actions"><select id="postType" aria-label="Categoria da publicação"><option value="geral">Geral</option><option value="duvidas">Dúvidas</option><option value="tutoriais">Tutoriais</option><option value="projetos">Projetos</option><option value="noticias">Notícias</option></select><button type="button" class="primary-btn" id="publishBtn">Publicar agora</button></div>
+      </section>
+    </div>
 
     <script src="./scripts/comunidade.js"></script>
   </body>
