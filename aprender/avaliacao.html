@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Avaliação do curso</title>
+    <link rel="stylesheet" href="./css/fundamentos.css" />
+  </head>
+  <body data-course-progress="75">
+    <header class="topbar">
+      <div class="container nav-wrap"><div class="nav-left"><a href="../home.html" class="brand"><img src="../assets/logo.png" alt="Olho Digital" /><span>Olho Digital</span></a><nav class="main-nav" aria-label="Menu principal"><a href="../home.html">Início</a><a href="../aprender.html" class="active">Aprender</a><a href="../noticias.html">Notícias</a><a href="../comunidade.html">Comunidade</a></nav></div><div class="nav-right"><button class="icon-btn" aria-label="Notificações">🔔</button><button class="profile-btn" id="profileToggle">U</button></div></div>
+    </header>
+    <main class="container page-shell">
+      <a class="back-link" href="./questionario.html">← Voltar para Questionário</a>
+      <section class="course-hero"><div><span class="level">Etapa final</span><h1>Avaliação do curso</h1><p>Compartilhe sua opinião sobre o curso antes de concluir sua jornada.</p></div><div class="hero-shield" aria-hidden="true">⭐</div></section>
+      <div class="course-layout"><div class="course-content"><section class="content-section"><p class="eyebrow">Sua opinião</p><h2>Como foi sua experiência?</h2><form class="evaluation-form" id="evaluationForm"><fieldset><legend>Como você avalia o curso?</legend><label><input type="radio" name="course-rating" value="5" required /> ⭐⭐⭐⭐⭐ Excelente</label><label><input type="radio" name="course-rating" value="4" /> ⭐⭐⭐⭐ Muito bom</label><label><input type="radio" name="course-rating" value="3" /> ⭐⭐⭐ Bom</label><label><input type="radio" name="course-rating" value="2" /> ⭐⭐ Regular</label><label><input type="radio" name="course-rating" value="1" /> ⭐ Precisa melhorar</label></fieldset><label class="evaluation-comment" for="course-comment">Deixe um comentário (opcional)</label><textarea id="course-comment" name="course-comment" rows="5" placeholder="Conte o que achou do curso..."></textarea><div class="quiz-actions"><button type="submit" class="primary-btn">Enviar avaliação</button><p id="evaluationFeedback" class="quiz-feedback" role="status"></p></div></form></section></div><aside class="course-sidebar"><div class="progress-card"><div class="progress-heading"><strong>Seu progresso</strong><span>75%</span></div><div class="progress-track"><span></span></div><p>Etapa final: Avaliação do curso</p><button type="button" class="primary-btn block" id="advanceCourse" data-progress="100" data-next="../aprender.html?curso=concluido">Concluir curso</button></div><div class="contents-card"><h3>Conteúdo do curso</h3><ol><li>Material</li><li>Vídeo</li><li>Questionário</li><li class="current">Avaliação do curso</li></ol></div></aside></div>
+    </main>
+    <script src="./scripts/fundamentos.js"></script>
+  </body>
+</html>

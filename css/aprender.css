@@ -101,6 +101,21 @@ img { max-width: 100%; display: block; }
 }
 
 .page-shell { padding: 36px 0 60px; }
+.completion-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 12px;
+}
+.completion-notice strong { color: #14532d; }
+.completion-notice span { color: #166534; }
+.course-rating { min-height: 20px; margin: 0 0 12px; color: var(--slate-600); font-size: 0.88rem; }
+.course-rating strong { color: #f59e0b; letter-spacing: 2px; }
 .page-header { margin-bottom: 26px; }
 .page-header h1 {
   margin: 0;

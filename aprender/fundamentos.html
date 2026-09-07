@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Olho Digital | Fundamentos da Cibersegurança</title>
+    <link rel="stylesheet" href="./css/fundamentos.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="nav-left">
+          <a href="../home.html" class="brand">
+            <img src="../assets/logo.png" alt="Olho Digital" />
+            <span>Olho Digital</span>
+          </a>
+
+          <nav class="main-nav" aria-label="Menu principal">
+            <a href="../home.html">Início</a>
+            <a href="../aprender.html" class="active">Aprender</a>
+            <a href="../noticias.html">Notícias</a>
+            <a href="../comunidade.html">Comunidade</a>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar conteúdo..." />
+          </div>
+          <button class="icon-btn" aria-label="Notificações">🔔</button>
+          <button class="profile-btn" id="profileToggle">U</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-shell">
+      <a class="back-link" href="../aprender.html">← Voltar para Aprender</a>
+
+      <section class="course-hero">
+        <div>
+          <span class="level">Iniciante</span>
+          <h1>Fundamentos da Cibersegurança</h1>
+          <p>Aprenda os conceitos essenciais para proteger seus dados, dispositivos e contas no mundo digital.</p>
+          <div class="course-meta"><span>⏱ 1/2 horas</span><span>📚 1 aula(s)</span><span>⭐ 4.8</span></div>
+        </div>
+        <div class="hero-shield" aria-hidden="true">🛡️</div>
+      </section>
+
+      <div class="course-layout">
+        <div class="course-content">
+          <section class="content-section">
+            <p class="eyebrow">Aula 1</p>
+            <h2>O que é cibersegurança?</h2>
+            
+
+            <div class="lesson-guide">
+              <h3>🛡️ Guia Rápido: O que é Cibersegurança?</h3>
+              <p>
+                A <strong>cibersegurança</strong> é o conjunto de trincos, alarmes e câmeras digitais
+                que protege a sua vida na internet. A cada clique, enviamos informações valiosas pelo
+                mundo digital, de fotos pessoais a dados bancários, e a cibersegurança garante que
+                apenas as pessoas certas tenham acesso a tudo isso.
+              </p>
+
+              <h3>Os 3 Pilares da Segurança Digital (Tríade CIA)</h3>
+              <p>Para entender como a proteção funciona na prática, especialistas utilizam três regras fundamentais:</p>
+              <div class="table-wrapper">
+                <table class="cia-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Pilar</th>
+                      <th scope="col">Conceito simples</th>
+                      <th scope="col">Exemplo do dia a dia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Confidencialidade</th>
+                      <td>Só quem deve ver, vê.</td>
+                      <td>Usar biometria ou senha para impedir que estranhos acessem seu aplicativo de fotos.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Integridade</th>
+                      <td>A informação não é alterada no caminho.</td>
+                      <td>Enviar um PIX de R$ 50 e garantir que ele não seja modificado para R$ 500 durante o envio.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Disponibilidade</th>
+                      <td>O serviço funciona quando você precisa.</td>
+                      <td>O site do seu banco continuar no ar mesmo durante picos de acesso, como a Black Friday.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>3 Dicas Práticas para Aumentar sua Segurança Hoje</h3>
+              <ol class="security-tips">
+                <li><strong>Ative a Autenticação em Duas Etapas (2FA):</strong> Além da senha, receba um código no celular ou aplicativo para autorizar o acesso.</li>
+                <li><strong>Crie Senhas Longas e Únicas:</strong> Evite datas de nascimento. Prefira frases fáceis de lembrar com símbolos e números, como <code>CafeComPao!2026</code>.</li>
+                <li><strong>Desconfie de Links Suspeitos:</strong> Se receber mensagens com ofertas urgentes ou pedidos de dinheiro de conhecidos, confirme por outro meio antes de clicar.</li>
+              </ol>
+            </div>
+          </section>
+
+          <section class="content-section">
+            <p class="eyebrow">Conceito-chave</p>
+            <h2>A tríade CIA</h2>
+            <div class="principles-grid">
+              <article class="principle-card">
+                <span>🔒</span>
+                <h3>Confidencialidade</h3>
+                <p>Somente pessoas autorizadas devem acessar a informação.</p>
+              </article>
+              <article class="principle-card">
+                <span>✓</span>
+                <h3>Integridade</h3>
+                <p>Os dados precisam permanecer corretos e completos.</p>
+              </article>
+              <article class="principle-card">
+                <span>◷</span>
+                <h3>Disponibilidade</h3>
+                <p>Serviços e informações devem estar acessíveis quando necessários.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-section checklist-section">
+            <p class="eyebrow">Para começar</p>
+            <h2>Hábitos de proteção</h2>
+            <label><input type="checkbox" /> Use senhas longas e únicas</label>
+            <label><input type="checkbox" /> Ative a autenticação de dois fatores</label>
+            <label><input type="checkbox" /> Mantenha aplicativos e sistemas atualizados</label>
+            <label><input type="checkbox" /> Desconfie de links e anexos inesperados</label>
+          </section>
+        </div>
+
+        <aside class="course-sidebar">
+          <div class="progress-card">
+            <div class="progress-heading"><strong>Seu progresso</strong><span>0%</span></div>
+            <div class="progress-track"><span></span></div>
+            <p>Parte 1 de 3: Material</p>
+            <button type="button" class="primary-btn block" id="advanceCourse" data-progress="33" data-next="./video.html">Avançar para Vídeo</button>
+          </div>
+          <div class="contents-card">
+            <h3>Conteúdo do curso</h3>
+            <ol>
+              <li class="current">Material</li>
+              <li>Vídeo</li>
+              <li>Questionário</li>
+              <li>Avaliação do curso</li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script src="./scripts/fundamentos.js"></script>
+  </body>
+</html>
