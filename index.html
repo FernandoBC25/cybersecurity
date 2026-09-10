@@ -150,43 +150,66 @@
 
           <div class="attack-grid">
             <article class="attack-card selected" data-attack="phishing">
-              <span class="attack-icon">🐛</span>
+              <span class="attack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 4v16M8 6 5 3m11 3 3-3M7 10H3m18 0h-4M7 14H3m18 0h-4M8 18l-3 3m11-3 3 3"></path>
+                  <path d="M8 8a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0V8Z"></path>
+                </svg>
+              </span>
               <h3>Phishing</h3>
               <p>Engana usuários para revelar informações confidenciais.</p>
             </article>
             <article class="attack-card" data-attack="malware">
-              <span class="attack-icon">⚠️</span>
+              <span class="attack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"></path>
+                  <path d="m8 8 8 4.5M8 12.5l8-4.5M12 3v9.5M12 12.5V21"></path>
+                </svg>
+              </span>
               <h3>Malware</h3>
               <p>Software malicioso usado para danificar ou controlar sistemas.</p>
             </article>
             <article class="attack-card" data-attack="ddos">
-              <span class="attack-icon">📡</span>
+              <span class="attack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 18v3M9 21h6M5.6 14.4a9 9 0 0 1 12.8 0M2.8 11.6a13 13 0 0 1 18.4 0M8.5 17.2a5 5 0 0 1 7 0"></path>
+                  <circle cx="12" cy="8" r="1.5"></circle>
+                </svg>
+              </span>
               <h3>DDoS</h3>
               <p>Sobrecarrega serviços e derruba sites com tráfego excessivo.</p>
             </article>
             <article class="attack-card" data-attack="sql-injection">
-              <span class="attack-icon">🗄️</span>
+              <span class="attack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <ellipse cx="12" cy="5" rx="7" ry="3"></ellipse>
+                  <path d="M5 5v7c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 12v7c0 1.7 3.1 3 7 3s7-1.3 7-3v-7"></path>
+                </svg>
+              </span>
               <h3>SQL Injection</h3>
               <p>Manipula consultas para acessar ou alterar dados sensíveis.</p>
             </article>
             <article class="attack-card" data-attack="mitm">
-              <span class="attack-icon">👁️</span>
+              <span class="attack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"></path>
+                  <circle cx="12" cy="12" r="2.5"></circle>
+                  <path d="M4 4 20 20"></path>
+                </svg>
+              </span>
               <h3>Man-in-the-Middle</h3>
               <p>Intercepta comunicação entre duas partes para roubar dados.</p>
             </article>
             <article class="attack-card" data-attack="ransomware">
-              <span class="attack-icon">🔐</span>
+              <span class="attack-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path>
+                </svg>
+              </span>
               <h3>Ransomware</h3>
               <p>Criptografa arquivos e exige dinheiro para recuperar o acesso.</p>
             </article>
-          </div>
-
-          <div id="attack-detail" class="attack-detail">
-            <h3>Phishing</h3>
-            <p>
-              O phishing é responsável por 90% das violações de dados. Ataques incluem e-mails fraudulentos,
-              páginas falsas de login e mensagens de texto maliciosas.
-            </p>
           </div>
         </div>
       </section>
@@ -195,40 +218,215 @@
         <div class="container">
           <div class="section-header">
             <p class="eyebrow blue">Recursos</p>
-            <h2>Ferramentas para aprender e se proteger</h2>
+            <h2>Explore tudo o que a plataforma oferece</h2>
           </div>
 
           <div class="feature-grid">
-            <article class="feature-card">
-              <span class="feature-icon blue">🔑</span>
-              <h3>Gerador de senhas</h3>
-              <p>Crie senhas fortes para proteger suas contas.</p>
+            <a class="feature-card" href="./aprender.html">
+              <div class="feature-copy">
+                <span class="feature-icon blue" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
+                    <path d="M8 6h8M8 10h6"></path>
+                  </svg>
+                </span>
+                <h3>Aprender</h3>
+                <p>Acesse aulas, conteúdos e práticas para desenvolver seus conhecimentos em cibersegurança.</p>
+                <span class="feature-link">Explorar conteúdos <span aria-hidden="true">→</span></span>
+              </div>
+              <img class="feature-image" src="./assets/preview-aprender.svg" alt="Prévia ilustrada da tela de aprendizado" />
+            </a>
+            <a class="feature-card" href="./comunidade.html">
+              <div class="feature-copy">
+                <span class="feature-icon purple" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M16 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-3A4.5 4.5 0 0 0 4 18.5V20"></path>
+                    <circle cx="10" cy="7" r="3"></circle>
+                    <path d="M16 4.5a3 3 0 0 1 0 5.8M20 20v-1.5a4.5 4.5 0 0 0-3-4.2"></path>
+                  </svg>
+                </span>
+                <h3>Comunidade</h3>
+                <p>Conecte-se com outras pessoas, compartilhe experiências e aprenda em conjunto.</p>
+                <span class="feature-link">Participar da comunidade <span aria-hidden="true">→</span></span>
+              </div>
+              <img class="feature-image" src="./assets/preview-comunidade.svg" alt="Prévia ilustrada da tela da comunidade" />
+            </a>
+            <a class="feature-card" href="./noticias.html">
+              <div class="feature-copy">
+                <span class="feature-icon red" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 5h16v14H4z"></path>
+                    <path d="M8 9h8M8 13h5M8 17h8"></path>
+                    <path d="M16 13h2"></path>
+                  </svg>
+                </span>
+                <h3>Notícias</h3>
+                <p>Acompanhe alertas, tendências e os acontecimentos mais importantes do mundo digital.</p>
+                <span class="feature-link">Ver notícias <span aria-hidden="true">→</span></span>
+              </div>
+              <img class="feature-image" src="./assets/preview-noticias.svg" alt="Prévia ilustrada da tela de notícias" />
+            </a>
+          </div>
+
+          <div class="tool-section-header">
+            <p class="eyebrow blue">Mais ferramentas</p>
+            <h3>Recursos para sua proteção digital</h3>
+          </div>
+
+          <div class="tool-grid">
+            <article class="tool-card">
+              <span class="tool-icon blue" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                  <path d="m4 7 8 6 8-6M8 15h.01M12 15h4"></path>
+                </svg>
+              </span>
+              <h4>Validação de e-mail</h4>
+              <p>Confira sinais de autenticidade antes de confiar em uma mensagem.</p>
             </article>
-            <article class="feature-card">
-              <span class="feature-icon purple">🧪</span>
-              <h3>Laboratórios práticos</h3>
-              <p>Aprenda segurança colocando o conhecimento em prática.</p>
+            <article class="tool-card">
+              <span class="tool-icon purple" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3M9 15h.01M12 15h.01M15 15h.01"></path>
+                </svg>
+              </span>
+              <h4>Gerador de senha</h4>
+              <p>Crie combinações fortes e únicas para proteger suas contas.</p>
             </article>
-            <article class="feature-card">
-              <span class="feature-icon red">🔔</span>
-              <h3>Alertas inteligentes</h3>
-              <p>Receba informações sobre riscos importantes.</p>
+            <article class="tool-card">
+              <span class="tool-icon orange" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="m9 11 3 3L22 4"></path>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+              </span>
+              <h4>Laboratórios práticos</h4>
+              <p>Aprenda colocando seus conhecimentos de segurança em prática.</p>
             </article>
-            <article class="feature-card">
-              <span class="feature-icon green">💾</span>
-              <h3>Backup seguro</h3>
-              <p>Descubra como manter seus dados protegidos.</p>
+            <article class="tool-card">
+              <span class="tool-icon green" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M9 11 11 13 15 9M9 17 11 19 15 15"></path>
+                  <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                  <path d="M8 3.5h8"></path>
+                </svg>
+              </span>
+              <h4>Checklist de segurança</h4>
+              <p>Revise hábitos essenciais para manter seus dispositivos protegidos.</p>
             </article>
-            <article class="feature-card">
-              <span class="feature-icon orange">🗺️</span>
-              <h3>Mapa de ameaças</h3>
-              <p>Visualize ameaças e tendências pelo mundo.</p>
+            <article class="tool-card">
+              <span class="tool-icon red" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4Z"></path>
+                  <path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"></path>
+                </svg>
+              </span>
+              <h4>Quiz de cibersegurança</h4>
+              <p>Teste seus conhecimentos e descubra onde pode melhorar.</p>
             </article>
-            <article class="feature-card">
-              <span class="feature-icon pink">🛡️</span>
-              <h3>Diagnóstico e vazamentos</h3>
-              <p>Identifique pontos frágeis e possíveis exposições.</p>
+            <article class="tool-card">
+              <span class="tool-icon blue" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="m20 20-4-4M8 11h6M11 8v6"></path>
+                </svg>
+              </span>
+              <h4>Verificador de links</h4>
+              <p>Identifique endereços suspeitos antes de abrir uma página.</p>
             </article>
+            <article class="tool-card">
+              <span class="tool-icon purple" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-1 .7-1.7 1.1-1.7 2.7M12 17h.01"></path>
+                </svg>
+              </span>
+              <h4>Glossário de segurança</h4>
+              <p>Consulte os principais termos do universo da cibersegurança.</p>
+            </article>
+            <article class="tool-card">
+              <span class="tool-icon red" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 3 5 6v5c0 4.5 2.9 8.4 7 10 4.1-1.6 7-5.5 7-10V6l-7-3Z"></path>
+                  <path d="M12 8v4M12 16h.01"></path>
+                </svg>
+              </span>
+              <h4>Guia de privacidade</h4>
+              <p>Aprenda a reduzir sua exposição e controlar seus dados pessoais.</p>
+            </article>
+          </div>
+          <p class="more-tools-message">E muito mais!!</p>
+        </div>
+      </section>
+
+      <section id="previas" class="section preview-section">
+        <div class="container">
+          <div class="section-header">
+            <p class="eyebrow blue">Conheça a plataforma</p>
+            <h2>Uma visão do que você encontra por aqui</h2>
+          </div>
+
+          <div class="preview-carousel" id="previewCarousel" aria-label="Prévia das telas da plataforma">
+            <div class="preview-slides" aria-live="polite">
+              <article class="preview-slide active">
+                <div class="preview-copy">
+                  <span class="preview-count">01 / 05</span>
+                  <h3>Painel de segurança</h3>
+                  <p>Acompanhe seu progresso, descubra novos conteúdos e mantenha sua rotina de proteção digital em dia.</p>
+                </div>
+                <img src="./assets/screen-dashboard.svg" alt="Prévia genérica de um painel de segurança digital" />
+              </article>
+              <article class="preview-slide">
+                <div class="preview-copy">
+                  <span class="preview-count">02 / 05</span>
+                  <h3>Aprendizado guiado</h3>
+                  <p>Explore aulas e materiais organizados para transformar conceitos de segurança em hábitos práticos.</p>
+                </div>
+                <img src="./assets/screen-learning.svg" alt="Prévia genérica da tela de aprendizado" />
+              </article>
+              <article class="preview-slide">
+                <div class="preview-copy">
+                  <span class="preview-count">03 / 05</span>
+                  <h3>Comunidade ativa</h3>
+                  <p>Troque experiências, acompanhe discussões e aprenda com pessoas interessadas em segurança digital.</p>
+                </div>
+                <img src="./assets/screen-community.svg" alt="Prévia genérica da tela da comunidade" />
+              </article>
+              <article class="preview-slide">
+                <div class="preview-copy">
+                  <span class="preview-count">04 / 05</span>
+                  <h3>Notícias e tendências</h3>
+                  <p>Fique por dentro dos principais acontecimentos e entenda como as ameaças digitais evoluem.</p>
+                </div>
+                <img src="./assets/screen-news.svg" alt="Prévia genérica da tela de notícias" />
+              </article>
+              <article class="preview-slide">
+                <div class="preview-copy">
+                  <span class="preview-count">05 / 05</span>
+                  <h3>Alertas importantes</h3>
+                  <p>Visualize avisos relevantes e encontre orientações para responder melhor aos riscos do dia a dia.</p>
+                </div>
+                <img src="./assets/screen-alerts.svg" alt="Prévia genérica da tela de alertas" />
+              </article>
+            </div>
+
+            <div class="preview-controls">
+              <button class="preview-button" type="button" id="previewPrevious" aria-label="Tela anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"></path></svg>
+              </button>
+              <div class="preview-dots" aria-label="Selecionar tela da plataforma">
+                <button class="preview-dot active" type="button" data-slide="0" aria-label="Mostrar tela 1" aria-current="true"></button>
+                <button class="preview-dot" type="button" data-slide="1" aria-label="Mostrar tela 2"></button>
+                <button class="preview-dot" type="button" data-slide="2" aria-label="Mostrar tela 3"></button>
+                <button class="preview-dot" type="button" data-slide="3" aria-label="Mostrar tela 4"></button>
+                <button class="preview-dot" type="button" data-slide="4" aria-label="Mostrar tela 5"></button>
+              </div>
+              <button class="preview-button" type="button" id="previewNext" aria-label="Próxima tela">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -237,26 +435,93 @@
         <div class="container">
           <div class="section-header centered">
             <p class="eyebrow blue">Estatísticas</p>
-            <h2>Dados que mostram a realidade do cenário digital</h2>
+            <h2>O cenário da cibersegurança no Brasil e no mundo</h2>
           </div>
 
-          <div class="stats-grid">
-            <div class="stat-card">
-              <strong>87%</strong>
-              <span>Relataram aumento nas vulnerabilidades ligadas à IA</span>
-              <small>2025</small>
+          <div class="stats-block stats-environment" data-stats-group="security">
+            <div class="stats-block-heading">
+              <span class="stats-label blue-label">Segurança digital</span>
+              <p>Indicadores sobre ameaças, vulnerabilidades e exposição a riscos.</p>
             </div>
-            <div class="stat-card">
-              <strong>94%</strong>
-              <span>Líderes esperam que a IA molde a segurança em 2026</span>
-              <small>global</small>
-            </div>
-            <div class="stat-card">
-              <strong>73%</strong>
-              <span>Foram afetados ou conhecem alguém afetado por fraude digital</span>
-              <small>2025</small>
+            <div class="stats-environment-body">
+              <div class="stats-options">
+                <span class="stats-options-label">Visualizar por</span>
+                <div class="stats-buttons" role="tablist" aria-label="Filtros de segurança digital">
+                  <button class="stats-button active" type="button" data-stats-view="brasil" role="tab" aria-selected="true">Brasil</button>
+                  <button class="stats-button" type="button" data-stats-view="mundo" role="tab" aria-selected="false">Mundo</button>
+                  <button class="stats-button" type="button" data-stats-view="tendencias" role="tab" aria-selected="false">Tendências</button>
+                </div>
+                <p class="stats-context">Recorte nacional com os principais indicadores de exposição e ataques.</p>
+              </div>
+
+              <div class="stats-display">
+                <div class="stats-display-heading">
+                  <span>Visão geral</span>
+                  <span class="stats-status">Atualizado recentemente</span>
+                </div>
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <strong>4,8 bi</strong>
+                    <span>Tentativas de ataques cibernéticos registradas no Brasil</span>
+                    <small>Brasil • 2023</small>
+                  </div>
+                  <div class="stat-card">
+                    <strong>73%</strong>
+                    <span>Foram afetados ou conhecem alguém afetado por fraude digital</span>
+                    <small>Brasil • 2025</small>
+                  </div>
+                  <div class="stat-card">
+                    <strong>Alta</strong>
+                    <span>Exposição de empresas a campanhas de phishing e ransomware</span>
+                    <small>Brasil • referência</small>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <div class="stats-block stats-environment" data-stats-group="career">
+            <div class="stats-block-heading">
+              <span class="stats-label purple-label">A área de cibersegurança</span>
+              <p>Dados sobre profissionais, habilidades e transformação do mercado.</p>
+            </div>
+            <div class="stats-environment-body">
+              <div class="stats-options">
+                <span class="stats-options-label">Visualizar por</span>
+                <div class="stats-buttons" role="tablist" aria-label="Filtros da área de cibersegurança">
+                  <button class="stats-button active" type="button" data-stats-view="brasil" role="tab" aria-selected="true">Brasil</button>
+                  <button class="stats-button" type="button" data-stats-view="mundo" role="tab" aria-selected="false">Mundo</button>
+                  <button class="stats-button" type="button" data-stats-view="habilidades" role="tab" aria-selected="false">Habilidades</button>
+                </div>
+                <p class="stats-context">Recorte nacional sobre oportunidades e competências mais procuradas.</p>
+              </div>
+
+              <div class="stats-display">
+                <div class="stats-display-heading">
+                  <span>Visão geral</span>
+                  <span class="stats-status">Atualizado recentemente</span>
+                </div>
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <strong>Em alta</strong>
+                    <span>A demanda por especialistas continua crescendo no mercado brasileiro</span>
+                    <small>Brasil • referência</small>
+                  </div>
+                  <div class="stat-card">
+                    <strong>+IA</strong>
+                    <span>Conhecimentos em inteligência artificial ganham espaço na área</span>
+                    <small>Brasil • tendência</small>
+                  </div>
+                  <div class="stat-card">
+                    <strong>LGPD</strong>
+                    <span>Privacidade e proteção de dados seguem entre os temas essenciais</span>
+                    <small>Brasil • referência</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="stats-note">Os números são indicadores de referência e podem ser atualizados conforme novas pesquisas.</p>
         </div>
       </section>
     </main>
