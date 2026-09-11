@@ -17,15 +17,35 @@
     <link rel="stylesheet" href="css/noticias.css" />
   </head>
   <body>
-    <header class="hero">
-      <nav class="nav-bar">
-        <div class="logo">Olho Digital</div>
-        <div class="nav-links">
-          <a href="#recentes">Recentes</a>
-          <a href="#historicas">Históricas</a>
-          <a href="#importantes">Importantes</a>
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <div class="nav-left">
+          <a href="./home.html" class="brand">
+            <img src="./assets/logo.png" alt="Olho Digital" />
+            <span>Olho Digital</span>
+          </a>
+
+          <nav class="main-nav" aria-label="Menu principal">
+            <a href="./home.html">Início</a>
+            <a href="./aprender.html">Aprender</a>
+            <a href="./noticias.html" class="active">Notícias</a>
+            <a href="./comunidade.html">Comunidade</a>
+          </nav>
         </div>
-      </nav>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar notícias..." />
+          </div>
+
+          <button class="icon-btn" aria-label="Notificações">🔔</button>
+          <button class="profile-btn" id="profileToggle">U</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
 
       <div class="hero-content">
         <div class="hero-text">
@@ -47,12 +67,16 @@
           <span>Atualizado hoje</span>
         </div>
       </div>
-    </header>
+    </section>
 
     <main>
       <section id="recentes" class="section">
         <div class="section-title">
-          <p class="eyebrow">Últimas notícias</p>
+          <div class="nav-links">
+            <a href="#recentes">Recentes</a>
+            <a href="#importantes">Importantes</a>
+            <a href="#historicas">Históricas</a>
+          </div>
           <h2>Recentes e em destaque</h2>
         </div>
 
@@ -559,5 +583,6 @@
       renderCards();
       loadAutoNews();
     </script>
+    <script src="./scripts/aprender.js"></script>
   </body>
 </html>
