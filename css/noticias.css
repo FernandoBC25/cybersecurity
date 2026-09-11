@@ -27,7 +27,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg, var(--white) 0%, var(--blue-100) 100%);
+  background: #eff6ff;
   color: var(--text);
   line-height: 1.6;
 }
@@ -140,10 +140,10 @@ img {
 }
 
 .hero {
-  background: var(--white);
-  border-bottom: 1px solid var(--slate-200);
+  background: #eff6ff;
+  border-bottom: 1px solid #dbeafe;
   color: #0f172a;
-  padding: 60px 20px;
+  padding: 32px 20px 40px;
 }
 
 .nav-links {
@@ -181,7 +181,7 @@ img {
 
 .hero-content {
   max-width: 1200px;
-  margin: 40px auto 0;
+  margin: 18px auto 0;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 24px;
@@ -228,7 +228,7 @@ img {
 }
 
 .hero-card {
-  background: var(--blue-100);
+  background: var(--white);
   border: 1px solid #bfdbfe;
   border-radius: 16px;
   padding: 20px;
@@ -569,7 +569,7 @@ button.send-reply {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--amber-100);
+  background: var(--white);
   border-left: 6px solid var(--amber-700);
   padding: 20px;
   border-radius: 14px;
