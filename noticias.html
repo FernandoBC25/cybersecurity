@@ -360,7 +360,7 @@
 
       async function loadAutoNews() {
         try {
-          const response = await fetch('./news.json', { cache: 'no-store' });
+          const response = await fetch('/api/news', { cache: 'no-store' });
           if (!response.ok) return;
 
           const data = await response.json();
@@ -374,7 +374,7 @@
                 recentesArticles[Math.floor(Math.random() * recentesArticles.length)].image,
               content: item.content || item.description || 'Conteúdo atualizado automaticamente.',
               source: item.source || 'Fonte confiável',
-              date: item.date || new Date().toLocaleDateString('pt-BR'),
+              date: item.publishedAt || item.date || new Date().toLocaleDateString('pt-BR'),
               comments: []
             })
           );

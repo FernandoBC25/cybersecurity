@@ -8,6 +8,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'news.json');
+const PROJECT_ROOT = path.join(__dirname, '..');
 
 const sources = [
   {
@@ -33,7 +34,7 @@ const keywords = [
 ];
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(PROJECT_ROOT));
 
 function isRelevant(item) {
   const text = `${item.title || ''} ${item.description || ''}`.toLowerCase();
