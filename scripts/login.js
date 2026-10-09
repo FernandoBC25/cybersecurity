@@ -20,7 +20,7 @@ if (form) {
     event.preventDefault();
     clearError();
 
-    const email = emailInput?.value.trim() || '';
+    const email = emailInput?.value.trim().toLowerCase() || '';
     const password = passwordInput?.value.trim() || '';
 
     if (!email || !password) {

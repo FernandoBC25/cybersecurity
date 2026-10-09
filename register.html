@@ -61,17 +61,52 @@
 
           <label>
             <span>Email</span>
-            <input type="email" id="email" placeholder="seu@email.com" required />
+            <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" aria-describedby="emailFeedback" required />
+            <span id="emailFeedback" class="field-feedback" aria-live="polite"></span>
           </label>
 
           <label>
             <span>Senha</span>
-            <input type="password" id="password" placeholder="••••••••" required />
+            <input type="password" id="password" placeholder="••••••••" autocomplete="new-password" aria-describedby="passwordStrength" required />
           </label>
+
+          <div class="password-actions">
+            <button type="button" id="generatePassword" class="password-action-btn">Gerar senha segura</button>
+            <button type="button" id="togglePasswordVisibility" class="password-action-btn" aria-controls="password" aria-pressed="false">Mostrar senha</button>
+          </div>
+          <p id="generatorStatus" class="generator-status" role="status" aria-live="polite"></p>
+
+          <div id="passwordStrength" class="password-strength" data-strength="0">
+            <div class="strength-heading">
+              <span>Força da senha</span>
+              <span id="passwordStrengthLabel">Digite uma senha</span>
+            </div>
+            <div
+              id="passwordStrengthMeter"
+              class="strength-meter"
+              role="meter"
+              aria-label="Força da senha"
+              aria-valuemin="0"
+              aria-valuemax="5"
+              aria-valuenow="0"
+              aria-valuetext="Digite uma senha"
+            >
+              <span class="strength-meter-fill"></span>
+            </div>
+            <ul class="strength-requirements" aria-label="Critérios de senha">
+              <li data-requirement="length">Pelo menos 8 caracteres</li>
+              <li data-requirement="lowercase">Uma letra minúscula</li>
+              <li data-requirement="uppercase">Uma letra maiúscula</li>
+              <li data-requirement="number">Um número</li>
+              <li data-requirement="symbol">Um símbolo</li>
+            </ul>
+            <span id="passwordStrengthAnnouncement" class="visually-hidden" aria-live="polite"></span>
+          </div>
 
           <label>
             <span>Confirmar senha</span>
-            <input type="password" id="confirmPassword" placeholder="••••••••" required />
+            <input type="password" id="confirmPassword" placeholder="••••••••" autocomplete="new-password" aria-describedby="confirmPasswordFeedback" required />
+            <span id="confirmPasswordFeedback" class="field-feedback" aria-live="polite"></span>
           </label>
 
           <button type="submit" class="primary-btn block">Criar conta</button>
@@ -88,6 +123,7 @@
       </div>
     </main>
 
+    <script src="./scripts/auth-api.js"></script>
     <script src="./scripts/register.js"></script>
   </body>
 </html>
