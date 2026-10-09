@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Olho Digital | Configurações</title>
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
+    <link rel="stylesheet" href="./css/configuracoes.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container settings-nav">
+        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
+        <nav aria-label="Navegação principal">
+          <a href="./home.html">Início</a>
+          <a href="./aprender.html">Aprender</a>
+          <a href="./noticias.html">Notícias</a>
+          <a href="./comunidade.html">Comunidade</a>
+        </nav>
+        <div class="profile-menu-wrap settings-profile-menu">
+          <button class="profile-btn" id="profileToggle" type="button" aria-label="Abrir opções do perfil" aria-expanded="false" aria-controls="profileDropdown">
+            <span class="avatar" data-profile-avatar>U</span>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
+            <a role="menuitem" href="./atividade.html">Meu perfil</a>
+            <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
+            <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="settings-page">
+      <div class="settings-heading">
+        <a class="back-link" href="./home.html">← Voltar ao início</a>
+        <p class="eyebrow">SUA EXPERIÊNCIA</p>
+        <h1>Configurações</h1>
+        <p>Personalize como você acompanha os conteúdos do Olho Digital.</p>
+      </div>
+
+      <form id="settingsForm">
+        <section class="settings-card" aria-labelledby="appearanceTitle">
+          <h2 id="appearanceTitle">Aparência</h2>
+          <fieldset>
+            <legend>Tema</legend>
+            <label class="choice"><input type="radio" name="theme" value="light" /> Claro</label>
+            <label class="choice"><input type="radio" name="theme" value="dark" /> Escuro</label>
+          </fieldset>
+          <label class="field-label" for="fontSize">Tamanho da fonte</label>
+          <select id="fontSize" name="fontSize">
+            <option value="small">Pequeno</option>
+            <option value="normal">Padrão</option>
+            <option value="large">Grande</option>
+          </select>
+          <fieldset>
+            <legend>Espaçamento</legend>
+            <label class="choice"><input type="radio" name="spacing" value="comfortable" /> Confortável</label>
+            <label class="choice"><input type="radio" name="spacing" value="compact" /> Compacto</label>
+          </fieldset>
+        </section>
+
+        <section class="settings-card" aria-labelledby="contentTitle">
+          <h2 id="contentTitle">Conteúdo da página inicial</h2>
+          <p class="settings-help">Desative itens para ocultar os componentes correspondentes na página inicial. Categorias sem conteúdo correspondente não criam seções novas.</p>
+          <div class="settings-checks">
+            <label class="switch-row"><input type="checkbox" name="content.news" /><span>Notícias de cybersecurity</span><small data-setting-preview="news"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.alerts" /><span>Alertas de segurança</span><small data-setting-preview="alerts"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.education" /><span>Conteúdos educativos</span><small data-setting-preview="education"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.recommendations" /><span>Recomendações de cursos</span><small data-setting-preview="recommendations"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.vulnerabilities" /><span>Atualizações sobre vulnerabilidades</span><small data-setting-preview="vulnerabilities"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.networks" /><span>Redes</span><small data-setting-preview="networks"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.malware" /><span>Malware</span><small data-setting-preview="malware"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.phishing" /><span>Phishing</span><small data-setting-preview="phishing"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.privacy" /><span>Privacidade</span><small data-setting-preview="privacy"></small></label>
+            <label class="switch-row"><input type="checkbox" name="content.artificialIntelligence" /><span>Inteligência artificial aplicada à segurança</span><small data-setting-preview="artificialIntelligence"></small></label>
+          </div>
+        </section>
+
+        <section class="settings-card" aria-labelledby="notificationsTitle">
+          <h2 id="notificationsTitle">Notificações</h2>
+          <p class="settings-help">O projeto não possui serviço de envio ou armazenamento de notificações. Essas opções estão indisponíveis e não simulam alertas.</p>
+          <div class="settings-checks is-unavailable">
+            <label class="switch-row"><input type="checkbox" disabled /><span>Notificações internas</span></label>
+            <label class="switch-row"><input type="checkbox" disabled /><span>Novas publicações</span></label>
+            <label class="switch-row"><input type="checkbox" disabled /><span>Atualizações de cursos</span></label>
+            <label class="switch-row"><input type="checkbox" disabled /><span>Alertas de segurança</span></label>
+          </div>
+        </section>
+
+        <section class="settings-card" id="privacidade" aria-labelledby="privacyTitle">
+          <h2 id="privacyTitle">Privacidade e segurança</h2>
+          <div class="account-details">
+            <p><strong>Nome</strong><span id="accountName"></span></p>
+            <p><strong>E-mail</strong><span id="accountEmail"></span></p>
+          </div>
+          <p class="settings-help">A autenticação deste projeto é armazenada localmente neste navegador. Não há sessão segura no servidor, registro de último acesso ou suporte a autenticação em dois fatores.</p>
+        </section>
+      </form>
+
+      <section class="settings-card password-card" aria-labelledby="passwordTitle">
+        <h2 id="passwordTitle">Alterar senha</h2>
+        <p class="settings-help">Este formulário é independente das preferências. Preencha-o somente se quiser alterar sua senha.</p>
+        <form id="passwordForm" class="password-form">
+          <label class="field-label" for="currentPassword">Senha atual</label>
+          <input id="currentPassword" type="password" autocomplete="current-password" required />
+          <label class="field-label" for="newPassword">Nova senha</label>
+          <input id="newPassword" type="password" autocomplete="new-password" required />
+          <label class="field-label" for="confirmPassword">Confirmar nova senha</label>
+          <input id="confirmPassword" type="password" autocomplete="new-password" required />
+          <button type="submit" class="secondary-button" id="updatePassword">Atualizar senha</button>
+          <p id="passwordStatus" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <div class="settings-actions">
+        <p id="changesStatus" class="changes-status" role="status" aria-live="polite"></p>
+        <p id="settingsStatus" class="form-status" role="status" aria-live="polite"></p>
+        <button type="button" class="secondary-button" id="restoreDefaults">Restaurar configurações padrão</button>
+        <button type="button" class="secondary-button" id="discardChanges">Descartar alterações</button>
+        <button type="submit" class="primary-button" form="settingsForm">Salvar alterações</button>
+      </div>
+    </main>
+    <dialog class="unsaved-dialog" id="unsavedDialog" aria-labelledby="unsavedTitle" aria-describedby="unsavedMessage">
+      <section class="unsaved-dialog-card">
+        <h2 id="unsavedTitle">Alterações não salvas</h2>
+        <p id="unsavedMessage">Você tem alterações temporárias. Salve para mantê-las, descarte-as para sair sem salvar ou continue editando.</p>
+        <div class="unsaved-dialog-actions">
+          <button type="button" class="secondary-button" id="continueEditing">Continuar editando</button>
+          <button type="button" class="secondary-button" id="leaveWithoutSaving">Sair sem salvar</button>
+          <button type="button" class="primary-button" id="saveAndLeave">Salvar e sair</button>
+        </div>
+      </section>
+    </dialog>
+    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
+      <form method="dialog" class="logout-dialog-card">
+        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
+        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
+        <div class="logout-dialog-actions">
+          <button class="logout-cancel" value="cancel">Cancelar</button>
+          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="./scripts/account.js"></script>
+    <script src="./scripts/configuracoes.js"></script>
+  </body>
+</html>
