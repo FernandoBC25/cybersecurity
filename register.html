@@ -4,10 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Olho Digital | Cadastro</title>
+    <script src="./scripts/auth-theme.js"></script>
     <link rel="stylesheet" href="./css/register.css" />
   </head>
   <body>
-    <div class="auth-shell">
+    <main class="auth-shell">
+      <section class="security-panel" aria-label="Segurança digital">
+        <a href="./index.html" class="brand brand-light">
+          <img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" />
+          <span>OLHO DIGITAL</span>
+        </a>
+        <div class="security-visual" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <svg class="security-eye" viewBox="0 0 180 150" fill="none">
+            <path d="M14 75C34 46 59 31 90 31s56 15 76 44c-20 29-45 44-76 44S34 104 14 75Z" />
+            <circle cx="90" cy="75" r="27" />
+            <circle cx="90" cy="75" r="9" />
+            <path class="circuit-line" d="M90 48V28m0 94v-20M63 75H42m96 0h-21M71 56 58 43m64 64-13-13m0-38 13-13M58 107l13-13" />
+            <circle class="circuit-node" cx="90" cy="27" r="3" />
+            <circle class="circuit-node" cx="139" cy="75" r="3" />
+            <circle class="circuit-node" cx="41" cy="75" r="3" />
+          </svg>
+          <span class="scan-line"></span>
+        </div>
+        <div class="security-copy">
+          <p class="eyebrow"><span></span> CENTRAL DE CIBERSEGURANÇA</p>
+          <h2>Conhecimento é sua melhor <span>defesa digital.</span></h2>
+          <p>Crie sua conta para explorar conteúdos, cursos e uma comunidade conectada à cibersegurança.</p>
+        </div>
+        <div class="security-footer">
+          <span class="status-dot"></span>
+          <span>SEGURANÇA DIGITAL</span>
+          <span class="security-footer-divider">•</span>
+          <span>OLHO DIGITAL</span>
+        </div>
+      </section>
+
       <div class="auth-card">
         <div class="auth-header">
           <a href="./index.html" class="brand brand-light">
@@ -53,7 +86,7 @@
           <a href="./index.html">← Voltar para página inicial</a>
         </div>
       </div>
-    </div>
+    </main>
 
     <script src="./scripts/register.js"></script>
   </body>

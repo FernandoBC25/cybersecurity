@@ -20,18 +20,16 @@ function escapeHTML(value) {
 }
 
 function loadUser() {
-  let user = homeData.usuario;
-  try {
-    user = JSON.parse(localStorage.getItem('user') || 'null') || user;
-  } catch {
-    localStorage.removeItem('user');
-  }
+  const user = OlhoDigitalAccount.requireAuthentication();
+  if (!user) return false;
 
   const fullName = user.name || homeData.usuario.nome;
   const firstName = fullName.trim().split(/\s+/)[0] || 'Usuário';
   document.getElementById('profileName').textContent = fullName;
   document.getElementById('welcomeName').textContent = firstName;
-  document.getElementById('profileAvatar').textContent = firstName.charAt(0).toUpperCase();
+  OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
+  OlhoDigitalAccount.updateProfileAvatars(user);
+  return true;
 }
 
 function renderCurrentCourse() {
@@ -72,7 +70,7 @@ function renderCurrentCourse() {
 function renderNews() {
   const news = homeData.noticiaDestaque;
   document.getElementById('featuredNews').innerHTML = `
-    <article class="news-card">
+    <article class="news-card" data-content-topics="phishing">
       <a class="news-image" href="./noticias.html" aria-label="Ler notícia: ${escapeHTML(news.titulo)}"><img src="${escapeHTML(news.imagem)}" alt="${escapeHTML(news.alt)}" loading="lazy" /><span class="news-category">SEGURANÇA DIGITAL</span></a>
       <div class="news-content"><p class="news-meta">DESTAQUE <span aria-hidden="true">·</span> Leitura de 4 min</p><h3>${escapeHTML(news.titulo)}</h3><p>${escapeHTML(news.resumo)}</p><a class="text-link" href="./noticias.html">Ler notícia <span aria-hidden="true">→</span></a></div>
       <a class="news-all-link" href="./noticias.html">Ver todas <span aria-hidden="true">→</span></a>
@@ -80,11 +78,18 @@ function renderNews() {
 }
 
 function renderRecommendations() {
-  courseCarousel.innerHTML = homeData.cursosRecomendados.map((course) => `
-    <article class="recommended-card">
+  courseCarousel.innerHTML = homeData.cursosRecomendados.map((course) => {
+    const topics = course.nome.toLocaleLowerCase('pt-BR').includes('phishing')
+      ? 'phishing'
+      : course.nome.toLocaleLowerCase('pt-BR').includes('privacidade')
+        ? 'privacy'
+        : '';
+    return `
+    <article class="recommended-card" ${topics ? `data-content-topics="${topics}"` : ''}>
       <div class="recommended-image" aria-hidden="true"><img src="${escapeHTML(course.imagem)}" alt="" loading="lazy" /></div>
       <div class="recommended-content"><div class="course-tags"><span>${escapeHTML(course.nivel)}</span><span>${escapeHTML(course.duracao)}</span></div><h3>${escapeHTML(course.nome)}</h3><p>${escapeHTML(course.descricao)}</p><a class="text-link" href="./aprender.html">Começar <span aria-hidden="true">→</span></a></div>
-    </article>`).join('');
+    </article>`;
+  }).join('');
   updateCarouselButtons();
 }
 
@@ -154,14 +159,19 @@ function setupInteractions() {
       searchInput.focus();
     }
   });
+  const logoutDialog = document.getElementById('logoutDialog');
   document.getElementById('logoutBtn').addEventListener('click', () => {
+    closeHeaderPopovers();
+    logoutDialog.showModal();
+  });
+  document.getElementById('confirmLogout').addEventListener('click', () => {
     localStorage.removeItem('user');
-    window.location.href = './login.html';
+    sessionStorage.clear();
+    window.location.replace('./login.html');
   });
   menuToggle.addEventListener('click', () => toggleMobileMenu(!sidebar.classList.contains('is-open')));
   sidebarBackdrop.addEventListener('click', () => toggleMobileMenu(false));
   sidebar.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => toggleMobileMenu(false)));
-  document.getElementById('sidebarSettings').addEventListener('click', () => togglePopover(profileToggle, profileDropdown));
   document.getElementById('carouselPrevious').addEventListener('click', () => courseCarousel.scrollBy({ left: -courseCarousel.clientWidth * 0.72, behavior: 'smooth' }));
   document.getElementById('carouselNext').addEventListener('click', () => courseCarousel.scrollBy({ left: courseCarousel.clientWidth * 0.72, behavior: 'smooth' }));
   courseCarousel.addEventListener('scroll', updateCarouselButtons, { passive: true });
@@ -171,8 +181,8 @@ function setupInteractions() {
     let matches = 0;
     document.querySelectorAll('.dashboard-grid > * > .panel').forEach((section) => {
       const visible = !query || section.textContent.toLocaleLowerCase('pt-BR').includes(query);
-      section.hidden = !visible;
-      matches += Number(visible);
+      section.hidden = section.dataset.preferenceHidden === 'true' || !visible;
+      matches += Number(!section.hidden);
     });
     let emptyMessage = document.getElementById('searchEmpty');
     if (!emptyMessage) {
@@ -187,10 +197,12 @@ function setupInteractions() {
   });
 }
 
-loadUser();
-renderCurrentCourse();
-renderNews();
-renderRecommendations();
-renderActivity();
-renderDailyMessage();
-setupInteractions();
+if (loadUser()) {
+  renderCurrentCourse();
+  renderNews();
+  renderRecommendations();
+  renderActivity();
+  renderDailyMessage();
+  OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(OlhoDigitalAccount.getCurrentUser()));
+  setupInteractions();
+}
