@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Olho Digital | Comunidade</title>
     <link rel="stylesheet" href="./css/comunidade.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
   </head>
   <body>
     <header class="topbar">
       <div class="container nav-wrap">
         <div class="nav-left">
           <a href="./home.html" class="brand">
-            <img src="./assets/logo.png" alt="Olho Digital" />
+            <img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="Olho Digital" />
             <span>Olho Digital</span>
           </a>
 
@@ -24,12 +25,21 @@
         </div>
 
         <div class="nav-right">
-          <div class="search-box">
-            <span>⌕</span>
+          <label class="search-box" for="communitySearch">
+            <span aria-hidden="true">⌕</span>
             <input type="text" id="communitySearch" placeholder="Buscar na comunidade..." />
-          </div>
+          </label>
           <button class="icon-btn" aria-label="Notificações">🔔</button>
-          <button class="profile-btn" id="profileToggle">U</button>
+          <div class="profile-menu-wrap">
+            <button class="profile-btn" id="profileToggle" type="button" aria-label="Perfil" aria-expanded="false" aria-controls="profileDropdown">
+              <span class="profile-avatar" data-profile-avatar>U</span>
+            </button>
+            <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
+              <a role="menuitem" href="./atividade.html">Meu perfil</a>
+              <a role="menuitem" href="./configuracoes.html">Configurações</a>
+              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -69,9 +79,9 @@
 
         <aside class="community-right">
           <section class="side-panel panel">
-            <div class="panel-heading"><span class="side-icon">●</span><h2>Membros online</h2></div>
-            <p class="online-count"><i></i> 128 online</p>
-            <div class="member-stack"><span class="avatar pink">A</span><span class="avatar blue">C</span><span class="avatar green">M</span><span class="avatar blue">J</span><span class="avatar pink">F</span><span class="more-members">+122</span></div>
+            <div class="panel-heading"><span class="side-icon">●</span><h2>Membros cadastrados</h2></div>
+            <p class="online-count" id="memberCount">Carregando contas deste navegador...</p>
+            <div class="member-stack" id="memberStack" aria-hidden="true"></div>
             <button class="outline-btn" type="button" data-view="membros">Ver todos membros</button>
           </section>
           <section class="side-panel panel">
@@ -99,6 +109,7 @@
       </section>
     </div>
 
+    <script src="./scripts/account.js"></script>
     <script src="./scripts/comunidade.js"></script>
   </body>
 </html>

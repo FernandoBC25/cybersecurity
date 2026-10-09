@@ -131,8 +131,8 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
 }
 .profile-dropdown.show { display: block; }
-.profile-dropdown button { display: block; width: 100%; padding: 10px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--slate-800); text-align: left; cursor: pointer; }
-.profile-dropdown button:hover { background: var(--slate-50); }
+.profile-dropdown a, .profile-dropdown button { display: block; width: 100%; padding: 10px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--slate-800); font-size: 0.85rem; text-align: left; cursor: pointer; }
+.profile-dropdown a:hover, .profile-dropdown button:hover { background: var(--slate-50); }
 .profile-dropdown button:last-child { color: #b42318; }
 .notification-dropdown { width: 290px; padding: 16px; }
 .notification-dropdown strong { color: var(--blue-900); font-size: 0.84rem; }
@@ -297,6 +297,19 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .achievement-card h3 { margin: 0; color: var(--blue-900); font-size: 0.78rem; }
 .achievement-card p { margin: 4px 0 0; color: var(--slate-600); font-size: 0.66rem; line-height: 1.45; }
 
+.logout-dialog { position: fixed; inset: 0; margin: auto; max-height: calc(100dvh - 32px); overflow: auto; width: min(460px, calc(100% - 32px)); padding: 0; border: 0; border-radius: 16px; color: var(--slate-800); box-shadow: 0 24px 70px rgba(15, 23, 42, 0.3); }
+.logout-dialog::backdrop { background: rgba(15, 23, 42, 0.58); backdrop-filter: blur(3px); }
+.logout-dialog-card { padding: 26px; }
+.logout-dialog-card h2 { margin: 0; color: var(--blue-900); font-size: 1.3rem; }
+.logout-dialog-card p { margin: 13px 0 22px; color: var(--slate-600); font-size: 0.92rem; line-height: 1.6; }
+.logout-dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; }
+.logout-dialog-actions button { min-height: 42px; padding: 0 16px; border: 1px solid var(--slate-300); border-radius: 8px; background: #fff; color: var(--slate-800); font-weight: 700; cursor: pointer; }
+.logout-dialog-actions .logout-confirm { border-color: #b42318; background: #b42318; color: #fff; }
+.logout-dialog-actions button:focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+body.theme-dark .logout-dialog { background: #172338; color: #e2e8f0; }
+body.theme-dark .logout-dialog-card h2 { color: #f8fafc; }
+body.theme-dark .logout-dialog-actions button:not(.logout-confirm) { border-color: #475569; background: #24344e; color: #e2e8f0; }
+
 @media (max-width: 1100px) {
   .nav-wrap { grid-template-columns: minmax(160px, 1fr) minmax(220px, 1.2fr) minmax(180px, 1fr); gap: 16px; }
   .app-shell { grid-template-columns: 64px minmax(0, 1fr); gap: 18px; padding: 20px 18px 40px; }
@@ -379,6 +392,9 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   .news-all-link { grid-column: auto; }
   .empty-course { align-items: flex-start; flex-wrap: wrap; padding: 18px; }
   .empty-course .button-primary { width: 100%; margin-left: 0; }
+  .logout-dialog-card { padding: 21px; }
+  .logout-dialog-actions { flex-direction: column-reverse; }
+  .logout-dialog-actions button { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

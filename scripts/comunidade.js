@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
-  if (!user) { window.location.href = './login.html'; return; }
+  const user = OlhoDigitalAccount.requireAuthentication();
+  if (!user) return;
+  OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
+  OlhoDigitalAccount.updateProfileAvatars(user);
 
   const categories = ['Todos', 'Geral', 'Dúvidas', 'Tutoriais', 'Projetos', 'Notícias'];
   const categoryKeys = { Geral: 'geral', Dúvidas: 'duvidas', Tutoriais: 'tutoriais', Projetos: 'projetos', Notícias: 'noticias' };
@@ -41,31 +43,93 @@ document.addEventListener('DOMContentLoaded', () => {
   let posts = storedPosts && storedPosts.length >= 10 ? storedPosts : seedPosts;
   let activeCategory = 'Todos';
   let activeView = 'feed';
-  const savedPosts = new Set(JSON.parse(localStorage.getItem('communitySavedPosts') || '[]'));
+  let activity = OlhoDigitalAccount.getActivity(user);
+  const savedPosts = new Set(activity.community.saves.map((entry) => entry.id));
   const getName = () => user.name || 'Usuário';
   const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
   const save = () => localStorage.setItem('communityPosts', JSON.stringify(posts));
-  const saveSavedPosts = () => localStorage.setItem('communitySavedPosts', JSON.stringify([...savedPosts]));
+  const track = (area, action, item) => {
+    try {
+      OlhoDigitalAccount.trackActivity(user, area, action, item);
+      activity = OlhoDigitalAccount.getActivity(user);
+    } catch (error) {
+      console.error('Não foi possível salvar sua atividade neste navegador.', error);
+      window.alert('Não foi possível salvar esta interação. Verifique o espaço disponível neste navegador.');
+    }
+  };
+  const untrack = (area, action, id) => {
+    try {
+      OlhoDigitalAccount.removeActivity(user, area, action, id);
+      activity = OlhoDigitalAccount.getActivity(user);
+    } catch (error) {
+      console.error('Não foi possível atualizar sua atividade neste navegador.', error);
+      window.alert('Não foi possível atualizar esta interação neste navegador.');
+    }
+  };
   const timeAgo = (date) => { const minutes = Math.max(1, Math.floor((Date.now() - date) / 60000)); return minutes < 60 ? `Há ${minutes} min` : minutes < 1440 ? `Há ${Math.floor(minutes / 60)} h` : `Há ${Math.floor(minutes / 1440)} d`; };
   const label = (key) => categories.find((item) => categoryKeys[item] === key) || key;
   const initials = (name) => (name || 'U').charAt(0).toUpperCase();
+  const memberAvatarMarkup = (name) => `<span class="avatar blue">${escapeHtml(initials(name))}</span>`;
   const femaleNames = new Set(['Ana Silva', 'Mariana Costa', 'Fernanda Souza', 'Beatriz Santos', 'Juliana Lima', 'Camila Rodrigues']);
   const maleNames = new Set(['Carlos Eduardo', 'João Pedro', 'Lucas Martins', 'Gabriel Oliveira', 'Rafael Almeida', 'Bruno Ferreira']);
   const avatarGender = (name) => femaleNames.has(name) ? 'female' : maleNames.has(name) ? 'male' : 'neutral';
   const avatarUrl = (name) => { if (name === getName() && (user.photo || user.avatar)) return user.photo || user.avatar; return `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(name)}&gender=${avatarGender(name)}`; };
   const avatarMarkup = (name, initial, color = 'blue') => `<span class="avatar ${color}"><img src="${escapeHtml(avatarUrl(name))}" alt="Foto de ${escapeHtml(name)}" onerror="this.remove(); this.parentElement.classList.add('avatar-fallback')"><b>${escapeHtml(initial)}</b></span>`;
+  let registeredMembers = [];
+  try {
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    registeredMembers = Array.isArray(storedUsers)
+      ? storedUsers.filter((member) => typeof member?.name === 'string' && typeof member?.email === 'string')
+        .map((member) => ({ name: member.name.trim(), email: member.email.trim() }))
+        .filter((member) => member.name && member.email)
+      : [];
+  } catch (error) {
+    console.error('Não foi possível carregar a lista de membros cadastrados neste navegador.', error);
+  }
+  if (!registeredMembers.some((member) => member.email.toLowerCase() === user.email.toLowerCase())) {
+    registeredMembers.push({ name: getName(), email: user.email });
+  }
+  document.getElementById('memberCount').textContent = `${registeredMembers.length} conta${registeredMembers.length === 1 ? '' : 's'} cadastrada${registeredMembers.length === 1 ? '' : 's'} neste navegador; presença online não está disponível.`;
+  document.getElementById('memberStack').innerHTML = registeredMembers.slice(0, 5)
+    .map((member, index) => `<span class="avatar ${['blue', 'pink', 'green'][index % 3]}">${escapeHtml(initials(member.name))}</span>`)
+    .join('') + (registeredMembers.length > 5 ? `<span class="more-members">+${registeredMembers.length - 5}</span>` : '');
 
-  document.getElementById('profileToggle').textContent = initials(getName());
+  const profileToggle = document.getElementById('profileToggle');
+  const profileDropdown = document.getElementById('profileDropdown');
+  const closeProfileMenu = () => {
+    profileDropdown.hidden = true;
+    profileToggle.setAttribute('aria-expanded', 'false');
+  };
+  profileToggle.addEventListener('click', () => {
+    profileDropdown.hidden = !profileDropdown.hidden;
+    profileToggle.setAttribute('aria-expanded', String(!profileDropdown.hidden));
+  });
+  document.addEventListener('click', (event) => {
+    if (!profileToggle.contains(event.target) && !profileDropdown.contains(event.target)) closeProfileMenu();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !profileDropdown.hidden) {
+      closeProfileMenu();
+      profileToggle.focus();
+    }
+  });
   document.querySelectorAll('.category-link').forEach((button) => button.classList.toggle('active', button.dataset.filter === 'Todos'));
 
   const renderComment = (comment, postId, parentId = '') => `<div class="comment">${avatarMarkup(comment.author, comment.initial)}<div class="comment-body"><div class="comment-head"><strong>${escapeHtml(comment.author)}</strong><small>${timeAgo(comment.createdAt)}</small></div><p>${escapeHtml(comment.text)}</p><div class="comment-tools"><button data-reply="${postId}" data-parent="${parentId || comment.id}">Responder</button>${comment.author === getName() ? `<button data-delete-comment="${postId}" data-comment="${comment.id}" data-parent="${parentId}">Excluir</button>` : ''}</div>${(comment.replies || []).map((reply) => renderComment(reply, postId, comment.id)).join('')}<div class="reply-form" data-reply-form="${comment.id}"><input placeholder="Escreva uma resposta..."><button data-send-reply="${postId}" data-parent="${comment.id}">Enviar</button></div></div></div>`;
   const render = () => {
     const query = document.getElementById('communitySearch').value.trim().toLowerCase();
+    if (activeView === 'membros') {
+      const members = registeredMembers.filter((member) => member.name.toLowerCase().includes(query));
+      document.getElementById('feed').innerHTML = '<h2 class="view-heading">Membros cadastrados neste navegador</h2><p class="settings-help">A lista contém somente as contas salvas localmente neste navegador; e-mails não são exibidos.</p>' +
+        (members.length
+          ? `<div class="member-directory">${members.map((member) => `<article class="member-directory-card panel">${memberAvatarMarkup(member.name)}<div><strong>${escapeHtml(member.name)}</strong><small>${member.email.toLowerCase() === user.email.toLowerCase() ? 'Você' : 'Membro'}</small></div></article>`).join('')}</div>`
+          : '<div class="empty-state panel"><strong>Nenhum membro encontrado.</strong><span>Experimente outro nome na busca.</span></div>');
+      return;
+    }
     let visible = posts.filter((post) => (activeCategory === 'Todos' || post.category === activeCategory) && (!query || `${post.author} ${post.category} ${label(post.category)} ${post.text}`.toLowerCase().includes(query)));
     let heading = '';
     if (activeView === 'salvos') { visible = visible.filter((post) => savedPosts.has(post.id)); heading = '<h2 class="view-heading">Publicações salvas</h2>'; }
     if (activeView === 'discussoes') { visible = visible.filter((post) => post.category === 'duvidas' || post.comments.length >= 3); heading = '<h2 class="view-heading">Discussões da comunidade</h2>'; }
-    if (activeView === 'membros') { heading = '<h2 class="view-heading">Publicações dos membros</h2>'; }
     document.getElementById('feed').innerHTML = heading + (visible.length ? visible.map((post) => { post.likedBy = post.likedBy || []; post.comments = post.comments || []; return `<article class="post-card panel ${post.featured ? 'featured' : ''}" data-post="${post.id}">${post.featured ? '<span class="featured-label">📌 PUBLICAÇÃO EM DESTAQUE</span>' : ''}<div class="post-meta"><div class="author">${avatarMarkup(post.author, post.initial, post.color || 'blue')}<div><strong>${escapeHtml(post.author)}</strong><small>${timeAgo(post.createdAt)}</small></div></div><div><span class="tag ${post.category}">${label(post.category)}</span>${post.author === getName() ? `<button class="post-menu" data-delete-post="${post.id}" aria-label="Excluir publicação">⋯</button>` : ''}</div></div><p>${escapeHtml(post.text)}</p>${post.image ? `<img class="post-image" src="${post.image}" alt="Imagem da publicação">` : ''}<div class="post-stats"><span>♡ ${post.likes} curtidas</span><span>◉ ${post.views || 0} visualizações</span><span>💬 ${post.comments.length} comentários</span></div><div class="post-actions"><button class="${post.likedBy.includes(getName()) ? 'active' : ''}" data-like="${post.id}">👍 Curtir</button><button data-comments="${post.id}">💬 Comentar</button><button class="${savedPosts.has(post.id) ? 'saved' : ''}" data-save="${post.id}">${savedPosts.has(post.id) ? '🔖 Salvo' : '🔖 Salvar'}</button></div><div class="comments" data-comments-box="${post.id}">${post.comments.map((comment) => renderComment(comment, post.id)).join('')}<form class="comment-form" data-comment-form="${post.id}"><input required placeholder="Escreva um comentário..."><button>Enviar</button></form></div></article>`; }).join('') : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Tente outra categoria ou palavra-chave.</span></div>');
   };
   render();
@@ -74,11 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const filter = event.target.closest('[data-filter]');
     if (filter) { activeCategory = filter.dataset.filter; activeView = 'feed'; document.querySelectorAll('[data-view]').forEach((item) => item.classList.toggle('active', item.dataset.view === 'feed')); document.querySelectorAll('.category-link').forEach((button) => button.classList.toggle('active', button.dataset.filter === activeCategory)); render(); return; }
     const like = event.target.closest('[data-like]');
-    if (like) { const post = posts.find((item) => item.id === like.dataset.like); const liked = post.likedBy.includes(getName()); post.likedBy = liked ? post.likedBy.filter((name) => name !== getName()) : [...post.likedBy, getName()]; post.likes += liked ? -1 : 1; save(); render(); return; }
+    if (like) { const post = posts.find((item) => item.id === like.dataset.like); const liked = post.likedBy.includes(getName()); post.likedBy = liked ? post.likedBy.filter((name) => name !== getName()) : [...post.likedBy, getName()]; post.likes += liked ? -1 : 1; if (liked) untrack('community', 'likes', post.id); else track('community', 'likes', { id: post.id, title: post.text, category: label(post.category) }); save(); render(); return; }
     const comments = event.target.closest('[data-comments]');
     if (comments) { document.querySelector(`[data-comments-box="${comments.dataset.comments}"]`).classList.toggle('open'); return; }
     const saveButton = event.target.closest('[data-save]');
-    if (saveButton) { savedPosts.has(saveButton.dataset.save) ? savedPosts.delete(saveButton.dataset.save) : savedPosts.add(saveButton.dataset.save); saveSavedPosts(); render(); return; }
+    if (saveButton) { const post = posts.find((item) => item.id === saveButton.dataset.save); if (savedPosts.has(post.id)) { savedPosts.delete(post.id); untrack('community', 'saves', post.id); } else { savedPosts.add(post.id); track('community', 'saves', { id: post.id, title: post.text, category: label(post.category) }); } render(); return; }
     const view = event.target.closest('[data-view]');
     if (view) { activeView = view.dataset.view; activeCategory = ['duvidas', 'tutoriais', 'projetos', 'noticias'].includes(activeView) ? activeView : 'Todos'; document.querySelectorAll('[data-view]').forEach((item) => item.classList.toggle('active', item === view)); document.querySelectorAll('[data-filter]').forEach((item) => item.classList.toggle('active', item.dataset.filter === activeCategory)); render(); return; }
     const reply = event.target.closest('[data-reply]');
@@ -88,8 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteComment = event.target.closest('[data-delete-comment]');
     if (deleteComment && confirm('Excluir este comentário?')) { const post = posts.find((item) => item.id === deleteComment.dataset.deleteComment); const remove = (list) => list.filter((item) => item.id !== deleteComment.dataset.comment).map((item) => ({ ...item, replies: remove(item.replies || []) })); post.comments = remove(post.comments); save(); render(); }
   });
-  document.addEventListener('submit', (event) => { const form = event.target; if (form.matches('[data-comment-form]')) { event.preventDefault(); const post = posts.find((item) => item.id === form.dataset.commentForm); post.comments.push({ id: `c-${Date.now()}`, author: getName(), initial: initials(getName()), text: form.querySelector('input').value.trim(), createdAt: Date.now(), replies: [] }); save(); render(); document.querySelector(`[data-comments-box="${post.id}"]`).classList.add('open'); } });
-  document.addEventListener('click', (event) => { const send = event.target.closest('[data-send-reply]'); if (!send) return; const form = send.parentElement; const post = posts.find((item) => item.id === send.dataset.sendReply); const locate = (list) => { for (const item of list) { if (item.id === send.dataset.parent) return item; const found = locate(item.replies || []); if (found) return found; } }; const comment = locate(post.comments); if (comment && form.querySelector('input').value.trim()) comment.replies.push({ id: `r-${Date.now()}`, author: getName(), initial: initials(getName()), text: form.querySelector('input').value.trim(), createdAt: Date.now(), likes: 0, replies: [] }); save(); render(); document.querySelector(`[data-comments-box="${post.id}"]`).classList.add('open'); });
+  document.addEventListener('submit', (event) => { const form = event.target; if (form.matches('[data-comment-form]')) { event.preventDefault(); const post = posts.find((item) => item.id === form.dataset.commentForm); const text = form.querySelector('input').value.trim(); if (!text) return; const id = `c-${Date.now()}`; post.comments.push({ id, author: getName(), initial: initials(getName()), text, createdAt: Date.now(), replies: [] }); track('community', 'comments', { id, postId: post.id, title: post.text, text, kind: 'Comentário' }); save(); render(); document.querySelector(`[data-comments-box="${post.id}"]`).classList.add('open'); } });
+  document.addEventListener('click', (event) => { const send = event.target.closest('[data-send-reply]'); if (!send) return; const form = send.parentElement; const post = posts.find((item) => item.id === send.dataset.sendReply); const locate = (list) => { for (const item of list) { if (item.id === send.dataset.parent) return item; const found = locate(item.replies || []); if (found) return found; } }; const comment = locate(post.comments); const text = form.querySelector('input').value.trim(); if (comment && text) { const id = `r-${Date.now()}`; comment.replies.push({ id, author: getName(), initial: initials(getName()), text, createdAt: Date.now(), likes: 0, replies: [] }); track('community', 'comments', { id, postId: post.id, title: post.text, text, kind: 'Resposta' }); } save(); render(); document.querySelector(`[data-comments-box="${post.id}"]`).classList.add('open'); });
   document.getElementById('communitySearch').addEventListener('input', render);
 
   const modal = document.getElementById('composerModal'); const imageInput = document.getElementById('postImage'); let imageData = '';

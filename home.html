@@ -6,6 +6,7 @@
     <meta name="theme-color" content="#ffffff" />
     <title>Olho Digital | Início</title>
     <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
   </head>
   <body>
     <header class="topbar">
@@ -13,22 +14,25 @@
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
           <span></span><span></span><span></span>
         </button>
-        <a href="./home.html" class="brand"><img src="./assets/logo.png" alt="" /><span>Olho Digital</span></a>
+        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
         <label class="search-box" for="searchInput"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar conteúdos, cursos, notícias..." id="searchInput" /></label>
         <div class="nav-right">
-          <div class="popover-wrap">
-            <button class="icon-btn" id="notificationToggle" type="button" aria-label="Notificações, 1 não lida" aria-expanded="false" aria-controls="notificationDropdown">🔔<span class="notification-dot" aria-hidden="true"></span></button>
+          <div class="popover-wrap" data-content-setting="alerts">
+            <button class="icon-btn" id="notificationToggle" type="button" aria-label="Notificações" aria-expanded="false" aria-controls="notificationDropdown">🔔</button>
             <section class="notification-dropdown" id="notificationDropdown" aria-label="Notificações" hidden>
               <strong>Notificações</strong>
-              <p>Seu curso Segurança de Senhas está esperando.</p>
+              <p>O Olho Digital ainda não possui um serviço de envio de notificações.</p>
             </section>
           </div>
           <div class="profile-menu-wrap">
             <button class="profile-btn" id="profileToggle" type="button" aria-expanded="false" aria-controls="profileDropdown">
-              <span class="avatar" id="profileAvatar">F</span><span class="profile-name" id="profileName">Fernando</span><span class="profile-chevron" aria-hidden="true">⌄</span>
+              <span class="avatar" id="profileAvatar" data-profile-avatar>F</span><span class="profile-name" id="profileName">Fernando</span><span class="profile-chevron" aria-hidden="true">⌄</span>
             </button>
             <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
-              <button type="button">Meu perfil</button><button type="button">Configurações</button><button type="button" id="logoutBtn">Sair</button>
+              <a role="menuitem" href="./atividade.html">Meu perfil</a>
+              <a role="menuitem" href="./configuracoes.html">Configurações</a>
+              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
+              <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
             </div>
           </div>
         </div>
@@ -52,7 +56,7 @@
           <a class="sidebar-link" href="./aprender.html#laboratorios" title="Laboratórios"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.4 8.8A2.1 2.1 0 0 0 6.4 21h11.2a2.1 2.1 0 0 0 1.8-3.2L14 9V3" /><path d="M7.6 15h8.8M9.4 12h5.2" /></svg></span><b>Laboratórios</b></a>
           <a class="sidebar-link" href="#achievements" title="Conquistas"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v3h4v2a5 5 0 0 1-5 5h-1v3h4v3H6v-3h4v-3H9a5 5 0 0 1-5-5V7h4z" /><path d="M8 7H5v2a4 4 0 0 0 4 4m7-6h3v2a4 4 0 0 1-4 4" /></svg></span><b>Conquistas</b></a>
         </nav>
-        <button class="sidebar-link sidebar-settings" id="sidebarSettings" type="button" title="Configurações"><span aria-hidden="true">⚙</span><b>Configurações</b></button>
+        <a class="sidebar-link sidebar-settings" id="sidebarSettings" href="./configuracoes.html" title="Configurações"><span aria-hidden="true">⚙</span><b>Configurações</b></a>
       </aside>
       <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="Fechar menu" hidden></button>
 
@@ -71,11 +75,11 @@
 
         <div class="dashboard-grid">
           <div class="primary-column">
-            <section class="panel continue-panel" aria-labelledby="continueTitle">
+            <section class="panel continue-panel" data-content-setting="education" aria-labelledby="continueTitle">
               <div class="panel-head"><div><p class="section-label">SEU PRÓXIMO PASSO</p><h2 id="continueTitle">Continue de onde parou</h2></div></div>
               <div id="currentCourse"></div>
             </section>
-            <section class="panel recommendations-panel" aria-labelledby="recommendationsTitle">
+            <section class="panel recommendations-panel" data-content-setting="recommendations" aria-labelledby="recommendationsTitle">
               <div class="panel-head">
                 <div><p class="section-label">FEITO PARA VOCÊ</p><h2 id="recommendationsTitle">Recomendados para você</h2></div>
                 <div class="carousel-actions"><a href="./aprender.html" class="text-link">Ver todos <span aria-hidden="true">→</span></a><button id="carouselPrevious" type="button" aria-label="Cursos anteriores">←</button><button id="carouselNext" type="button" aria-label="Próximos cursos">→</button></div>
@@ -85,7 +89,7 @@
           </div>
 
           <aside class="secondary-column" aria-label="Atualizações">
-            <section class="panel featured-panel" aria-labelledby="featuredTitle">
+            <section class="panel featured-panel" data-content-setting="news" aria-labelledby="featuredTitle">
               <div class="panel-head"><div><p class="section-label">FIQUE POR DENTRO</p><h2 id="featuredTitle">Em destaque</h2></div></div>
               <div id="featuredNews"></div>
             </section>
@@ -101,6 +105,17 @@
         </div>
       </main>
     </div>
+    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
+      <form method="dialog" class="logout-dialog-card">
+        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
+        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
+        <div class="logout-dialog-actions">
+          <button class="logout-cancel" value="cancel">Cancelar</button>
+          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="./scripts/account.js"></script>
     <script src="./scripts/home-data.js"></script>
     <script src="./scripts/home.js"></script>
   </body>
