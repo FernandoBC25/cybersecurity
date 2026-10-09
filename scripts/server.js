@@ -7,7 +7,8 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5502;
+const HOST = process.env.HOST || '0.0.0.0';
 const DATA_FILE = path.join(__dirname, 'news.json');
 const PROJECT_ROOT = path.join(__dirname, '..');
 
@@ -189,6 +190,45 @@ function sanitizeText(text) {
     .trim();
 }
 
+let translationQueue = Promise.resolve();
+
+function queueTranslation(chunk) {
+  const request = translationQueue.then(async () => {
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      try {
+        const response = await axios.get('https://translate.googleapis.com/translate_a/single', {
+          params: {
+            client: 'gtx',
+            sl: 'auto',
+            tl: 'pt-BR',
+            dt: 't',
+            q: chunk
+          },
+          timeout: 20000
+        });
+
+        const translated = response.data?.[0]
+          ?.map((segment) => segment[0])
+          .filter(Boolean)
+          .join('');
+
+        if (!translated) throw new Error('A tradução retornou um texto vazio.');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return translated;
+      } catch (error) {
+        if (error.response?.status !== 429 || attempt === 3) throw error;
+
+        const retryAfter = Number(error.response.headers['retry-after']) * 1000;
+        const backoff = 2000 * (2 ** attempt);
+        await new Promise(resolve => setTimeout(resolve, retryAfter || backoff));
+      }
+    }
+  });
+
+  translationQueue = request.catch(() => {});
+  return request;
+}
+
 async function translateText(text) {
   const original = String(text || '').trim();
   if (!original) return original;
@@ -206,24 +246,7 @@ async function translateText(text) {
 
   const translatedChunks = [];
   for (const chunk of chunks) {
-    const response = await axios.get('https://translate.googleapis.com/translate_a/single', {
-      params: {
-        client: 'gtx',
-        sl: 'auto',
-        tl: 'pt-BR',
-        dt: 't',
-        q: chunk
-      },
-      timeout: 20000
-    });
-
-    const translated = response.data?.[0]
-      ?.map((segment) => segment[0])
-      .filter(Boolean)
-      .join('');
-
-    if (!translated) throw new Error('A tradução retornou um texto vazio.');
-    translatedChunks.push(translated);
+    translatedChunks.push(await queueTranslation(chunk));
   }
 
   return translatedChunks.join(' ')
@@ -278,7 +301,16 @@ async function fetchArticleContent(url, fallback) {
       ? { content, fullText: true }
       : { content: fallback, fullText: false };
   } catch (error) {
-    console.log(`Erro ao buscar matéria completa: ${error.message}`);
+    const status = error.response?.status;
+    if ([403, 429, 503].includes(status)) {
+      let host = 'fonte';
+      try {
+        host = new URL(url).hostname;
+      } catch {}
+      console.warn(`${host} recusou o acesso à matéria (HTTP ${status}); usando o conteúdo RSS disponível.`);
+    } else {
+      console.log(`Erro ao buscar matéria completa: ${error.message}`);
+    }
     return { content: fallback, fullText: false };
   }
 }
@@ -299,6 +331,13 @@ async function translateNews(article) {
   return article;
 }
 
+function extractRssText(rawContent) {
+  const html = String(rawContent || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+  const $ = cheerio.load(html, null, false);
+  $('script, style, noscript').remove();
+  return sanitizeText($.root().text());
+}
+
 function normalizeNews(rawItems) {
   return rawItems
     .map((item) => {
@@ -313,12 +352,12 @@ function normalizeNews(rawItems) {
         link: item.link || '#',
         source: item.source || 'Fonte desconhecida',
         image: pickImageForNews(`${title} ${content}`),
-        publishedAt: formatRssDate(item.pubDate || item.publishedAt || new Date().toISOString())
+        publishedAt: formatRssDate(item.pubDate || item.publishedAt || new Date().toISOString()),
+        fullText: item.fullText === true
       };
     })
     .filter(Boolean)
-    .filter(isRelevant)
-    .slice(0, 8);
+    .filter(isRelevant);
 }
 
 async function fetchRssFeed(url) {
@@ -337,12 +376,16 @@ async function fetchRssFeed(url) {
     const block = match[1];
     const title = (block.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/s) || block.match(/<title>(.*?)<\/title>/s) || [null, ''])[1];
     const description = (block.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/s) || block.match(/<description>(.*?)<\/description>/s) || [null, ''])[1];
+    const encodedContent = (block.match(/<content:encoded(?:\s[^>]*)?>([\s\S]*?)<\/content:encoded>/i) || [null, ''])[1];
     const link = (block.match(/<link>(.*?)<\/link>/s) || [null, ''])[1];
     const pubDate = (block.match(/<pubDate>(.*?)<\/pubDate>/s) || [null, ''])[1];
+    const descriptionText = extractRssText(description);
+    const encodedText = extractRssText(encodedContent);
 
     return {
       title: title ? title.replace(/<!\[CDATA\[|\]\]>/g, '').trim() : '',
-      description: description ? description.replace(/<!\[CDATA\[|\]\]>/g, '').trim() : '',
+      description: encodedText.length > descriptionText.length ? encodedText : descriptionText,
+      fullText: encodedText.length >= 1000,
       link: link ? link.trim() : '#',
       pubDate: pubDate || new Date().toISOString(),
       source: 'RSS'
@@ -365,10 +408,13 @@ async function updateNews() {
       }
     }
 
-    const selectedNews = normalizeNews(allNews)
-      .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+    const selectedNews = normalizeNews(allNews
+      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate)))
+      .slice(0, 8);
     const filtered = await Promise.all(selectedNews.slice(0, 8).map(async (article) => {
-      const { content, fullText } = await fetchArticleContent(article.link, article.content);
+      const { content, fullText } = article.fullText
+        ? { content: article.content, fullText: true }
+        : await fetchArticleContent(article.link, article.content);
       article.description = content;
       article.content = content;
       article.fullText = fullText;
@@ -402,7 +448,7 @@ cron.schedule('0 6,12,18 * * *', () => {
   updateNews();
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT, HOST, async () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
   await updateNews();
 });
