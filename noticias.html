@@ -487,8 +487,9 @@
           .map(
             (article, index) => {
               const comments = Array.isArray(article.comments) ? article.comments : [];
-              const preview = summarizeText(article.content || article.description || '');
-              const category = getNewsCategory(article.title + ' ' + (article.content || article.description || ''));
+              const articleText = `${article.title} ${article.content || article.description || ''}`;
+              const preview = getReadableText(article.content || article.description || '');
+              const category = getNewsCategory(articleText);
 
               const summaryText = article.summary || preview;
 
