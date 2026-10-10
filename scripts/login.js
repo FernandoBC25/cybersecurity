@@ -16,7 +16,7 @@ function clearError() {
 }
 
 if (form) {
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearError();
 
@@ -28,15 +28,15 @@ if (form) {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const foundUser = users.find((user) => user.email === email && user.password === password);
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
-    if (!foundUser) {
-      showError('Email ou senha incorretos');
+    if (error) {
+      showError(error.message.includes('not confirmed') ? 'Confirme seu email antes de entrar' : 'Email ou senha incorretos');
       return;
     }
 
-    localStorage.setItem('user', JSON.stringify({ name: foundUser.name, email: foundUser.email }));
+    const foundUser = data.user;
+    localStorage.setItem('user', JSON.stringify({ name: foundUser.user_metadata?.name || '', email: foundUser.email }));
     window.location.href = './home.html';
   });
 }
