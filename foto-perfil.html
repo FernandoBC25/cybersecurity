@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Olho Digital | Foto de perfil</title>
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
+    <link rel="stylesheet" href="./css/configuracoes.css" />
+    <link rel="stylesheet" href="./css/foto-perfil.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container settings-nav">
+        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
+        <nav aria-label="Navegação principal">
+          <a href="./home.html">Início</a>
+          <a href="./aprender.html">Aprender</a>
+          <a href="./noticias.html">Notícias</a>
+          <a href="./comunidade.html">Comunidade</a>
+        </nav>
+        <div class="profile-menu-wrap settings-profile-menu">
+          <button class="profile-btn" id="profileToggle" type="button" aria-label="Abrir opções do perfil" aria-expanded="false" aria-controls="profileDropdown">
+            <span class="avatar" data-profile-avatar>U</span>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
+            <a role="menuitem" href="./atividade.html">Meu perfil</a>
+            <a role="menuitem" href="./configuracoes.html">Configurações</a>
+            <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="avatar-page">
+      <a class="back-link" href="./home.html">← Voltar ao início</a>
+      <p class="eyebrow">PERSONALIZE SUA CONTA</p>
+      <h1>Foto de perfil</h1>
+      <p class="avatar-intro">Escolha um avatar do Olho Digital ou envie uma imagem sua.</p>
+
+      <section class="avatar-card" aria-labelledby="galleryTitle">
+        <h2 id="galleryTitle">Avatares do Olho Digital</h2>
+        <div id="avatarGallery" class="avatar-gallery" role="group" aria-label="Escolha um avatar"></div>
+      </section>
+
+      <section class="avatar-card upload-card" aria-labelledby="uploadTitle">
+        <h2 id="uploadTitle">Enviar imagem própria</h2>
+        <p>Formatos aceitos: JPG, PNG e WebP. Tamanho máximo: 5 MB. A imagem será ajustada para um recorte quadrado.</p>
+        <div class="upload-actions">
+          <label class="upload-button">Selecionar imagem
+            <input id="avatarFile" type="file" accept="image/jpeg,image/png,image/webp" />
+          </label>
+          <button type="button" class="cancel-upload" id="cancelUpload" hidden>Descartar seleção</button>
+        </div>
+      </section>
+
+      <section class="avatar-preview-card" aria-labelledby="previewTitle">
+        <h2 id="previewTitle">Prévia</h2>
+        <img id="avatarPreview" alt="Prévia da foto de perfil selecionada" />
+        <p id="avatarStatus" class="form-status" role="status" aria-live="polite"></p>
+        <div class="avatar-actions">
+          <a class="secondary-button" href="./home.html">Cancelar</a>
+          <button type="button" class="primary-button" id="saveAvatar" disabled>Confirmar foto</button>
+        </div>
+      </section>
+    </main>
+    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
+      <form method="dialog" class="logout-dialog-card">
+        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
+        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
+        <div class="logout-dialog-actions">
+          <button class="logout-cancel" value="cancel">Cancelar</button>
+          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="./scripts/account.js"></script>
+    <script src="./scripts/foto-perfil.js"></script>
+  </body>
+</html>

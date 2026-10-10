@@ -82,6 +82,46 @@ img {
   object-fit: contain;
 }
 
+.profile-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #b42318;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+.profile-dropdown button:hover { background: #f8fafc; }
+.logout-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  width: min(520px, calc(100% - 32px));
+  padding: 0;
+  border: 1px solid var(--slate-200);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--heading);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.32);
+}
+.logout-dialog::backdrop { background: rgba(15, 23, 42, 0.58); backdrop-filter: blur(3px); }
+.logout-dialog-card { padding: 26px; }
+.logout-dialog-card h2 { margin: 0; color: var(--heading); font-size: 1.3rem; }
+.logout-dialog-card p { margin: 13px 0 22px; color: var(--slate-600); font-size: 0.92rem; line-height: 1.6; }
+.logout-dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; }
+.logout-dialog-actions button { min-height: 42px; padding: 0 16px; border: 1px solid var(--slate-300); border-radius: 8px; background: #fff; color: var(--heading); font-weight: 700; cursor: pointer; }
+.logout-dialog-actions .logout-confirm { border-color: #b42318; background: #b42318; color: #fff; }
+body.theme-dark .profile-dropdown button { color: #fca5a5 !important; }
+body.theme-dark .profile-dropdown button:hover { background: #24344e !important; }
+body.theme-dark .logout-dialog { border-color: #334155; background: #172338; color: #e2e8f0; }
+body.theme-dark .logout-dialog-card h2 { color: #f8fafc; }
+body.theme-dark .logout-dialog-card p { color: #cbd5e1; }
+body.theme-dark .logout-dialog-actions button:not(.logout-confirm) { border-color: #475569; background: #24344e; color: #e2e8f0; }
 .main-nav {
   display: flex;
   gap: 22px;
@@ -101,17 +141,28 @@ img {
 .search-box {
   display: flex;
   align-items: center;
+  gap: 8px;
+  min-width: 0;
   background: var(--white);
   border: 1px solid var(--slate-300);
   border-radius: 12px;
   padding: 8px 12px;
 }
 
+.search-box > span {
+  flex: 0 0 auto;
+  color: var(--slate-600);
+  line-height: 1;
+}
+
 .search-box input {
+  width: 100%;
   border: none;
   background: transparent;
   outline: none;
-  min-width: 180px;
+  min-width: 0;
+  max-width: 240px;
+  color: var(--text);
 }
 
 .icon-btn,
@@ -129,15 +180,47 @@ img {
 }
 
 .profile-btn {
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
   width: 38px;
   height: 38px;
+  padding: 2px;
+  overflow: hidden;
   border-radius: 50%;
   background: #2563eb;
   color: var(--white);
   font-weight: 700;
 }
+
+.profile-btn .profile-avatar {
+  width: 34px;
+  height: 34px;
+}
+
+.profile-btn .profile-avatar-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile-menu-wrap { position: relative; }
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 40;
+  width: 205px;
+  padding: 8px;
+  border: 1px solid var(--slate-200);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+}
+.profile-dropdown[hidden] { display: none; }
+.profile-dropdown a { display: block; padding: 10px 12px; border-radius: 6px; color: var(--heading); font-size: 0.85rem; text-decoration: none; }
+.profile-dropdown a:hover { background: #f8fafc; }
+.search-hidden { display: none !important; }
 
 .hero {
   background: #eff6ff;
@@ -810,10 +893,12 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .main-nav,
-  .search-box {
-    display: none;
-  }
+  .main-nav { display: none; }
+  .nav-wrap { flex-wrap: wrap; padding: 10px 0; }
+  .nav-left { flex: 1 1 auto; }
+  .nav-right { flex: 1 1 100%; order: 1; }
+  .search-box { display: flex; flex: 1; }
+  .search-box input { max-width: none; }
 
   .hero-content,
   .cards-grid,
@@ -833,6 +918,9 @@ footer {
     grid-template-columns: 1fr;
     display: grid;
   }
+  .nav-wrap { display: flex; }
+  .nav-right { display: flex; }
+  .search-box { display: flex; }
 
   .nav-links {
     gap: 10px;

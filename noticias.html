@@ -15,13 +15,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/noticias.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
   </head>
   <body>
     <header class="topbar">
       <div class="container nav-wrap">
         <div class="nav-left">
           <a href="./home.html" class="brand">
-            <img src="./assets/logo.png" alt="Olho Digital" />
+            <img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="Olho Digital" />
             <span>Olho Digital</span>
           </a>
 
@@ -34,13 +35,23 @@
         </div>
 
         <div class="nav-right">
-          <div class="search-box">
-            <span>⌕</span>
-            <input type="text" placeholder="Buscar notícias..." />
-          </div>
+          <label class="search-box" for="newsSearch">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="newsSearch" placeholder="Buscar notícias..." />
+          </label>
 
           <button class="icon-btn" aria-label="Notificações">🔔</button>
-          <button class="profile-btn" id="profileToggle">U</button>
+          <div class="profile-menu-wrap">
+            <button class="profile-btn" id="profileToggle" type="button" aria-label="Perfil" aria-expanded="false" aria-controls="profileDropdown">
+              <span class="profile-avatar" data-profile-avatar>U</span>
+            </button>
+            <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
+              <a role="menuitem" href="./atividade.html">Meu perfil</a>
+              <a role="menuitem" href="./configuracoes.html">Configurações</a>
+              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
+              <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -69,7 +80,7 @@
     </section>
 
     <main>
-      <section id="recentes" class="section">
+      <section id="recentes" class="section" data-content-setting="news">
         <div class="section-title">
           <div class="nav-links">
             <a href="#recentes">Recentes</a>
@@ -82,7 +93,7 @@
         <div class="cards-grid" id="cardsGrid"></div>
       </section>
 
-      <section class="highlight-banner">
+      <section class="highlight-banner" data-content-setting="alerts">
         <div>
           <p class="eyebrow">Importante</p>
           <h2>Alertas de segurança online ganham espaço nas escolas</h2>
@@ -90,7 +101,7 @@
         <a class="btn-secondary" href="#importantes">Veja mais</a>
       </section>
 
-      <section id="historicas" class="section">
+      <section id="historicas" class="section" data-content-setting="news">
         <div class="section-title">
           <p class="eyebrow">Histórias e marcos</p>
           <h2>Notícias históricas e relevantes</h2>
@@ -99,7 +110,7 @@
         <div class="cards-grid" id="cardsGridHistoricas"></div>
       </section>
 
-      <section id="importantes" class="section">
+      <section id="importantes" class="section" data-content-setting="news">
         <div class="section-title">
           <p class="eyebrow">Foco da semana</p>
           <h2>Temas importantes para acompanhar</h2>
@@ -145,8 +156,34 @@
         <div id="modalContent"></div>
       </div>
     </div>
+    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
+      <form method="dialog" class="logout-dialog-card">
+        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
+        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
+        <div class="logout-dialog-actions">
+          <button class="logout-cancel" value="cancel">Cancelar</button>
+          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
+        </div>
+      </form>
+    </dialog>
 
+    <script src="./scripts/account.js"></script>
     <script>
+      const newsUser = OlhoDigitalAccount.requireAuthentication();
+      const newsSettings = newsUser ? OlhoDigitalAccount.getEffectiveSettings(newsUser) : OlhoDigitalAccount.defaults;
+      OlhoDigitalAccount.applySettings(newsSettings);
+      if (newsUser) OlhoDigitalAccount.updateProfileAvatars(newsUser);
+      OlhoDigitalAccount.initProfileMenu();
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        document.getElementById('profileDropdown').hidden = true;
+        document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
+        document.getElementById('logoutDialog').showModal();
+      });
+      document.getElementById('confirmLogout').addEventListener('click', () => {
+        localStorage.removeItem('user');
+        sessionStorage.clear();
+        window.location.replace('./login.html');
+      });
       const recentesArticles = [
         {
           title: 'Escolas investem em alfabetização digital para reduzir riscos online',
@@ -346,6 +383,18 @@
         return 'Atualidades';
       }
 
+      function getContentTopics(text) {
+        const value = String(text || '').toLocaleLowerCase('pt-BR');
+        const topics = [];
+        if (/(vulnerab|zero.day|cve-|exploit)/i.test(value)) topics.push('vulnerabilities');
+        if (/(rede[s]?|network|wi.fi|roteador|firewall|infraestrutura)/i.test(value)) topics.push('networks');
+        if (/(malware|ransomware|trojan|cavalo de troia|vírus|virus)/i.test(value)) topics.push('malware');
+        if (/(phishing|golpe|fraude|scam|engenharia social)/i.test(value)) topics.push('phishing');
+        if (/(privacidade|dados pessoais|vazamento|lgpd)/i.test(value)) topics.push('privacy');
+        if (/(inteligência artificial|inteligencia artificial|machine learning|\bia\b)/i.test(value)) topics.push('artificialIntelligence');
+        return topics;
+      }
+
       function normalizeArticle(article) {
         return {
           ...article,
@@ -361,6 +410,21 @@
       let importantes = importantesArticles.map(normalizeArticle);
       let activeArticleIndex = null;
       let activeArticleCategory = 'recentes';
+      function recordNewsInteraction(article, text, kind) {
+        if (!newsUser) return;
+        try {
+          OlhoDigitalAccount.trackActivity(newsUser, 'news', 'comments', {
+            id: `news-${activeArticleCategory}-${Date.now()}`,
+            title: article.title,
+            text,
+            kind,
+            category: activeArticleCategory
+          });
+        } catch (error) {
+          console.error('Não foi possível salvar sua atividade de notícias neste navegador.', error);
+          window.alert('Sua interação não pôde ser salva neste navegador. Verifique o espaço disponível.');
+        }
+      }
       const modal = document.getElementById('articleModal');
       const modalBackdrop = document.getElementById('modalBackdrop');
       const modalContent = document.getElementById('modalContent');
@@ -368,6 +432,17 @@
       const cardsGrid = document.getElementById('cardsGrid');
       const cardsGridHistoricas = document.getElementById('cardsGridHistoricas');
       const cardsGridImportantes = document.getElementById('cardsGridImportantes');
+      const newsSearch = document.getElementById('newsSearch');
+
+      function filterNewsCards() {
+        const query = newsSearch.value.trim().toLocaleLowerCase('pt-BR');
+        document.querySelectorAll('.news-card').forEach((card) => {
+          card.classList.toggle('search-hidden', Boolean(query) && !card.textContent.toLocaleLowerCase('pt-BR').includes(query));
+        });
+        document.querySelectorAll('.highlight-banner').forEach((banner) => {
+          banner.classList.toggle('search-hidden', Boolean(query) && !banner.textContent.toLocaleLowerCase('pt-BR').includes(query));
+        });
+      }
 
       function getReadableText(text) {
         const cleaned = String(text || '')
@@ -484,17 +559,24 @@
 
       function renderCardsForGrid(articlesArray, gridElement) {
         gridElement.innerHTML = articlesArray
+          .map((article, index) => ({ article, index }))
+          .filter(({ article }) => {
+            const text = `${article.title} ${article.content || article.description || ''}`;
+            const topics = getContentTopics(text);
+            return !topics.length || topics.some((topic) => newsSettings.content[topic]);
+          })
           .map(
-            (article, index) => {
+            ({ article, index }) => {
               const comments = Array.isArray(article.comments) ? article.comments : [];
               const articleText = `${article.title} ${article.content || article.description || ''}`;
               const preview = getReadableText(article.content || article.description || '');
               const category = getNewsCategory(articleText);
+              const topics = getContentTopics(articleText).join(' ');
 
               const summaryText = article.summary || preview;
 
               return `
-                <article class="news-card">
+                <article class="news-card" data-content-topics="${topics}">
                   <div class="news-card-media">
                     <img src="${article.image || getImageForText(article.title)}" alt="${article.title}" />
                     <span class="news-tag">${category}</span>
@@ -519,6 +601,7 @@
         renderCardsForGrid(articles, cardsGrid);
         renderCardsForGrid(historicas, cardsGridHistoricas);
         renderCardsForGrid(importantes, cardsGridImportantes);
+        filterNewsCards();
       }
 
       async function loadAutoNews() {
@@ -661,6 +744,7 @@
             article.comments = Array.isArray(article.comments) ? article.comments : [];
             article.comments.unshift({ author: 'Você', text, replies: [] });
             setActiveArticle(article);
+            recordNewsInteraction(article, text, 'Comentário');
             input.value = '';
             renderCards();
             renderArticle();
@@ -705,6 +789,7 @@
 
             currentArticle.comments[commentIndex].replies.push({ author: 'Você', text });
             setActiveArticle(currentArticle);
+            recordNewsInteraction(currentArticle, text, 'Resposta');
             textarea.value = '';
             renderCards();
             renderArticle();
@@ -757,6 +842,7 @@
         }
       });
 
+      newsSearch.addEventListener('input', filterNewsCards);
       renderCards();
       loadAutoNews();
     </script>
