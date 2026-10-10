@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Medalha Guardião Digital">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="50%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="90" fill="#edf6ff"/>
+  <circle cx="110" cy="110" r="78" fill="url(#shieldGrad)" stroke="#1d4ed8" stroke-width="8"/>
+  <path d="M110 50l38 14v30c0 29-20 52-38 66-18-14-38-37-38-66V64l38-14Z" fill="#eff6ff" stroke="#dbeafe" stroke-width="6"/>
+  <path d="M92 108h36M110 90v36" stroke="#1d4ed8" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="110" cy="101" r="10" fill="#93c5fd"/>
+  <path d="M76 62c11-7 23-10 34-10s23 3 34 10" fill="none" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Medalha Olho Atento">
+  <defs>
+    <linearGradient id="eyeGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="50%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="90" fill="#edf6ff"/>
+  <circle cx="110" cy="110" r="78" fill="url(#eyeGrad)" stroke="#1d4ed8" stroke-width="8"/>
+  <path d="M52 110c12-28 36-42 58-42s46 14 58 42c-12 28-36 42-58 42s-46-14-58-42Z" fill="#eff6ff" opacity="0.96" stroke="#dbeafe" stroke-width="4"/>
+  <circle cx="110" cy="110" r="23" fill="#93c5fd"/>
+  <circle cx="110" cy="110" r="9" fill="#1d4ed8"/>
+  <path d="M72 62l12 12M148 62l-12 12M52 148l14-14M168 148l-14-14" stroke="#eff6ff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M42 42h8v8M170 42h8v8M42 170h8v8M170 170h8v8" fill="none" stroke="#0f172a" stroke-opacity="0.55" stroke-width="4"/>
+</svg>

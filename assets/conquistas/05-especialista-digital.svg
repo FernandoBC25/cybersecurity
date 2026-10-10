@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Medalha Especialista Digital">
+  <defs>
+    <linearGradient id="goldMedal" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="45%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="90" fill="#fef3c7"/>
+  <circle cx="110" cy="110" r="78" fill="url(#goldMedal)" stroke="#a16207" stroke-width="8"/>
+  <path d="M110 50 L126 84 L164 86 L136 110 L146 146 L110 125 L74 146 L84 110 L56 86 L94 84 Z" fill="#fff7ed" stroke="#c2410c" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M72 150h76l-6 24H78l-6-24Z" fill="#fff7ed" opacity="0.9"/>
+  <circle cx="110" cy="110" r="16" fill="#fef3c7" opacity="0.9"/>
+</svg>

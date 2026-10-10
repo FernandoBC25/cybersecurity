@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Olho Digital | Minhas Conquistas</title>
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/conquistas.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
+  </head>
+  <body class="pagina-conquistas">
+    <header class="topbar">
+      <div class="container nav-wrap">
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+          <span></span><span></span><span></span>
+        </button>
+        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
+        <label class="search-box" for="searchInput"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar conteúdos, cursos, notícias..." id="searchInput" /></label>
+        <div class="nav-right">
+          <div class="popover-wrap" data-content-setting="alerts">
+            <button class="icon-btn" id="notificationToggle" type="button" aria-label="Notificações" aria-expanded="false" aria-controls="notificationDropdown">🔔</button>
+            <section class="notification-dropdown" id="notificationDropdown" aria-label="Notificações" hidden>
+              <strong>Notificações</strong>
+              <p>O Olho Digital ainda não possui um serviço de envio de notificações.</p>
+            </section>
+          </div>
+          <div class="profile-menu-wrap">
+            <button class="profile-btn" id="profileToggle" type="button" aria-expanded="false" aria-controls="profileDropdown">
+              <span class="avatar" id="profileAvatar" data-profile-avatar>F</span><span class="profile-name" id="profileName">Fernando</span><span class="profile-chevron" aria-hidden="true">⌄</span>
+            </button>
+            <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
+              <a role="menuitem" href="./atividade.html">Meu perfil</a>
+              <a role="menuitem" href="./configuracoes.html">Configurações</a>
+              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
+              <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar" aria-label="Navegação">
+        <div class="sidebar-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" focusable="false">
+            <path d="M3 16c3.1-5.1 7.4-7.7 13-7.7s9.9 2.6 13 7.7c-3.1 5.1-7.4 7.7-13 7.7S6.1 21.1 3 16Z" />
+            <circle cx="16" cy="16" r="4.4" />
+            <circle class="eye-pupil" cx="16" cy="16" r="1.7" />
+          </svg>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="sidebar-link" href="./home.html" title="Início"><span aria-hidden="true"><svg class="house-icon" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5.5 8.5V21h13V8.5M9.5 21v-6h5v6" /></svg></span><b>Início</b></a>
+          <a class="sidebar-link" href="./aprender.html" title="Aprender"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6.5C9.2 4.7 6.2 4.7 3.5 5.8v13c2.7-1.1 5.7-1.1 8.5.7m0-13c2.8-1.8 5.8-1.8 8.5-.7v13c-2.7-1.1-5.7-1.1-8.5.7m0-13v13" /></svg></span><b>Aprender</b></a>
+          <a class="sidebar-link" href="./noticias.html" title="Notícias"><span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M8 4v16M11 9h7M11 13h7M11 17h4" /></svg></span><b>Notícias</b></a>
+          <a class="sidebar-link" href="./comunidade.html" title="Comunidade"><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" /><path d="M3.5 19v-1.5a5.5 5.5 0 0 1 11 0V19zM16 5.5a3 3 0 0 1 0 5.8M17 14a4.5 4.5 0 0 1 3.5 4.4V19H17" /></svg></span><b>Comunidade</b></a>
+          <a class="sidebar-link" href="./aprender.html#laboratorios" title="Laboratórios"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.4 8.8A2.1 2.1 0 0 0 6.4 21h11.2a2.1 2.1 0 0 0 1.8-3.2L14 9V3" /><path d="M7.6 15h8.8M9.4 12h5.2" /></svg></span><b>Laboratórios</b></a>
+          <a class="sidebar-link is-active" href="./conquistas.html" aria-current="page" title="Conquistas"><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8v3h4v2a5 5 0 0 1-5 5h-1v3h4v3H6v-3h4v-3H9a5 5 0 0 1-5-5V7h4z" /><path d="M8 7H5v2a4 4 0 0 0 4 4m7-6h3v2a4 4 0 0 1-4 4" /></svg></span><b>Conquistas</b></a>
+        </nav>
+        <a class="sidebar-link sidebar-settings" id="sidebarSettings" href="./configuracoes.html" title="Configurações"><span aria-hidden="true">⚙</span><b>Configurações</b></a>
+      </aside>
+      <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="Fechar menu" hidden></button>
+
+      <main class="page-shell achievements-page">
+        <section class="achievement-banner" aria-labelledby="conquistasTitle">
+          <div class="achievement-banner-copy">
+            <p class="eyebrow">MINHAS CONQUISTAS</p>
+            <h1 id="conquistasTitle">Minhas Conquistas</h1>
+            <p>Cada passo torna você mais seguro no mundo digital.</p>
+          </div>
+          <div class="achievement-banner-note">
+            <p>Pequenas atitudes, grandes conquistas.</p>
+            <small>Continue aprendendo e desbloqueando novas conquistas.</small>
+          </div>
+          <div class="achievement-banner-art" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <defs>
+                <linearGradient id="trophyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#dbeafe" />
+                  <stop offset="100%" stop-color="#60a5fa" />
+                </linearGradient>
+              </defs>
+              <path d="M35 20h50v14c0 18-14 30-35 30S35 52 35 34V20Z" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+              <path d="M26 20h-6a12 12 0 0 0 12 12h2m56-12h6a12 12 0 0 1-12 12h-2" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+              <path d="M48 54h24l5 32H43l5-32Z" fill="url(#trophyGradient)" stroke="#1d4ed8" stroke-width="3"/>
+              <path d="M42 88h36v8a6 6 0 0 1-6 6H48a6 6 0 0 1-6-6v-8Z" fill="#1d4ed8"/>
+              <path d="M30 66h60" stroke="#1d4ed8" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="60" cy="32" r="8" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+              <path d="M60 18v7M60 49v7M45 32h7M68 32h7M48 24l5 5M72 24l-5 5M48 40l5-5M72 40l-5-5" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </section>
+
+        <section class="achievement-overview" aria-label="Resumo do progresso">
+          <article class="achievement-card-summary progress-summary">
+            <div class="circular-progress" id="overallProgress" style="--progress: 0;">
+              <span id="progressValue">0%</span>
+            </div>
+          </article>
+
+          <article class="achievement-card-summary next-summary">
+            <h2>Próxima conquista</h2>
+            <div id="nextAchievement" aria-live="polite"></div>
+          </article>
+        </section>
+
+        <section class="achievement-gallery" aria-labelledby="galleryTitle">
+          <div class="gallery-header">
+            <h2 id="galleryTitle">Todas as conquistas</h2>
+            <span class="achievement-counter" id="achievementCounter">0/10</span>
+          </div>
+
+          <div class="filter-bar" role="tablist" aria-label="Filtrar conquistas">
+            <button class="filter-btn is-selected" type="button" data-filter="all" aria-pressed="true">Todas</button>
+            <button class="filter-btn" type="button" data-filter="desbloqueadas" aria-pressed="false">Desbloqueadas</button>
+            <button class="filter-btn" type="button" data-filter="bloqueadas" aria-pressed="false">Bloqueadas</button>
+            <button class="filter-btn" type="button" data-filter="aprendizagem" aria-pressed="false">Aprendizagem</button>
+            <button class="filter-btn" type="button" data-filter="laboratorios" aria-pressed="false">Laboratórios</button>
+          </div>
+
+          <div class="achievement-grid" id="achievementGrid" aria-live="polite"></div>
+          <p id="achievementEmpty" class="empty-state" hidden>Nenhuma conquista para este filtro no momento.</p>
+        </section>
+      </main>
+    </div>
+
+    <div class="achievement-modal-backdrop" id="achievementModal" hidden>
+      <div class="achievement-modal" id="achievementModalDialog" role="dialog" aria-modal="true" aria-labelledby="achievementModalTitle">
+        <button class="modal-close-btn" id="closeAchievementModal" type="button" aria-label="Fechar detalhes da conquista">×</button>
+        <div class="achievement-modal-content">
+          <div class="achievement-modal-media" id="achievementModalMedia"></div>
+          <div class="achievement-modal-body">
+            <p class="modal-category" id="achievementModalCategory"></p>
+            <h3 id="achievementModalTitle"></h3>
+            <p id="achievementModalDescription"></p>
+
+            <dl class="achievement-modal-meta">
+              <div>
+                <dt>Requisito</dt>
+                <dd id="achievementModalRequirement"></dd>
+              </div>
+              <div>
+                <dt>Estado</dt>
+                <dd id="achievementModalStatus"></dd>
+              </div>
+              <div id="achievementModalProgressGroup">
+                <dt>Progresso</dt>
+                <dd id="achievementModalProgress"></dd>
+              </div>
+              <div id="achievementModalDateGroup">
+                <dt>Desbloqueada em</dt>
+                <dd id="achievementModalDate"></dd>
+              </div>
+            </dl>
+
+            <p class="modal-motivation" id="achievementModalMotivation"></p>
+            <div class="modal-actions">
+              <button class="button-primary" type="button" id="confirmCloseModal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
+      <form method="dialog" class="logout-dialog-card">
+        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
+        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
+        <div class="logout-dialog-actions">
+          <button class="logout-cancel" value="cancel">Cancelar</button>
+          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./scripts/account.js"></script>
+    <script src="./scripts/conquistas.js"></script>
+  </body>
+</html>

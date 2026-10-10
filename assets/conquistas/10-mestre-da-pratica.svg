@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Medalha Mestre da Prática">
+  <defs>
+    <linearGradient id="computerGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="55%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="110" cy="110" r="90" fill="#edf6ff"/>
+  <circle cx="110" cy="110" r="78" fill="url(#computerGrad)" stroke="#1d4ed8" stroke-width="8"/>
+  <rect x="64" y="74" width="92" height="62" rx="10" fill="#eff6ff" stroke="#dbeafe" stroke-width="5"/>
+  <path d="M82 144h56l12 18H70l12-18Z" fill="#e0f2fe" stroke="#dbeafe" stroke-width="5"/>
+  <path d="M88 90l12 12 18-20 18 18 12-12" fill="none" stroke="#1d4ed8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round">
+    <circle cx="152" cy="86" r="14"/>
+    <path d="M152 52v8M152 116v8M118 86h8M186 86h8M127 63l6 6M173 109l6 6M127 109l6-6M173 63l6-6"/>
+  </g>
+</svg>
