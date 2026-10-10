@@ -420,6 +420,7 @@ main {
   margin-bottom: 10px;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.7;
@@ -551,6 +552,34 @@ body.modal-open {
   line-height: 1.8;
   color: var(--text);
   text-align: justify;
+}
+
+.full-article {
+  margin-bottom: 16px;
+  border: 1px solid var(--blue-100);
+  border-radius: 10px;
+}
+
+.full-article summary {
+  padding: 12px 14px;
+  color: var(--blue-700);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.full-article[open] summary {
+  border-bottom: 1px solid var(--blue-100);
+}
+
+.full-article .modal-text {
+  padding: 14px;
+}
+
+.source-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--teal-700);
+  font-weight: 700;
 }
 
 .article-stats {
