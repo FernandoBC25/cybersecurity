@@ -5,18 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const quizFeedback = document.getElementById('quizFeedback');
   const evaluationForm = document.getElementById('evaluationForm');
   const evaluationFeedback = document.getElementById('evaluationFeedback');
+  const evaluationComment = evaluationForm?.querySelector('#course-comment');
+  const evaluationCommentLabel = evaluationForm?.querySelector('label[for="course-comment"]');
   const progressValue = document.querySelector('.progress-heading span');
   const progressBar = document.querySelector('.progress-track span');
   const user = JSON.parse(localStorage.getItem('user') || 'null');
   const pageProgress = Number(document.body.dataset.courseProgress || 0);
-  const storedProgress = Number(localStorage.getItem('fundamentosProgress') || 0);
-  const savedProgress = storedProgress >= 100 ? 100 : storedProgress >= 75 ? 75 : storedProgress >= 50 ? 66 : storedProgress > 0 ? 33 : 0;
-  const currentProgress = Math.max(pageProgress, savedProgress);
+  const currentProgress = pageProgress;
 
   if (!user) {
-    window.location.href = '../login.html';
+    window.location.href = '../../../login.html';
     return;
   }
+
+  localStorage.setItem('fundamentosStarted', 'true');
+  OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
 
   if (profileToggle) {
     profileToggle.textContent = (user.name || 'U').charAt(0).toUpperCase();
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (advanceCourse && window.location.pathname.endsWith('/avaliacao.html')) {
-    advanceCourse.dataset.next = '../aprender.html?curso=concluido';
+    advanceCourse.dataset.next = '../../../aprender.html?curso=concluido';
     advanceCourse.disabled = true;
   }
 
@@ -74,4 +77,25 @@ document.addEventListener('DOMContentLoaded', () => {
     evaluationFeedback.classList.add('success');
     advanceCourse.disabled = false;
   });
+
+  const updateEvaluationCommentRequirement = () => {
+    const selectedRating = evaluationForm.querySelector('input[name="course-rating"]:checked');
+    const isRequired = selectedRating && Number(selectedRating.value) < 4;
+    evaluationComment.required = Boolean(isRequired);
+    evaluationComment.setAttribute('aria-required', String(Boolean(isRequired)));
+    evaluationCommentLabel.textContent = isRequired
+      ? 'Informe o motivo da sua avaliação (obrigatório)'
+      : 'Deixe um comentário (opcional)';
+    evaluationComment.placeholder = isRequired
+      ? 'Explique o motivo da nota...'
+      : 'Conte o que achou do curso...';
+    evaluationComment.setCustomValidity(
+      isRequired && !evaluationComment.value.trim() ? 'Escreva o motivo da sua avaliação.' : ''
+    );
+  };
+
+  evaluationForm?.querySelectorAll('input[name="course-rating"]').forEach((input) => {
+    input.addEventListener('change', updateEvaluationCommentRequirement);
+  });
+  evaluationComment?.addEventListener('input', updateEvaluationCommentRequirement);
 });

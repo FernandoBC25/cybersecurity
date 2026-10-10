@@ -191,6 +191,10 @@ body.theme-dark .learning-logout-actions button:not(.learning-logout-confirm) { 
 .completion-notice span { color: #166534; }
 .course-rating { min-height: 20px; margin: 0 0 12px; color: var(--slate-600); font-size: 0.88rem; }
 .course-rating strong { color: #f59e0b; letter-spacing: 2px; }
+.course-completion { margin: 0 0 8px; color: #166534; font-size: 0.88rem; font-weight: 700; }
+.course-completion.is-incomplete { color: #b42318; }
+body.theme-dark .course-completion { color: #86efac; }
+body.theme-dark .course-completion.is-incomplete { color: #fca5a5; }
 .page-header { margin-bottom: 26px; }
 .page-header h1 {
   margin: 0;
@@ -247,6 +251,7 @@ body.theme-dark .learning-logout-actions button:not(.learning-logout-confirm) { 
   box-shadow: var(--shadow);
 }
 .course-banner {
+  min-height: 116px;
   padding: 18px 18px 20px;
   color: var(--white);
 }

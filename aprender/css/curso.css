@@ -80,6 +80,24 @@
 .primary-btn { display: inline-block; text-align: center; }
 .primary-btn:disabled { cursor: not-allowed; opacity: 0.55; }
 
+body.theme-dark {
+  --blue-900: #f8fafc;
+  --blue-100: #24344e;
+  --slate-200: #334155;
+  --slate-300: #475569;
+  --slate-600: #cbd5e1;
+  --slate-800: #e2e8f0;
+  --white: #172338;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  color-scheme: dark;
+  background: linear-gradient(180deg, #0f172a 0%, #111c30 100%);
+  color: #e2e8f0;
+}
+body.theme-dark .topbar { background: #111c30; border-color: #334155; }
+body.theme-dark .search-box { background: #111c30; }
+body.theme-dark .principle-card { background: #24344e; }
+body.theme-dark .cia-table tbody th { background: #1d2a3e; }
+
 @media (max-width: 760px) {
   .course-hero { padding: 24px; }
   .hero-shield { display: none; }
