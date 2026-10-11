@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Olho Digital | Minha atividade</title>
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
+    <link rel="stylesheet" href="./css/configuracoes.css" />
+    <link rel="stylesheet" href="./css/atividade.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container settings-nav">
+        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
+        <nav aria-label="Navegação principal">
+          <a href="./home.html">Início</a>
+          <a href="./aprender.html">Aprender</a>
+          <a href="./noticias.html">Notícias</a>
+          <a href="./comunidade.html">Comunidade</a>
+        </nav>
+        <div class="profile-menu-wrap settings-profile-menu">
+          <button class="profile-btn" id="profileToggle" type="button" aria-label="Abrir opções do perfil" aria-expanded="false" aria-controls="profileDropdown">
+            <span class="avatar" data-profile-avatar>U</span>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
+            <a role="menuitem" href="./configuracoes.html">Configurações</a>
+            <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
+            <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="settings-page">
+      <div class="settings-heading">
+        <a class="back-link" href="./home.html">← Voltar ao início</a>
+        <p class="eyebrow">SEU PERFIL</p>
+        <h1>Minha atividade</h1>
+        <p>Acompanhe em um só lugar o que você curtiu, comentou, salvou e está aprendendo.</p>
+      </div>
+
+      <section class="activity-profile" aria-label="Conta atual">
+        <span class="avatar activity-profile-avatar" data-profile-avatar>U</span>
+        <div>
+          <h2 id="activityUserName"></h2>
+          <p id="activityUserEmail"></p>
+        </div>
+        <a class="activity-profile-settings" href="./configuracoes.html">Configurações da conta</a>
+      </section>
+
+      <section class="settings-card activity-card" aria-labelledby="activityTitle">
+        <div class="activity-card-heading">
+          <div>
+            <h2 id="activityTitle">Sua atividade por área</h2>
+            <p class="settings-help">Selecione uma área para consultar seus registros. Eles ficam associados à sua conta neste navegador.</p>
+          </div>
+          <p class="activity-local-note">Visível somente neste navegador</p>
+        </div>
+        <div class="activity-tabs" role="tablist" aria-label="Atividade por área">
+          <button type="button" role="tab" id="activityTabCommunity" aria-controls="activityCommunity" aria-selected="true" data-activity-tab>
+            <span aria-hidden="true">💬</span><span>Comunidade</span><span class="activity-tab-count" id="communityActivityCount">0</span>
+          </button>
+          <button type="button" role="tab" id="activityTabNews" aria-controls="activityNews" aria-selected="false" data-activity-tab tabindex="-1">
+            <span aria-hidden="true">📰</span><span>Notícias</span><span class="activity-tab-count" id="newsActivityCount">0</span>
+          </button>
+          <button type="button" role="tab" id="activityTabLearning" aria-controls="activityLearning" aria-selected="false" data-activity-tab tabindex="-1">
+            <span aria-hidden="true">🎓</span><span>Aprender</span><span class="activity-tab-count" id="learningActivityCount">0</span>
+          </button>
+        </div>
+        <p class="activity-selection-hint" id="activitySelectionHint" aria-live="polite"></p>
+        <div id="activityCommunity" class="activity-panel" role="tabpanel" aria-labelledby="activityTabCommunity" tabindex="0">
+          <div class="activity-columns">
+            <section class="activity-group"><h3>Publicações curtidas</h3><p>Publicações da comunidade que você curtiu.</p><ul id="communityLikes" class="activity-list"></ul></section>
+            <section class="activity-group"><h3>Publicações salvas</h3><p>Publicações guardadas para consultar depois.</p><ul id="communitySaves" class="activity-list"></ul></section>
+            <section class="activity-group"><h3>Comentários e respostas</h3><p>Conversas em que você participou.</p><ul id="communityComments" class="activity-list"></ul></section>
+          </div>
+        </div>
+        <div id="activityNews" class="activity-panel" role="tabpanel" aria-labelledby="activityTabNews" tabindex="0" hidden>
+          <h3>Notícias comentadas</h3>
+          <p class="activity-panel-description">Veja as notícias em que você deixou um comentário ou uma resposta.</p>
+          <ul id="newsComments" class="activity-list"></ul>
+        </div>
+        <div id="activityLearning" class="activity-panel" role="tabpanel" aria-labelledby="activityTabLearning" tabindex="0" hidden>
+          <h3>Seu progresso nas videoaulas</h3>
+          <p class="activity-panel-description">Acompanhe as aulas que marcou como em andamento ou concluídas.</p>
+          <ul id="learningVideos" class="activity-list"></ul>
+        </div>
+      </section>
+    </main>
+    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
+      <form method="dialog" class="logout-dialog-card">
+        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
+        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
+        <div class="logout-dialog-actions">
+          <button class="logout-cancel" value="cancel">Cancelar</button>
+          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="./scripts/account.js"></script>
+    <script src="./scripts/atividade.js"></script>
+  </body>
+</html>
