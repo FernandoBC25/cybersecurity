@@ -222,53 +222,74 @@
             <h2>Explore tudo o que a plataforma oferece</h2>
           </div>
 
-          <div class="feature-grid">
-            <a class="feature-card" href="./aprender.html">
-              <div class="feature-copy">
-                <span class="feature-icon blue" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
-                    <path d="M8 6h8M8 10h6"></path>
-                  </svg>
-                </span>
-                <h3>Aprender</h3>
-                <p>Acesse aulas, conteúdos e práticas para desenvolver seus conhecimentos em cibersegurança.</p>
-                <span class="feature-link">Explorar conteúdos <span aria-hidden="true">→</span></span>
+          <section class="fact-myths-section" aria-label="Você sabia? e mitos e verdades">
+            <article class="did-you-know-card">
+              <div class="did-you-know-copy">
+                <p class="fact-eyebrow">VOCÊ SABIA?</p>
+                <h2>Até sites falsos podem utilizar HTTPS.</h2>
+                <p class="fact-description">O cadeado no navegador indica que a conexão é criptografada, mas não garante que o site seja legítimo.</p>
+                <a class="primary-btn fact-cta" href="./register.html">Começar a aprender <span aria-hidden="true">→</span></a>
               </div>
-              <img class="feature-image" src="./assets/preview-aprender.svg" alt="Prévia ilustrada da tela de aprendizado" />
-            </a>
-            <a class="feature-card" href="./comunidade.html">
-              <div class="feature-copy">
-                <span class="feature-icon purple" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M16 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-3A4.5 4.5 0 0 0 4 18.5V20"></path>
-                    <circle cx="10" cy="7" r="3"></circle>
-                    <path d="M16 4.5a3 3 0 0 1 0 5.8M20 20v-1.5a4.5 4.5 0 0 0-3-4.2"></path>
-                  </svg>
-                </span>
-                <h3>Comunidade</h3>
-                <p>Conecte-se com outras pessoas, compartilhe experiências e aprenda em conjunto.</p>
-                <span class="feature-link">Participar da comunidade <span aria-hidden="true">→</span></span>
+              <svg class="https-illustration" viewBox="0 0 260 240" fill="none" aria-hidden="true">
+                <rect x="24" y="28" width="212" height="174" rx="16" fill="#fff" stroke="#bfdbfe" stroke-width="2" />
+                <path d="M24 47a19 19 0 0 1 19-19h174a19 19 0 0 1 19 19v15H24V47Z" fill="#dbeafe" />
+                <circle cx="43" cy="45" r="4" fill="#60a5fa" />
+                <circle cx="57" cy="45" r="4" fill="#93c5fd" />
+                <circle cx="71" cy="45" r="4" fill="#bfdbfe" />
+                <rect x="43" y="78" width="174" height="32" rx="8" fill="#eff6ff" />
+                <circle cx="60" cy="94" r="8" fill="#16a34a" />
+                <path d="m56 94 3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M76 91h51M76 98h34" stroke="#64748b" stroke-width="3" stroke-linecap="round" />
+                <rect x="43" y="126" width="112" height="8" rx="4" fill="#bfdbfe" />
+                <rect x="43" y="143" width="145" height="7" rx="3.5" fill="#e2e8f0" />
+                <rect x="43" y="159" width="92" height="7" rx="3.5" fill="#e2e8f0" />
+                <circle cx="190" cy="169" r="35" fill="#2563eb" />
+                <rect x="176" y="166" width="28" height="22" rx="5" fill="#fff" />
+                <path d="M182 166v-7a8 8 0 0 1 16 0v7" stroke="#fff" stroke-width="5" stroke-linecap="round" />
+                <circle cx="190" cy="176" r="2.5" fill="#2563eb" />
+                <path d="M190 178v4" stroke="#2563eb" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </article>
+
+            <div class="myths-column">
+              <header class="myths-heading">
+                <h2>Mitos e Verdades</h2>
+                <p>Desvende alguns dos mitos mais comuns sobre segurança digital.</p>
+              </header>
+              <div class="myth-list">
+                <article class="myth-card">
+                  <span class="myth-icon myth-icon-alert" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /><path d="M18 14v2m0 2h.01" /></svg>
+                  </span>
+                  <div class="myth-copy">
+                    <span class="myth-status truth">Verdade!</span>
+                    <h3>Golpistas podem se passar por bancos e empresas.</h3>
+                    <p>Mensagens falsas podem imitar comunicações oficiais para tentar roubar informações pessoais.</p>
+                  </div>
+                </article>
+                <article class="myth-card">
+                  <span class="myth-icon myth-icon-lock" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" /></svg>
+                  </span>
+                  <div class="myth-copy">
+                    <span class="myth-status myth">Mito!</span>
+                    <h3>Usar a mesma senha em vários sites é seguro.</h3>
+                    <p>Se uma conta for comprometida, outras contas que utilizam a mesma senha também ficam em risco.</p>
+                  </div>
+                </article>
+                <article class="myth-card">
+                  <span class="myth-icon myth-icon-wifi" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 9a15 15 0 0 1 19 0M5.5 12a10 10 0 0 1 13 0M8.5 15a5 5 0 0 1 7 0M12 19h.01" /></svg>
+                  </span>
+                  <div class="myth-copy">
+                    <span class="myth-status myth">Mito!</span>
+                    <h3>Todas as redes Wi-Fi públicas são seguras.</h3>
+                    <p>Algumas redes públicas podem ser falsas ou inseguras, expondo suas informações.</p>
+                  </div>
+                </article>
               </div>
-              <img class="feature-image" src="./assets/preview-comunidade.svg" alt="Prévia ilustrada da tela da comunidade" />
-            </a>
-            <a class="feature-card" href="./noticias.html">
-              <div class="feature-copy">
-                <span class="feature-icon red" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M4 5h16v14H4z"></path>
-                    <path d="M8 9h8M8 13h5M8 17h8"></path>
-                    <path d="M16 13h2"></path>
-                  </svg>
-                </span>
-                <h3>Notícias</h3>
-                <p>Acompanhe alertas, tendências e os acontecimentos mais importantes do mundo digital.</p>
-                <span class="feature-link">Ver notícias <span aria-hidden="true">→</span></span>
-              </div>
-              <img class="feature-image" src="./assets/preview-noticias.svg" alt="Prévia ilustrada da tela de notícias" />
-            </a>
-          </div>
+            </div>
+          </section>
 
           <div class="tool-section-header">
             <p class="eyebrow blue">Mais ferramentas</p>
