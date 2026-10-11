@@ -1,5 +1,27 @@
 const attackCards = document.querySelectorAll('.attack-card');
 const year = document.getElementById('year');
+const themeToggle = document.getElementById('themeToggle');
+const PUBLIC_THEME_KEY = 'olhoDigital.publicTheme';
+
+function applyPublicTheme(theme) {
+  const isDark = theme === 'dark';
+  document.body.classList.toggle('theme-dark', isDark);
+  document.querySelectorAll('[data-logo-light][data-logo-dark]').forEach((logo) => {
+    const source = isDark ? logo.dataset.logoDark : logo.dataset.logoLight;
+    if (source && logo.getAttribute('src') !== source) logo.setAttribute('src', source);
+  });
+  themeToggle.setAttribute('aria-pressed', String(isDark));
+  themeToggle.textContent = isDark ? '☀️ Modo claro' : '🌙 Modo escuro';
+  localStorage.setItem(PUBLIC_THEME_KEY, isDark ? 'dark' : 'light');
+}
+
+if (themeToggle) {
+  const savedTheme = localStorage.getItem(PUBLIC_THEME_KEY);
+  applyPublicTheme(savedTheme === 'dark' ? 'dark' : 'light');
+  themeToggle.addEventListener('click', () => {
+    applyPublicTheme(document.body.classList.contains('theme-dark') ? 'light' : 'dark');
+  });
+}
 
 const attackData = {
   phishing: {

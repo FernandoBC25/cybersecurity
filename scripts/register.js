@@ -11,7 +11,7 @@ function showError(message) {
 }
 
 if (form) {
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     errorBox.classList.add('hidden');
 
@@ -30,15 +30,23 @@ if (form) {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: { data: { name } }
+    });
 
-    if (users.some((user) => user.email === email)) {
+    if (error) {
+      showError(error.message.includes('registered') ? 'Este email já está cadastrado' : error.message);
+      return;
+    }
+
+    if (data.user && data.user.identities?.length === 0) {
       showError('Este email já está cadastrado');
       return;
     }
 
-    users.push({ name, email, password });
-    localStorage.setItem('users', JSON.stringify(users));
+    await supabaseClient.auth.signOut();
     window.location.href = './login.html';
   });
 }
