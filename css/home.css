@@ -163,7 +163,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 8px 22px rgba(37, 99, 235, 0.07);
-  transition: width 220ms ease, box-shadow 220ms ease;
+  transition: width 500ms ease, box-shadow 500ms ease;
 }
 .sidebar:hover, .sidebar:focus-within { width: 218px; box-shadow: 0 12px 28px rgba(37, 99, 235, 0.13); }
 .sidebar-mark { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; margin: 1px auto 20px; border-radius: 10px; background: #ed8a39; pointer-events: none; user-select: none; }
@@ -193,7 +193,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .sidebar-link > span { display: grid; flex: 0 0 22px; place-items: center; width: 22px; font-size: 1.25rem; }
 .sidebar-link > span svg { display: block; width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .sidebar-link > span svg.house-icon { width: 28px; height: 28px; stroke-width: 1.9; }
-.sidebar-link > b { max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-width 200ms ease, opacity 140ms ease; }
+.sidebar-link > b { max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-width 500ms ease, opacity 500ms ease; }
 .sidebar:hover .sidebar-link, .sidebar:focus-within .sidebar-link { justify-content: flex-start; min-width: 194px; padding: 0 12px; }
 .sidebar:hover .sidebar-link > b, .sidebar:focus-within .sidebar-link > b { max-width: 145px; opacity: 1; visibility: visible; }
 .sidebar-link:hover { background: #eff6ff; color: var(--blue-700); }
