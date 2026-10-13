@@ -89,12 +89,12 @@
             <div class="event-item"><strong>15 <small>JUN</small></strong><span><b>Workshop: Docker Avançado</b><small>15 de junho, 19:00<br>Online</small></span></div>
             <div class="event-item"><strong>22 <small>JUN</small></strong><span><b>Live: Carreira em Desenvolvimento</b><small>22 de junho, 20:00<br>Online</small></span></div>
             <div class="event-item"><strong>29 <small>JUN</small></strong><span><b>Meetup: Networking</b><small>29 de junho, 18:00<br>São Paulo, SP</small></span></div>
-            <button class="text-btn" type="button">Ver todos eventos</button>
+            <button class="text-btn" type="button" data-community-info="events">Ver todos eventos</button>
           </section>
           <section class="side-panel panel rules-panel">
             <div class="panel-heading"><span class="side-icon">✓</span><h2>Regras da Comunidade</h2></div>
             <ol><li>Respeite todos os membros</li><li>Não faça spam ou autopromoção</li><li>Use títulos descritivos</li><li>Pesquise antes de perguntar</li><li>Compartilhe conhecimento!</li></ol>
-            <button class="text-btn" type="button">Ver todas as regras</button>
+            <button class="text-btn" type="button" data-community-info="rules">Ver todas as regras</button>
           </section>
         </aside>
       </div>
@@ -103,13 +103,29 @@
     <div class="modal-backdrop" id="composerModal" hidden>
       <section class="composer modal panel" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
         <div class="modal-header"><div><span class="section-kicker">NOVA CONVERSA</span><h2 id="composerTitle">Criar publicação</h2></div><button class="close-btn" id="closeComposer" aria-label="Fechar">×</button></div>
-        <textarea id="newPost" rows="5" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
-        <div class="upload-row"><label class="upload-btn" for="postImage">▧ Adicionar imagem</label><input id="postImage" type="file" accept="image/*"><span id="imageName">Nenhuma imagem selecionada</span></div>
+        <div class="community-field">
+          <textarea id="newPost" rows="5" data-content-limit="5000" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
+          <div class="community-field-meta"><small data-character-count>0 / 5.000 caracteres</small><small class="community-field-error" data-field-error role="alert" aria-live="polite"></small></div>
+        </div>
+        <div class="upload-row"><label class="upload-btn" for="postImage">▧ Adicionar imagem</label><input id="postImage" type="file" accept="image/jpeg,image/png,image/webp"><span id="imageName">Nenhuma imagem selecionada</span></div>
+        <p class="community-field-error image-error" id="imageError" role="alert" aria-live="polite"></p>
+        <img class="image-preview" id="imagePreview" alt="Prévia da imagem selecionada" hidden>
         <div class="composer-actions"><select id="postType" aria-label="Categoria da publicação"><option value="geral">Geral</option><option value="duvidas">Dúvidas</option><option value="tutoriais">Tutoriais</option><option value="projetos">Projetos</option><option value="noticias">Notícias</option></select><button type="button" class="primary-btn" id="publishBtn">Publicar agora</button></div>
       </section>
     </div>
 
+    <div class="modal-backdrop" id="communityInfoModal" hidden>
+      <section class="community-info-modal modal panel" role="dialog" aria-modal="true" aria-labelledby="communityInfoTitle">
+        <div class="modal-header">
+          <div><span class="section-kicker">OLHO DIGITAL</span><h2 id="communityInfoTitle"></h2></div>
+          <button class="close-btn" id="closeCommunityInfo" type="button" aria-label="Fechar">×</button>
+        </div>
+        <div id="communityInfoContent"></div>
+      </section>
+    </div>
+
     <script src="./scripts/account.js"></script>
+    <script src="./scripts/community-validation.js"></script>
     <script src="./scripts/comunidade.js"></script>
   </body>
 </html>

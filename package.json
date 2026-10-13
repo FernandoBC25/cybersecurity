@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node scripts/server.js"
+    "start": "node scripts/server.js",
+    "test:community": "node --test tests/community-validation.test.js"
   },
   "dependencies": {
     "axios": "^1.7.9",
