@@ -239,32 +239,60 @@
     });
   }
 
-  async function saveAvatar(user, blob) {
-    const database = await openAvatarDatabase();
-    return new Promise((resolve, reject) => {
+  function cacheAvatar(user, blob, version) {
+    return openAvatarDatabase().then((database) => new Promise((resolve, reject) => {
       const transaction = database.transaction(AVATAR_STORE, 'readwrite');
       transaction.objectStore(AVATAR_STORE).put({
         account: accountKey(user),
         blob,
         type: blob.type,
+        version,
         updatedAt: Date.now()
       });
       transaction.oncomplete = () => {
         database.close();
         resolve();
       };
-      transaction.onerror = () => {
-        database.close();
-        reject(transaction.error || new Error('Não foi possível salvar a foto de perfil.'));
-      };
-      transaction.onabort = () => {
+      transaction.onerror = transaction.onabort = () => {
         database.close();
         reject(transaction.error || new Error('O armazenamento local recusou a foto selecionada.'));
       };
-    });
+    }));
   }
 
+  // Envia a foto para o Supabase Storage e guarda uma cópia local como cache.
+  async function saveAvatar(user, blob) {
+    const upload = await supabaseClient.storage.from('avatars').upload(`${user.id}/avatar`, blob, {
+      contentType: blob.type,
+      upsert: true
+    });
+    if (upload.error) throw new Error('Não foi possível enviar a foto para o servidor.');
+    const version = Date.now();
+    const { error } = await supabaseClient.from('perfis').update({ avatar_versao: version }).eq('id', user.id);
+    if (error) throw new Error('A foto foi enviada, mas não foi possível atualizar o perfil.');
+    await cacheAvatar(user, blob, version).catch((cacheError) => console.error(cacheError));
+  }
+
+  // Compara a versão da foto no servidor com a do cache e baixa se estiver desatualizada.
+  // Retorna true se a foto local mudou.
+  async function refreshAvatar(user) {
+    const { data: profile, error } = await supabaseClient.from('perfis').select('avatar_versao').eq('id', user.id).maybeSingle();
+    if (error || !profile?.avatar_versao) return false;
+    const cached = await getAvatar(user).catch(() => null);
+    if (cached && cached.version === profile.avatar_versao) return false;
+    const download = await supabaseClient.storage.from('avatars').download(`${user.id}/avatar`);
+    if (download.error) return false;
+    await cacheAvatar(user, download.data, profile.avatar_versao);
+    return true;
+  }
+
+  let avatarRefreshStarted = false;
+
   async function updateProfileAvatars(user) {
+    if (!avatarRefreshStarted) {
+      avatarRefreshStarted = true;
+      refreshAvatar(user).then((changed) => { if (changed) updateProfileAvatars(user); }).catch((error) => console.error(error));
+    }
     const elements = [...document.querySelectorAll('[data-profile-avatar]')];
     const initial = (user.name || 'U').trim().charAt(0).toLocaleUpperCase('pt-BR') || 'U';
     const oldUrls = new Set(elements.map((element) => element.dataset.avatarUrl).filter(Boolean));
@@ -345,6 +373,7 @@
     applySettings,
     getAvatar,
     saveAvatar,
+    refreshAvatar,
     updateProfileAvatars,
     initProfileMenu,
     setUserPassword,
