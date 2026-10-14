@@ -570,6 +570,9 @@ img { max-width: 100%; display: block; }
   border-radius: 999px;
   background: var(--blue-600);
 }
+/* Área de clique maior que o ponto visível, para facilitar o toque no celular. */
+.preview-dot { position: relative; }
+.preview-dot::after { position: absolute; inset: -14px -6px; content: ""; }
 @keyframes preview-fade {
   from { opacity: 0; transform: translateX(8px); }
   to { opacity: 1; transform: translateX(0); }
@@ -792,14 +795,14 @@ body.theme-dark .attack-summary,
 body.theme-dark .stats-options,
 body.theme-dark .stats-display,
 body.theme-dark .preview-controls {
-  background: #1d2a3e;
-  border-color: #35445a;
+  background: #172338;
+  border-color: #334155;
 }
 body.theme-dark .stats-options-label { color: #e2e8f0; }
 body.theme-dark .stats-button,
 body.theme-dark .preview-button,
 body.theme-dark .theme-toggle {
-  background: #24344b;
+  background: #24344e;
   border-color: #475569;
   color: #e2e8f0;
 }
@@ -846,7 +849,7 @@ body.theme-dark .brand img { mix-blend-mode: screen; }
   .nav-actions { gap: 7px; }
   .nav-actions .primary-btn { display: none; }
   .theme-toggle { min-height: 38px; padding: 0 9px; font-size: 0.78rem; }
-  .nav-actions .link-btn { font-size: 0.86rem; }
+  .nav-actions .link-btn { display: inline-flex; align-items: center; min-height: 40px; padding: 0 6px; font-size: 0.86rem; }
   .strip-grid,
   .feature-grid,
   .attack-grid,
@@ -871,4 +874,6 @@ body.theme-dark .brand img { mix-blend-mode: screen; }
     flex-direction: column;
     text-align: center;
   }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 4px 18px; }
+  .footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
 }

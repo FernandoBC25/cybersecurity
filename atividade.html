@@ -9,29 +9,12 @@
     <link rel="stylesheet" href="./css/account-preferences.css" />
     <link rel="stylesheet" href="./css/configuracoes.css" />
     <link rel="stylesheet" href="./css/atividade.css" />
+      <link rel="stylesheet" href="./css/site-header.css" />
+      <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="container settings-nav">
-        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
-        <nav aria-label="Navegação principal">
-          <a href="./home.html">Início</a>
-          <a href="./aprender.html">Aprender</a>
-          <a href="./noticias.html">Notícias</a>
-          <a href="./comunidade.html">Comunidade</a>
-        </nav>
-        <div class="profile-menu-wrap settings-profile-menu">
-          <button class="profile-btn" id="profileToggle" type="button" aria-label="Abrir opções do perfil" aria-expanded="false" aria-controls="profileDropdown">
-            <span class="avatar" data-profile-avatar>U</span>
-          </button>
-          <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
-            <a role="menuitem" href="./configuracoes.html">Configurações</a>
-            <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
-            <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
-          </div>
-        </div>
-      </div>
-    </header>
+    <header class="topbar" data-site-header ></header>
+    <script src="./scripts/site-header.js"></script>
     <main class="settings-page">
       <div class="settings-heading">
         <a class="back-link" href="./home.html">← Voltar ao início</a>
@@ -53,9 +36,9 @@
         <div class="activity-card-heading">
           <div>
             <h2 id="activityTitle">Sua atividade por área</h2>
-            <p class="settings-help">Selecione uma área para consultar seus registros. Eles ficam associados à sua conta neste navegador.</p>
+            <p class="settings-help">Selecione uma área para consultar seus registros. Eles ficam salvos na sua conta.</p>
           </div>
-          <p class="activity-local-note">Visível somente neste navegador</p>
+          <p class="activity-local-note">Visível somente para você</p>
         </div>
         <div class="activity-tabs" role="tablist" aria-label="Atividade por área">
           <button type="button" role="tab" id="activityTabCommunity" aria-controls="activityCommunity" aria-selected="true" data-activity-tab>
@@ -82,23 +65,18 @@
           <ul id="newsComments" class="activity-list"></ul>
         </div>
         <div id="activityLearning" class="activity-panel" role="tabpanel" aria-labelledby="activityTabLearning" tabindex="0" hidden>
-          <h3>Seu progresso nas videoaulas</h3>
-          <p class="activity-panel-description">Acompanhe as aulas que marcou como em andamento ou concluídas.</p>
+          <h3>Seu progresso nos cursos</h3>
+          <p class="activity-panel-description">Acompanhe os cursos que você começou ou concluiu.</p>
           <ul id="learningVideos" class="activity-list"></ul>
         </div>
       </section>
     </main>
-    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
-      <form method="dialog" class="logout-dialog-card">
-        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
-        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
-        <div class="logout-dialog-actions">
-          <button class="logout-cancel" value="cancel">Cancelar</button>
-          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
-        </div>
-      </form>
-    </dialog>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+    <script src="./scripts/supabase-config.js"></script>
+    <script src="./scripts/auth.js"></script>
+    <script src="./scripts/data.js"></script>
     <script src="./scripts/account.js"></script>
+    <script src="./scripts/home-data.js"></script>
     <script src="./scripts/atividade.js"></script>
   </body>
 </html>

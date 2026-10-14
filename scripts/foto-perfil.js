@@ -3,18 +3,6 @@ const account = OlhoDigitalAccount.requireAuthentication();
 if (account) {
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(account));
   OlhoDigitalAccount.updateProfileAvatars(account);
-  OlhoDigitalAccount.initProfileMenu();
-  const profileDropdown = document.getElementById('profileDropdown');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    document.getElementById('logoutDialog').showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
-  });
   const gallery = document.getElementById('avatarGallery');
   const preview = document.getElementById('avatarPreview');
   const fileInput = document.getElementById('avatarFile');
@@ -90,6 +78,26 @@ if (account) {
     option.addEventListener('click', () => selectAvatar(blob, avatar.name, option));
     gallery.append(option);
   });
+
+  // O bucket só aceita JPG, PNG e WebP; os avatares prontos (SVG) viram WebP antes de subir.
+  async function toRaster(blob) {
+    if (blob.type !== 'image/svg+xml') return blob;
+    const url = URL.createObjectURL(blob);
+    try {
+      const image = new Image();
+      image.src = url;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      canvas.getContext('2d').drawImage(image, 0, 0, 512, 512);
+      return await new Promise((resolve, reject) => {
+        canvas.toBlob((result) => result ? resolve(result) : reject(new Error('Não foi possível preparar o avatar.')), 'image/webp', 0.9);
+      });
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
 
   function isValidImageFile(file, bytes) {
     if (file.type === 'image/jpeg') return bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
@@ -170,7 +178,7 @@ if (account) {
     cancelUpload.disabled = true;
     gallery.querySelectorAll('.avatar-option').forEach((option) => { option.disabled = true; });
     try {
-      await OlhoDigitalAccount.saveAvatar(account, blobToSave);
+      await OlhoDigitalAccount.saveAvatar(account, await toRaster(blobToSave));
       await OlhoDigitalAccount.updateProfileAvatars(account);
       if (savedUrl) URL.revokeObjectURL(savedUrl);
       savedUrl = URL.createObjectURL(blobToSave);
@@ -178,10 +186,10 @@ if (account) {
       selectedBlob = null;
       preview.src = savedUrl;
       cancelUpload.hidden = true;
-      setStatus('Foto de perfil salva neste navegador para esta conta.');
+      setStatus('Foto de perfil salva na sua conta.');
     } catch (error) {
       console.error(error);
-      setStatus(error.message || 'Não foi possível salvar a foto neste navegador.', true);
+      setStatus(error.message || 'Não foi possível salvar a foto.', true);
     } finally {
       isSaving = false;
       fileInput.disabled = false;
@@ -191,7 +199,7 @@ if (account) {
     }
   });
 
-  OlhoDigitalAccount.getAvatar(account).then((avatar) => {
+  OlhoDigitalAccount.refreshAvatar(account).catch(() => false).then(() => OlhoDigitalAccount.getAvatar(account)).then((avatar) => {
     if (!avatar?.blob) return;
     savedUrl = URL.createObjectURL(avatar.blob);
     if (!selectedBlob) preview.src = savedUrl;

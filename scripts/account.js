@@ -26,19 +26,26 @@
   };
 
   function getCurrentUser() {
-    try {
-      const user = JSON.parse(localStorage.getItem('user') || 'null');
-      return user && typeof user.email === 'string' && user.email.trim()
-        ? { ...user, email: user.email.trim() }
-        : null;
-    } catch {
-      return null;
-    }
+    return OlhoDigitalAuth.getCurrentUser();
   }
 
   function requireAuthentication() {
     const user = getCurrentUser();
-    if (!user) window.location.replace('./login.html');
+    if (!user) {
+      OlhoDigitalAuth.goToLogin();
+      return user;
+    }
+    OlhoDigitalAuth.verifySession();
+    // Traz os dados do servidor; se algo mudou (outro dispositivo), recarrega uma vez.
+    OlhoDigitalData.hydrate().then((changed) => {
+      const flag = 'olhoDigital.reloaded';
+      if (changed && !sessionStorage.getItem(flag)) {
+        sessionStorage.setItem(flag, '1');
+        location.reload();
+      } else if (!changed) {
+        sessionStorage.removeItem(flag);
+      }
+    });
     return user;
   }
 
@@ -82,27 +89,14 @@
     }
   }
 
-  function saveActivity(user, activity) {
-    localStorage.setItem(`${ACTIVITY_PREFIX}${accountKey(user)}`, JSON.stringify(activity));
-  }
-
   function trackActivity(user, area, action, item) {
-    const activity = getActivity(user);
-    const collection = activity[area]?.[action];
-    if (!Array.isArray(collection)) throw new Error('Tipo de atividade não reconhecido.');
-    const existingIndex = collection.findIndex((entry) => entry.id === item.id);
-    const entry = { ...item, updatedAt: Date.now() };
-    if (existingIndex >= 0) collection[existingIndex] = { ...collection[existingIndex], ...entry };
-    else collection.unshift(entry);
-    saveActivity(user, activity);
+    if (!Array.isArray(getActivity(user)[area]?.[action])) throw new Error('Tipo de atividade não reconhecido.');
+    OlhoDigitalData.saveActivityEntry(user, area, action, { ...item, updatedAt: Date.now() });
   }
 
   function removeActivity(user, area, action, id) {
-    const activity = getActivity(user);
-    const collection = activity[area]?.[action];
-    if (!Array.isArray(collection)) throw new Error('Tipo de atividade não reconhecido.');
-    activity[area][action] = collection.filter((entry) => entry.id !== id);
-    saveActivity(user, activity);
+    if (!Array.isArray(getActivity(user)[area]?.[action])) throw new Error('Tipo de atividade não reconhecido.');
+    OlhoDigitalData.removeActivityEntry(user, area, action, id);
   }
 
   function getSettings(user) {
@@ -126,7 +120,7 @@
   }
 
   function saveSettings(user, settings) {
-    localStorage.setItem(settingsKey(user), JSON.stringify(settings));
+    OlhoDigitalData.saveSettings(user, settings);
   }
 
   function broadcastSettings(user, settings) {
@@ -245,32 +239,60 @@
     });
   }
 
-  async function saveAvatar(user, blob) {
-    const database = await openAvatarDatabase();
-    return new Promise((resolve, reject) => {
+  function cacheAvatar(user, blob, version) {
+    return openAvatarDatabase().then((database) => new Promise((resolve, reject) => {
       const transaction = database.transaction(AVATAR_STORE, 'readwrite');
       transaction.objectStore(AVATAR_STORE).put({
         account: accountKey(user),
         blob,
         type: blob.type,
+        version,
         updatedAt: Date.now()
       });
       transaction.oncomplete = () => {
         database.close();
         resolve();
       };
-      transaction.onerror = () => {
-        database.close();
-        reject(transaction.error || new Error('Não foi possível salvar a foto de perfil.'));
-      };
-      transaction.onabort = () => {
+      transaction.onerror = transaction.onabort = () => {
         database.close();
         reject(transaction.error || new Error('O armazenamento local recusou a foto selecionada.'));
       };
-    });
+    }));
   }
 
+  // Envia a foto para o Supabase Storage e guarda uma cópia local como cache.
+  async function saveAvatar(user, blob) {
+    const upload = await supabaseClient.storage.from('avatars').upload(`${user.id}/avatar`, blob, {
+      contentType: blob.type,
+      upsert: true
+    });
+    if (upload.error) throw new Error('Não foi possível enviar a foto para o servidor.');
+    const version = Date.now();
+    const { error } = await supabaseClient.from('perfis').update({ avatar_versao: version }).eq('id', user.id);
+    if (error) throw new Error('A foto foi enviada, mas não foi possível atualizar o perfil.');
+    await cacheAvatar(user, blob, version).catch((cacheError) => console.error(cacheError));
+  }
+
+  // Compara a versão da foto no servidor com a do cache e baixa se estiver desatualizada.
+  // Retorna true se a foto local mudou.
+  async function refreshAvatar(user) {
+    const { data: profile, error } = await supabaseClient.from('perfis').select('avatar_versao').eq('id', user.id).maybeSingle();
+    if (error || !profile?.avatar_versao) return false;
+    const cached = await getAvatar(user).catch(() => null);
+    if (cached && cached.version === profile.avatar_versao) return false;
+    const download = await supabaseClient.storage.from('avatars').download(`${user.id}/avatar`);
+    if (download.error) return false;
+    await cacheAvatar(user, download.data, profile.avatar_versao);
+    return true;
+  }
+
+  let avatarRefreshStarted = false;
+
   async function updateProfileAvatars(user) {
+    if (!avatarRefreshStarted) {
+      avatarRefreshStarted = true;
+      refreshAvatar(user).then((changed) => { if (changed) updateProfileAvatars(user); }).catch((error) => console.error(error));
+    }
     const elements = [...document.querySelectorAll('[data-profile-avatar]')];
     const initial = (user.name || 'U').trim().charAt(0).toLocaleUpperCase('pt-BR') || 'U';
     const oldUrls = new Set(elements.map((element) => element.dataset.avatarUrl).filter(Boolean));
@@ -329,15 +351,8 @@
     });
   }
 
-  function setUserPassword(user, currentPassword, newPassword) {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const registeredUser = users.find((item) =>
-      String(item.email).trim() === user.email
-    );
-    if (!registeredUser || registeredUser.password !== currentPassword) return false;
-    registeredUser.password = newPassword;
-    localStorage.setItem('users', JSON.stringify(users));
-    return true;
+  function setUserPassword(currentPassword, newPassword) {
+    return OlhoDigitalAuth.changePassword(currentPassword, newPassword);
   }
 
   window.OlhoDigitalAccount = {
@@ -358,8 +373,11 @@
     applySettings,
     getAvatar,
     saveAvatar,
+    refreshAvatar,
     updateProfileAvatars,
     initProfileMenu,
-    setUserPassword
+    setUserPassword,
+    getCourseValue: OlhoDigitalData.getCourseValue,
+    setCourseValue: OlhoDigitalData.setCourseValue
   };
 })();

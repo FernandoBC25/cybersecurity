@@ -176,6 +176,25 @@ body.theme-dark .learning-logout-actions button:not(.learning-logout-confirm) { 
 .search-hidden { display: none !important; }
 
 .page-shell { padding: 36px 0 60px; }
+.completion-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 12px;
+}
+.completion-notice strong { color: #14532d; }
+.completion-notice span { color: #166534; }
+.course-rating { min-height: 20px; margin: 0 0 12px; color: var(--slate-600); font-size: 0.88rem; }
+.course-rating strong { color: #f59e0b; letter-spacing: 2px; }
+.course-completion { margin: 0 0 8px; color: #166534; font-size: 0.88rem; font-weight: 700; }
+.course-completion.is-incomplete { color: #b42318; }
+body.theme-dark .course-completion { color: #86efac; }
+body.theme-dark .course-completion.is-incomplete { color: #fca5a5; }
 .page-header { margin-bottom: 26px; }
 .page-header h1 {
   margin: 0;
@@ -232,12 +251,14 @@ body.theme-dark .learning-logout-actions button:not(.learning-logout-confirm) { 
   box-shadow: var(--shadow);
 }
 .course-banner {
+  min-height: 116px;
   padding: 18px 18px 20px;
   color: var(--white);
 }
-.course-banner.blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-.course-banner.purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
-.course-banner.red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+/* Tons da mesma família (azul, índigo, ardósia). A dificuldade fica no selo .level. */
+.course-banner.blue { background: linear-gradient(135deg, #2563eb, #1e40af); }
+.course-banner.purple { background: linear-gradient(135deg, #4f46e5, #3730a3); }
+.course-banner.red { background: linear-gradient(135deg, #475569, #1e293b); }
 .level {
   display: inline-block;
   padding: 6px 10px;
@@ -316,9 +337,10 @@ body.theme-dark .video-progress button { border-color: #475569; background: #243
 body.theme-dark .video-progress button[aria-pressed="true"] { border-color: #60a5fa; background: #1e3a8a; color: #fff; }
 
 @media (max-width: 960px) {
-  .main-nav { display: none; }
+  .main-nav { display: flex; order: 2; flex: 1 0 100%; flex-wrap: wrap; justify-content: center; gap: 6px 18px; }
+  .main-nav a { font-size: 0.82rem; }
   .nav-wrap { flex-wrap: wrap; padding: 10px 0; }
-  .nav-left { flex: 1 1 auto; }
+  .nav-left { flex: 1 0 100%; flex-wrap: wrap; row-gap: 6px; }
   .nav-right { flex: 1 1 100%; order: 1; }
   .search-box { display: flex; flex: 1; min-width: 0; }
   .search-box input { min-width: 0; }

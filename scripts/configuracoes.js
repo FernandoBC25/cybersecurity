@@ -7,7 +7,6 @@ if (account) {
   const passwordForm = document.getElementById('passwordForm');
   const passwordStatus = document.getElementById('passwordStatus');
   const unsavedDialog = document.getElementById('unsavedDialog');
-  const profileDropdown = document.getElementById('profileDropdown');
   let pendingHref = null;
   let pendingLogout = false;
   let awaitingHistoryChoice = false;
@@ -82,7 +81,7 @@ if (account) {
       console.error(error);
       populate(OlhoDigitalAccount.getEffectiveSettings(account));
       refreshPreferencePreviews(OlhoDigitalAccount.getEffectiveSettings(account));
-      showStatus(status, 'Não foi possível atualizar a prévia temporária neste navegador.', true);
+      showStatus(status, 'Não foi possível atualizar a prévia temporária.', true);
     }
   }
 
@@ -138,7 +137,7 @@ if (account) {
       OlhoDigitalAccount.applySettings(settings);
       refreshPreferencePreviews(settings);
       refreshChangesStatus();
-      showStatus(status, 'Configurações salvas neste navegador.');
+      showStatus(status, 'Configurações salvas na sua conta.');
     } catch (error) {
       console.error(error);
       showStatus(status, 'Não foi possível salvar as configurações. Você continua nesta página; tente novamente.', true);
@@ -164,21 +163,12 @@ if (account) {
   document.getElementById('accountName').textContent = account.name || 'Não informado';
   document.getElementById('accountEmail').textContent = account.email;
   OlhoDigitalAccount.updateProfileAvatars(account);
-  OlhoDigitalAccount.initProfileMenu();
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    if (OlhoDigitalAccount.hasUnsavedSettings(account)) {
-      openUnsavedDialog(null, false, true);
-    } else {
-      document.getElementById('logoutDialog').showModal();
-    }
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
-  });
+  // Sair com alterações não salvas abre o aviso de descarte antes do logout.
+  window.OlhoDigitalSiteHeader.onLogout = () => {
+    if (!OlhoDigitalAccount.hasUnsavedSettings(account)) return false;
+    openUnsavedDialog(null, false, true);
+    return true;
+  };
   populate(OlhoDigitalAccount.getEffectiveSettings(account));
   refreshPreferencePreviews(OlhoDigitalAccount.getEffectiveSettings(account));
   refreshChangesStatus();
@@ -191,10 +181,10 @@ if (account) {
       OlhoDigitalAccount.discardDraftSettings(account);
       OlhoDigitalAccount.applySettings(settings);
       refreshChangesStatus();
-      showStatus(status, 'Configurações salvas neste navegador para esta conta.');
+      showStatus(status, 'Configurações salvas na sua conta.');
     } catch (error) {
       console.error(error);
-      showStatus(status, 'Não foi possível salvar as configurações neste navegador.', true);
+      showStatus(status, 'Não foi possível salvar as configurações.', true);
     }
   });
 
@@ -263,7 +253,7 @@ if (account) {
     event.returnValue = '';
   });
 
-  passwordForm.addEventListener('submit', (event) => {
+  passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword = document.getElementById('newPassword').value;
@@ -279,15 +269,16 @@ if (account) {
     }
 
     try {
-      if (!OlhoDigitalAccount.setUserPassword(account, currentPassword, newPassword)) {
-        showStatus(passwordStatus, 'A senha atual não confere ou esta conta não possui cadastro local.', true);
+      const result = await OlhoDigitalAccount.setUserPassword(currentPassword, newPassword);
+      if (!result.ok) {
+        showStatus(passwordStatus, result.reason, true);
         return;
       }
       passwordForm.reset();
-      showStatus(passwordStatus, 'Senha atualizada no cadastro local deste navegador.');
+      showStatus(passwordStatus, 'Senha atualizada com sucesso.');
     } catch (error) {
       console.error(error);
-      showStatus(passwordStatus, 'Não foi possível atualizar a senha armazenada neste navegador.', true);
+      showStatus(passwordStatus, 'Não foi possível atualizar a senha.', true);
     }
   });
 }

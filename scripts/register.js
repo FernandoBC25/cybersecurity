@@ -11,7 +11,16 @@ function showError(message) {
 }
 
 if (form) {
-  form.addEventListener('submit', (event) => {
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  // Restaura o botão quando o cadastro não é concluído, para o usuário poder tentar de novo.
+  function resetSubmitButton() {
+    if (!submitButton) return;
+    submitButton.disabled = false;
+    submitButton.textContent = 'Criar conta';
+  }
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     errorBox.classList.add('hidden');
 
@@ -30,15 +39,30 @@ if (form) {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Criando conta...';
+    }
 
-    if (users.some((user) => user.email === email)) {
-      showError('Este email já está cadastrado');
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: { data: { name } }
+    });
+
+    if (error) {
+      showError(error.message.includes('registered') ? 'Este email já está cadastrado' : error.message);
+      resetSubmitButton();
       return;
     }
 
-    users.push({ name, email, password });
-    localStorage.setItem('users', JSON.stringify(users));
+    if (data.user && data.user.identities?.length === 0) {
+      showError('Este email já está cadastrado');
+      resetSubmitButton();
+      return;
+    }
+
+    await supabaseClient.auth.signOut();
     window.location.href = './login.html';
   });
 }
