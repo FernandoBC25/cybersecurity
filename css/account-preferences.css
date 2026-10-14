@@ -68,6 +68,8 @@ body.theme-dark .difficulty.medium { background: #713f12 !important; color: #fef
 body.theme-dark .difficulty.hard { background: #7f1d1d !important; color: #fecaca !important; }
 body.theme-dark .featured-label { background: #713f12 !important; color: #fef08a !important; }
 body.theme-dark .account-details p { background-color: #24344e !important; }
+body.theme-dark .empty-course { background-color: #1e293b !important; border-color: #475569 !important; }
+body.theme-dark .empty-course-icon { background-color: #1e3a8a !important; color: #bfdbfe !important; }
 body.theme-dark .profile-dropdown a,
 body.theme-dark .profile-dropdown button { color: #e2e8f0 !important; }
 body.theme-dark .profile-dropdown a:hover,
@@ -369,3 +371,13 @@ body.theme-dark .recommendations-panel .carousel-actions button {
 body.theme-dark .recommendations-panel .carousel-actions button:disabled {
   color: #94a3b8 !important;
 }
+
+/* Tema escuro: títulos sobre banners coloridos continuam brancos e textos
+   secundários ficam com contraste suficiente sobre os cartões escuros. */
+body.theme-dark .course-banner h3 { color: #fff !important; }
+body.theme-dark :where(.course-rating, .course-rating span, .card-meta, .card-meta span, .side-title, .section-heading span) { color: #94a3b8 !important; }
+body.theme-dark .hero-card span { color: #94a3b8 !important; }
+body.theme-dark footer p { color: #fff !important; }
+body.theme-dark .upload-button { color: #fff !important; }
+body.theme-dark code { color: #93c5fd !important; }
+body.theme-dark .highlight-banner .btn-secondary { border-color: #93c5fd !important; color: #bfdbfe !important; background: transparent !important; }

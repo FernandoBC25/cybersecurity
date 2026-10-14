@@ -20,6 +20,10 @@
     }
   }
 
+  // Conta as alterações feitas pelo usuário nesta página; a sincronização usa isso
+  // para não sobrescrever (nem recarregar) por cima de algo que acabou de mudar.
+  let localWrites = 0;
+
   function writeCache(kind, user, value) {
     localStorage.setItem(cacheKey(kind, user), JSON.stringify(value));
   }
@@ -63,8 +67,14 @@
     // Abrir de novo um curso já iniciado não muda nada; evita uma escrita a cada página.
     if (field === 'Started' && data.started && (value === true || value === 'true')) return Promise.resolve();
     if (field === 'Started') data.started = value === true || value === 'true';
-    else if (field === 'Progress') data.progress = Math.max(0, Math.min(100, Number(value) || 0));
+    // O progresso só avança: rever um curso já feito não desfaz a conclusão.
+    else if (field === 'Progress') {
+      const progress = Math.max(0, Math.min(100, Number(value) || 0));
+      if (progress <= (data.progress || 0)) return Promise.resolve();
+      data.progress = progress;
+    }
     else data.rating = Number(value) || null;
+    localWrites += 1;
     const now = new Date();
     data.updatedAt = now.getTime();
     courses[course] = data;
@@ -85,6 +95,7 @@
   const getSettingsCache = (user) => readCache('settings', user);
 
   function saveSettings(user, settings) {
+    localWrites += 1;
     writeCache('settings', user, settings);
     push('as configurações', supabaseClient.from('configuracoes').upsert({
       user_id: user.id,
@@ -97,6 +108,7 @@
   const getActivityCache = (user) => readCache('activity', user);
 
   function saveActivityEntry(user, area, action, entry) {
+    localWrites += 1;
     const activity = readCache('activity', user) || EMPTY_ACTIVITY();
     const list = activity[area][action];
     const index = list.findIndex((item) => item.id === entry.id);
@@ -114,6 +126,7 @@
   }
 
   function removeActivityEntry(user, area, action, id) {
+    localWrites += 1;
     const activity = readCache('activity', user) || EMPTY_ACTIVITY();
     activity[area][action] = activity[area][action].filter((item) => item.id !== id);
     writeCache('activity', user, activity);
@@ -129,6 +142,7 @@
     const user = OlhoDigitalAuth.getCurrentUser();
     if (!user) return false;
 
+    const writesBefore = localWrites;
     const [courses, settings, activity] = await Promise.all([
       supabaseClient.from('progresso_cursos').select('*'),
       supabaseClient.from('configuracoes').select('*').maybeSingle(),
@@ -139,6 +153,9 @@
       report('os dados da conta', failure);
       return false;
     }
+    // Algo mudou aqui enquanto o servidor respondia: o que chegou já está velho.
+    // As escritas locais seguem para o servidor e a próxima página sincroniza.
+    if (localWrites !== writesBefore) return false;
 
     const snapshot = () => canonical([readCache('courses', user), readCache('settings', user), readCache('activity', user)]);
     const before = snapshot();

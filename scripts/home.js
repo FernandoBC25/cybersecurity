@@ -88,6 +88,17 @@ function renderCurrentCourse() {
   const target = document.getElementById('currentCourse');
   const course = findCurrentCourse();
 
+  if (!course && getUserCourses().some((item) => (item.progress || 0) >= 100)) {
+    const allDone = getUserCourses().every((item) => (item.progress || 0) >= 100);
+    target.innerHTML = `
+      <article class="empty-course">
+        <span class="empty-course-icon" aria-hidden="true">✦</span>
+        <div><h3>${allDone ? 'Todos os cursos concluídos!' : 'Nenhum curso em andamento'}</h3><p>${allDone ? 'Parabéns! Você pode rever qualquer conteúdo quando quiser.' : 'Seus cursos iniciados foram concluídos. Que tal começar um novo?'}</p></div>
+        <a class="button-primary" href="./aprender.html">${allDone ? 'Rever cursos' : 'Escolher curso'} <span aria-hidden="true">→</span></a>
+      </article>`;
+    return;
+  }
+
   if (!course) {
     target.innerHTML = `
       <article class="empty-course">

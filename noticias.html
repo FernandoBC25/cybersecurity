@@ -312,6 +312,11 @@
         }
       ];
 
+      // Tudo o que vem de usuários ou de feeds externos entra na página como texto.
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+      }
+
       function normalizeComment(comment = {}) {
         return {
           author: comment.author || 'Leitor',
@@ -580,7 +585,7 @@
               return `
                 <article class="news-card" data-content-topics="${topics}">
                   <div class="news-card-media">
-                    <img src="${article.image || getImageForText(article.title)}" alt="${article.title}" />
+                    <img src="${article.image || getImageForText(article.title)}" alt="${escapeHtml(article.title)}" />
                     <span class="news-tag">${category}</span>
                   </div>
                   <div class="card-content">
@@ -588,7 +593,7 @@
                       <span class="card-date">${formatArticleDate(article.date || 'Hoje')}</span>
                       <span>💬 ${comments.length}</span>
                     </div>
-                    <h3>${article.title}</h3>
+                    <h3>${escapeHtml(article.title)}</h3>
                     <p>${summaryText}</p>
                     <button class="read-more-btn" data-article="${index}">Leia mais</button>
                   </div>
@@ -666,9 +671,9 @@
         modalContent.innerHTML = `
           <div class="modal-header">
             <p class="eyebrow">Resumo da notícia</p>
-            <h2>${article.title}</h2>
+            <h2>${escapeHtml(article.title)}</h2>
           </div>
-          <img src="${article.image || getImageForText(article.title)}" alt="${article.title}" class="modal-image" />
+          <img src="${article.image || getImageForText(article.title)}" alt="${escapeHtml(article.title)}" class="modal-image" />
           <div class="modal-text">${formatModalParagraphs(summary)}</div>
           ${hasMoreContent ? `
             <details class="full-article">
@@ -691,9 +696,9 @@
                 ? article.comments.map((comment, commentIndex) => `
                   <div class="comment-item">
                     <div class="comment-header">
-                      <strong>${comment.author}</strong>
+                      <strong>${escapeHtml(comment.author)}</strong>
                     </div>
-                    <p>${comment.text}</p>
+                    <p>${escapeHtml(comment.text)}</p>
 
                     ${
                       Array.isArray(comment.replies) && comment.replies.length
@@ -701,8 +706,8 @@
                           <div class="comment-replies" data-comment-index="${commentIndex}">
                             ${comment.replies.map((reply) => `
                               <div class="reply-item">
-                                <strong>${reply.author}</strong>
-                                <p>${reply.text}</p>
+                                <strong>${escapeHtml(reply.author)}</strong>
+                                <p>${escapeHtml(reply.text)}</p>
                               </div>
                             `).join('')}
                           </div>
@@ -731,7 +736,7 @@
           </div>
           <div class="source-box">
             <h3>Fonte</h3>
-            <p>${article.source}</p>
+            <p>${escapeHtml(article.source)}</p>
             ${article.link ? `<a class="source-link" href="${article.link}" target="_blank" rel="noopener noreferrer">Abrir matéria original</a>` : ''}
           </div>
         `;

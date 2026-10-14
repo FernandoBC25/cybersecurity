@@ -123,7 +123,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     feed.innerHTML = heading + (visible.length
       ? visible.map(renderPost).join('')
-      : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
+      : activeView === 'salvos'
+        ? '<div class="empty-state panel"><strong>Nenhuma publicação salva.</strong><span>Use o botão 🔖 Salvar em uma publicação para guardá-la aqui.</span></div>'
+        : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
   }
 
   function renderMemberSummary() {

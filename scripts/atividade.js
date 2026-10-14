@@ -49,10 +49,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function renderCommunity(activity) {
+    renderActivityList('communityLikes', activity.community.likes, 'Você ainda não curtiu publicações.');
+    renderActivityList('communitySaves', activity.community.saves, 'Você ainda não salvou publicações.');
+    renderActivityList('communityComments', activity.community.comments, 'Você ainda não comentou ou respondeu publicações.', (entry) => entry.kind || 'Comentário');
+    document.getElementById('communityActivityCount').textContent =
+      activity.community.likes.length + activity.community.saves.length + activity.community.comments.length;
+  }
+
+  // Publicações e comentários apagados (por você ou pelo autor) deixam de aparecer
+  // aqui, e os registros que apontavam para eles são removidos da conta.
+  async function pruneDeletedCommunityItems() {
+    const [posts, comments] = await Promise.all([
+      supabaseClient.from('posts').select('id'),
+      supabaseClient.from('comentarios').select('id')
+    ]);
+    if (posts.error || comments.error) return;
+    const postIds = new Set(posts.data.map((row) => row.id));
+    const commentIds = new Set(comments.data.map((row) => row.id));
+    const current = OlhoDigitalAccount.getActivity(user);
+    const stale = [
+      ...current.community.likes.filter((entry) => !postIds.has(entry.id)).map((entry) => ['likes', entry.id]),
+      ...current.community.saves.filter((entry) => !postIds.has(entry.id)).map((entry) => ['saves', entry.id]),
+      ...current.community.comments.filter((entry) => !commentIds.has(entry.id)).map((entry) => ['comments', entry.id])
+    ];
+    if (!stale.length) return;
+    stale.forEach(([action, id]) => OlhoDigitalData.removeActivityEntry(user, 'community', action, id));
+    renderCommunity(OlhoDigitalAccount.getActivity(user));
+  }
+
   const activity = OlhoDigitalAccount.getActivity(user);
-  renderActivityList('communityLikes', activity.community.likes, 'Você ainda não curtiu publicações.');
-  renderActivityList('communitySaves', activity.community.saves, 'Você ainda não salvou publicações.');
-  renderActivityList('communityComments', activity.community.comments, 'Você ainda não comentou ou respondeu publicações.', (entry) => entry.kind || 'Comentário');
+  renderCommunity(activity);
+  pruneDeletedCommunityItems().catch((error) => console.error('Não foi possível conferir a atividade da comunidade.', error));
   renderActivityList('newsComments', activity.news.comments, 'Você ainda não comentou notícias.', (entry) => entry.kind || 'Comentário');
   // Cursos iniciados, a partir do progresso salvo (mais recentes primeiro).
   const savedCourses = OlhoDigitalData.getCourses(user);
@@ -64,8 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ? `Concluído${entry.rating ? ` · nota ${entry.rating}/5` : ''}`
     : `Em andamento · ${entry.progress || 0}%`);
 
-  const communityCount = activity.community.likes.length + activity.community.saves.length + activity.community.comments.length;
-  document.getElementById('communityActivityCount').textContent = communityCount;
   document.getElementById('newsActivityCount').textContent = activity.news.comments.length;
   document.getElementById('learningActivityCount').textContent = learning.length;
 
