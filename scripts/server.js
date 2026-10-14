@@ -136,7 +136,12 @@ function pickImageForNews(text) {
   return imageCatalog.default[Math.abs(normalized.length) % imageCatalog.default.length];
 }
 
-app.use(cors());
+const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5502,http://127.0.0.1:5502,http://localhost:5503,http://127.0.0.1:5503').split(',');
+app.use(cors({ origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)) }));
+
+// Arquivos do projeto que nunca devem ser servidos pelo site.
+const PRIVATE_PATHS = /^\/(\.|node_modules|supabase|package(-lock)?\.json|scripts\/(server\.js|news\.json))/i;
+app.use((req, res, next) => (PRIVATE_PATHS.test(req.path) ? res.status(404).end() : next()));
 app.use(express.static(PROJECT_ROOT));
 
 function isRelevant(item) {
