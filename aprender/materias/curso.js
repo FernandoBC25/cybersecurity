@@ -7,6 +7,8 @@ const COURSES = {
   malware: { answers: [2, 1, 0, 0, 1] }
 };
 const QUESTION_NAMES = ['question-one', 'question-two', 'question-three', 'question-four', 'question-five'];
+// Nota mínima para liberar a próxima etapa (3 de 5 = 60%).
+const MINIMUM_SCORE = 3;
 
 document.addEventListener('DOMContentLoaded', () => {
   const courseKey = window.location.pathname.split('/').slice(-2, -1)[0];
@@ -65,9 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const answers = quizForm.querySelectorAll(`input[name="${questionName}"]`);
       return total + (selectedAnswer && Array.from(answers).indexOf(selectedAnswer) === course.answers[index] ? 1 : 0);
     }, 0);
-    quizFeedback.textContent = `Respostas enviadas! Sua nota foi ${score}/5 (${score * 20}%). Agora você pode avançar para a avaliação do curso.`;
-    quizFeedback.classList.add('success');
-    advanceCourse.disabled = false;
+    if (score >= MINIMUM_SCORE) {
+      quizFeedback.textContent = `Respostas enviadas! Sua nota foi ${score}/5 (${score * 20}%). Agora você pode avançar para a avaliação do curso.`;
+      quizFeedback.classList.add('success');
+      advanceCourse.disabled = false;
+    } else {
+      quizFeedback.textContent = `Sua nota foi ${score}/5 (${score * 20}%). É preciso ao menos ${MINIMUM_SCORE}/5 para avançar. Revise o material e envie as respostas novamente.`;
+      quizFeedback.classList.remove('success');
+      advanceCourse.disabled = true;
+    }
   });
 
   evaluationForm?.addEventListener('submit', (event) => {

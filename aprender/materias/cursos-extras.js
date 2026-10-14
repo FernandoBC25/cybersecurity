@@ -1,3 +1,6 @@
+// Nota mínima para liberar a próxima etapa (3 de 5 = 60%).
+const MINIMUM_SCORE = 3;
+
 const extraCourses = {
   'proteger-sites': {
     title: 'Como Proteger Sites',
@@ -252,10 +255,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const selected = form.querySelector(`input[name="question-${index}"]:checked`);
         return total + (Number(selected?.value) === question[2] ? 1 : 0);
       }, 0);
-      feedback.textContent = `Respostas enviadas! Sua nota foi ${score}/5 (${score * 20}%). Agora você pode avançar para a avaliação do curso.`;
-      feedback.classList.add('success');
-      quizPassed = true;
-      advanceButton.disabled = false;
+      if (score >= MINIMUM_SCORE) {
+        feedback.textContent = `Respostas enviadas! Sua nota foi ${score}/5 (${score * 20}%). Agora você pode avançar para a avaliação do curso.`;
+        feedback.classList.add('success');
+        quizPassed = true;
+        advanceButton.disabled = false;
+      } else {
+        feedback.textContent = `Sua nota foi ${score}/5 (${score * 20}%). É preciso ao menos ${MINIMUM_SCORE}/5 para avançar. Revise o material e envie as respostas novamente.`;
+        feedback.classList.remove('success');
+        quizPassed = false;
+        advanceButton.disabled = true;
+      }
     });
     section.append(form);
     contentColumn.replaceChildren(section);
