@@ -5,8 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const filters = document.getElementById('catalogFilters');
   const summary = document.getElementById('catalogSummary');
   const user = OlhoDigitalAccount.getCurrentUser();
-  const courses = window.novosCursos;
-  if (!grid || !filters || !user || !courses) return;
+  if (!grid || !filters || !user || !window.novosCursos) return;
+
+  // Os 10 cursos originais vêm de home-data.js; os 50 novos, de catalogo/*.js.
+  const ORIGINAL_META = {
+    'fundamentos': { category: 'Contas e dispositivos', icon: '🛡️' },
+    'phishing': { category: 'Golpes e engenharia social', icon: '🎣' },
+    'redes': { category: 'Técnico e defesa', icon: '🌐' },
+    'malware': { category: 'Técnico e defesa', icon: '🦠' },
+    'proteger-sites': { category: 'Técnico e defesa', icon: '🧱' },
+    'protecao-dados-senhas': { category: 'Contas e dispositivos', icon: '🔐' },
+    'como-hackers-agem': { category: 'Técnico e defesa', icon: '🧭' },
+    'seguranca-na-nuvem': { category: 'Técnico e defesa', icon: '☁️' },
+    'evitar-golpes-internet': { category: 'Golpes e engenharia social', icon: '🚫' },
+    'identificar-combater-ataques': { category: 'Segurança no trabalho', icon: '🚨' }
+  };
+  const courses = {};
+  const hrefs = {};
+  (window.homeData?.cursos || []).forEach((course) => {
+    const meta = ORIGINAL_META[course.chave] || { category: 'Contas e dispositivos', icon: '📘' };
+    courses[course.chave] = { category: meta.category, icon: meta.icon, difficulty: course.nivel, title: course.nome, summary: course.descricao };
+    hrefs[course.chave] = `./aprender/materias/${course.chave}/${course.primeiraPagina}`;
+  });
+  Object.assign(courses, window.novosCursos);
 
   const BANNER = { 'Fácil': 'blue', 'Médio': 'purple', 'Difícil': 'red' };
   const LEVELS = ['Fácil', 'Médio', 'Difícil'];
@@ -41,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body.append(stars);
     }
     const link = create('a', 'primary-btn block', completed ? 'Rever curso' : started ? 'Continuar' : 'Começar');
-    link.href = `./aprender/materias/catalogo/curso.html?curso=${encodeURIComponent(key)}`;
+    link.href = hrefs[key] || `./aprender/materias/catalogo/curso.html?curso=${encodeURIComponent(key)}`;
     body.append(link);
 
     card.append(banner, body);
