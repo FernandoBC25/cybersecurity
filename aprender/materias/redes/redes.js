@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  localStorage.setItem('redesStarted', 'true');
+  OlhoDigitalAccount.setCourseValue(user, 'redes', 'Started', 'true');
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   if (profileToggle) profileToggle.textContent = (user.name || 'U').charAt(0).toUpperCase();
   document.querySelector('.progress-heading span').textContent = `${pageProgress}%`;
   document.querySelector('.progress-track span').style.width = `${pageProgress}%`;
 
   advanceCourse?.addEventListener('click', () => {
-    localStorage.setItem('redesProgress', String(Number(advanceCourse.dataset.progress)));
+    OlhoDigitalAccount.setCourseValue(user, 'redes', 'Progress', String(Number(advanceCourse.dataset.progress)));
     window.location.href = advanceCourse.dataset.next;
   });
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   evaluationForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     const selectedRating = evaluationForm.querySelector('input[name="course-rating"]:checked');
-    localStorage.setItem('redesRating', selectedRating.value);
+    OlhoDigitalAccount.setCourseValue(user, 'redes', 'Rating', selectedRating.value);
     evaluationFeedback.textContent = 'Avaliação enviada! Agora você pode concluir o curso.';
     evaluationFeedback.classList.add('success');
     advanceCourse.disabled = false;

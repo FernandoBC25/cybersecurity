@@ -31,8 +31,21 @@
 
   function requireAuthentication() {
     const user = getCurrentUser();
-    if (!user) OlhoDigitalAuth.goToLogin();
-    else OlhoDigitalAuth.verifySession();
+    if (!user) {
+      OlhoDigitalAuth.goToLogin();
+      return user;
+    }
+    OlhoDigitalAuth.verifySession();
+    // Traz os dados do servidor; se algo mudou (outro dispositivo), recarrega uma vez.
+    OlhoDigitalData.hydrate().then((changed) => {
+      const flag = 'olhoDigital.reloaded';
+      if (changed && !sessionStorage.getItem(flag)) {
+        sessionStorage.setItem(flag, '1');
+        location.reload();
+      } else if (!changed) {
+        sessionStorage.removeItem(flag);
+      }
+    });
     return user;
   }
 
@@ -76,27 +89,14 @@
     }
   }
 
-  function saveActivity(user, activity) {
-    localStorage.setItem(`${ACTIVITY_PREFIX}${accountKey(user)}`, JSON.stringify(activity));
-  }
-
   function trackActivity(user, area, action, item) {
-    const activity = getActivity(user);
-    const collection = activity[area]?.[action];
-    if (!Array.isArray(collection)) throw new Error('Tipo de atividade não reconhecido.');
-    const existingIndex = collection.findIndex((entry) => entry.id === item.id);
-    const entry = { ...item, updatedAt: Date.now() };
-    if (existingIndex >= 0) collection[existingIndex] = { ...collection[existingIndex], ...entry };
-    else collection.unshift(entry);
-    saveActivity(user, activity);
+    if (!Array.isArray(getActivity(user)[area]?.[action])) throw new Error('Tipo de atividade não reconhecido.');
+    OlhoDigitalData.saveActivityEntry(user, area, action, { ...item, updatedAt: Date.now() });
   }
 
   function removeActivity(user, area, action, id) {
-    const activity = getActivity(user);
-    const collection = activity[area]?.[action];
-    if (!Array.isArray(collection)) throw new Error('Tipo de atividade não reconhecido.');
-    activity[area][action] = collection.filter((entry) => entry.id !== id);
-    saveActivity(user, activity);
+    if (!Array.isArray(getActivity(user)[area]?.[action])) throw new Error('Tipo de atividade não reconhecido.');
+    OlhoDigitalData.removeActivityEntry(user, area, action, id);
   }
 
   function getSettings(user) {
@@ -120,7 +120,7 @@
   }
 
   function saveSettings(user, settings) {
-    localStorage.setItem(settingsKey(user), JSON.stringify(settings));
+    OlhoDigitalData.saveSettings(user, settings);
   }
 
   function broadcastSettings(user, settings) {
@@ -347,6 +347,8 @@
     saveAvatar,
     updateProfileAvatars,
     initProfileMenu,
-    setUserPassword
+    setUserPassword,
+    getCourseValue: OlhoDigitalData.getCourseValue,
+    setCourseValue: OlhoDigitalData.setCourseValue
   };
 })();

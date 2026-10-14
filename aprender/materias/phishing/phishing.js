@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  localStorage.setItem('phishingStarted', 'true');
+  OlhoDigitalAccount.setCourseValue(user, 'phishing', 'Started', 'true');
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
 
   if (profileToggle) {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   progressBar.style.width = `${pageProgress}%`;
 
   advanceCourse?.addEventListener('click', () => {
-    localStorage.setItem('phishingProgress', String(Number(advanceCourse.dataset.progress)));
+    OlhoDigitalAccount.setCourseValue(user, 'phishing', 'Progress', String(Number(advanceCourse.dataset.progress)));
     window.location.href = advanceCourse.dataset.next;
   });
 
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   evaluationForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     const selectedRating = evaluationForm.querySelector('input[name="course-rating"]:checked');
-    localStorage.setItem('phishingRating', selectedRating.value);
+    OlhoDigitalAccount.setCourseValue(user, 'phishing', 'Rating', selectedRating.value);
     evaluationFeedback.textContent = 'Avaliação enviada! Agora você pode concluir o curso.';
     evaluationFeedback.classList.add('success');
     advanceCourse.disabled = false;

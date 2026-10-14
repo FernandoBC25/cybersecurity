@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);
   OlhoDigitalAccount.initProfileMenu();
-  localStorage.setItem(`${courseKey}Started`, 'true');
+  OlhoDigitalAccount.setCourseValue(user, courseKey, 'Started', 'true');
 
   const create = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const selected = form.querySelector('input[name="course-rating"]:checked');
-      localStorage.setItem(`${courseKey}Rating`, selected.value);
+      OlhoDigitalAccount.setCourseValue(user, courseKey, 'Rating', selected.value);
       feedback.textContent = 'Avaliação enviada! Agora você pode concluir o curso.';
       feedback.classList.add('success');
       evaluationSubmitted = true;
@@ -335,11 +335,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStage === 'quiz' && !quizPassed) return;
     if (currentStage === 'evaluation') {
       if (!evaluationSubmitted) return;
-      localStorage.setItem(`${courseKey}Progress`, '100');
+      OlhoDigitalAccount.setCourseValue(user, courseKey, 'Progress', '100');
       window.location.href = '../../../aprender.html?curso=concluido';
       return;
     }
-    localStorage.setItem(`${courseKey}Progress`, String([33, 66, 75][index]));
+    OlhoDigitalAccount.setCourseValue(user, courseKey, 'Progress', String([33, 66, 75][index]));
     currentStage = stages[index + 1];
     const url = new URL(window.location.href);
     url.searchParams.set('etapa', currentStage);

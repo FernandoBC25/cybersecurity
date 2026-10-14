@@ -35,6 +35,7 @@ if (form) {
       return;
     }
 
+    await OlhoDigitalData.hydrate();
     window.location.href = './home.html';
   });
 }

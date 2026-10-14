@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
   OlhoDigitalAccount.updateProfileAvatars(user);
   OlhoDigitalAccount.initProfileMenu();
 
-  const courseCompleted = Number(localStorage.getItem('fundamentosProgress')) >= 100;
-  const courseStarted = localStorage.getItem('fundamentosStarted') === 'true';
+  const courseCompleted = Number(OlhoDigitalAccount.getCourseValue(user, 'fundamentos', 'Progress')) >= 100;
+  const courseStarted = OlhoDigitalAccount.getCourseValue(user, 'fundamentos', 'Started') === 'true';
   const courseCompletion = document.getElementById('courseCompletion');
   const courseRating = document.getElementById('courseRating');
   const startFundamentals = document.getElementById('startFundamentals');
-  const savedRating = Number(localStorage.getItem('fundamentosRating'));
+  const savedRating = Number(OlhoDigitalAccount.getCourseValue(user, 'fundamentos', 'Rating'));
 
   if (courseCompleted) {
     courseCompletion.hidden = false;
@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     courseCompletion.classList.add('is-incomplete');
   }
 
-  const phishingCompleted = Number(localStorage.getItem('phishingProgress')) >= 100;
-  const phishingStarted = localStorage.getItem('phishingStarted') === 'true';
+  const phishingCompleted = Number(OlhoDigitalAccount.getCourseValue(user, 'phishing', 'Progress')) >= 100;
+  const phishingStarted = OlhoDigitalAccount.getCourseValue(user, 'phishing', 'Started') === 'true';
   const phishingCompletion = document.getElementById('phishingCompletion');
   const phishingRating = document.getElementById('phishingRating');
   const startPhishing = document.getElementById('startPhishing');
-  const savedPhishingRating = Number(localStorage.getItem('phishingRating'));
+  const savedPhishingRating = Number(OlhoDigitalAccount.getCourseValue(user, 'phishing', 'Rating'));
 
   if (phishingCompleted) {
     phishingCompletion.hidden = false;
@@ -71,12 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   additionalCourses.forEach(({ key, completionId, ratingId, startId }) => {
-    const completed = Number(localStorage.getItem(`${key}Progress`)) >= 100;
-    const started = localStorage.getItem(`${key}Started`) === 'true';
+    const completed = Number(OlhoDigitalAccount.getCourseValue(user, key, 'Progress')) >= 100;
+    const started = OlhoDigitalAccount.getCourseValue(user, key, 'Started') === 'true';
     const completion = document.getElementById(completionId);
     const rating = document.getElementById(ratingId);
     const start = document.getElementById(startId);
-    const savedRating = Number(localStorage.getItem(`${key}Rating`));
+    const savedRating = Number(OlhoDigitalAccount.getCourseValue(user, key, 'Rating'));
 
     if (completed) {
       completion.hidden = false;
