@@ -330,12 +330,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentStage === 'evaluation') renderEvaluation();
   };
 
-  advanceButton.addEventListener('click', () => {
+  advanceButton.addEventListener('click', async () => {
     const index = stages.indexOf(currentStage);
     if (currentStage === 'quiz' && !quizPassed) return;
     if (currentStage === 'evaluation') {
       if (!evaluationSubmitted) return;
-      OlhoDigitalAccount.setCourseValue(user, courseKey, 'Progress', '100');
+      advanceButton.disabled = true;
+      await OlhoDigitalAccount.setCourseValue(user, courseKey, 'Progress', '100');
       window.location.href = '../../../aprender.html?curso=concluido';
       return;
     }

@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.progress-heading span').textContent = `${pageProgress}%`;
   document.querySelector('.progress-track span').style.width = `${pageProgress}%`;
 
-  advanceCourse?.addEventListener('click', () => {
-    OlhoDigitalAccount.setCourseValue(user, courseKey, 'Progress', String(Number(advanceCourse.dataset.progress)));
+  advanceCourse?.addEventListener('click', async () => {
+    advanceCourse.disabled = true;
+    await OlhoDigitalAccount.setCourseValue(user, courseKey, 'Progress', String(Number(advanceCourse.dataset.progress)));
     window.location.href = advanceCourse.dataset.next;
   });
 

@@ -55,7 +55,9 @@
     else data.rating = Number(value) || null;
     courses[course] = data;
     writeCache('courses', user, courses);
-    push('o progresso do curso', supabaseClient.from('progresso_cursos').upsert({
+    // Quem vai trocar de página logo em seguida deve esperar esta promessa,
+    // senão a navegação cancela a requisição e o servidor fica desatualizado.
+    return push('o progresso do curso', supabaseClient.from('progresso_cursos').upsert({
       user_id: user.id,
       curso: course,
       iniciado: data.started,
