@@ -40,18 +40,35 @@ function parseFeed(xml, source) {
   }).filter((item) => item.title && /^https?:\/\//.test(item.link) && !Number.isNaN(item.publishedAt.getTime()));
 }
 
+// Tenta o tradutor do Google e, se falhar, o MyMemory (gratuito, sem chave).
+// Se os dois falharem, o texto original é mantido.
 async function translate(text) {
   if (!text) return text;
-  try {
-    const response = await fetch('https://translate.googleapis.com/translate_a/single?' + new URLSearchParams({
-      client: 'gtx', sl: 'auto', tl: 'pt-BR', dt: 't', q: text
-    }), { signal: AbortSignal.timeout(8000) });
-    const data = await response.json();
-    const translated = (data?.[0] || []).map((segment) => segment[0]).join('');
-    return translated || text;
-  } catch {
-    return text;
+  const attempts = [
+    async () => {
+      const response = await fetch('https://translate.googleapis.com/translate_a/single?' + new URLSearchParams({
+        client: 'gtx', sl: 'auto', tl: 'pt-BR', dt: 't', q: text
+      }), { signal: AbortSignal.timeout(8000) });
+      const data = await response.json();
+      return (data?.[0] || []).map((segment) => segment[0]).join('');
+    },
+    async () => {
+      const response = await fetch('https://api.mymemory.translated.net/get?' + new URLSearchParams({
+        q: text, langpair: 'en|pt-BR'
+      }), { signal: AbortSignal.timeout(8000) });
+      const data = await response.json();
+      return data?.responseData?.translatedText || '';
+    }
+  ];
+  for (const attempt of attempts) {
+    try {
+      const translated = (await attempt()).trim();
+      if (translated && translated.toLowerCase() !== text.toLowerCase()) return translated;
+    } catch {
+      // tenta o próximo serviço
+    }
   }
+  return text;
 }
 
 async function fetchAllNews() {
