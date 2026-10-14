@@ -1,7 +1,10 @@
 /* Cabeçalho único do site (ver scripts/site-header.js).
    Usa prefixo site-* para não depender dos estilos antigos de cada página. */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+
 .site-topbar {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
   position: sticky;
   top: 0;
   z-index: 60;
@@ -26,9 +29,16 @@
 .site-topbar [hidden] { display: none !important; }
 
 /* Marca */
-.site-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 11px; color: #fff; font-weight: 700; white-space: nowrap; }
+.site-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 12px; color: #fff; font-weight: 700; white-space: nowrap; }
 .site-brand img { width: 42px; height: 42px; padding: 3px; border-radius: 8px; background: #fff; object-fit: contain; }
-.site-topbar .site-brand span { color: #fff; font-size: 1rem; }
+.site-topbar .site-brand span {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+}
 
 /* Menu de navegação */
 .site-nav { display: flex; flex: 1 1 auto; gap: 26px; }
