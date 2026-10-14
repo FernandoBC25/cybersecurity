@@ -351,3 +351,28 @@ body.theme-dark .video-progress button[aria-pressed="true"] { border-color: #60a
   .course-grid, .video-grid { grid-template-columns: 1fr; }
   .nav-right { gap: 8px; }
 }
+
+/* Catálogo de cursos (scripts/catalogo-aprender.js) */
+.catalog-filters { display: grid; gap: 10px; margin-bottom: 18px; }
+.catalog-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.catalog-chip {
+  min-height: 36px;
+  padding: 6px 14px;
+  border: 1px solid var(--slate-300);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--slate-600);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.catalog-chip[aria-pressed="true"] { border-color: var(--blue-600); background: var(--blue-100); color: var(--blue-700); }
+.course-summary { margin: 0 0 12px; color: var(--slate-600); font-size: 0.88rem; line-height: 1.5; }
+.catalog-empty { margin: 12px 0 0; color: var(--slate-600); }
+.course-card[hidden] { display: none; }
+body.theme-dark .catalog-chip { border-color: #475569; background: #24344e; color: #e2e8f0; }
+body.theme-dark .catalog-chip[aria-pressed="true"] { border-color: #60a5fa; background: #1e3a8a; color: #fff; }
+body.theme-dark .course-summary,
+body.theme-dark .catalog-empty { color: #b8c4d4; }
+@media (max-width: 1100px) { .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .course-grid { grid-template-columns: 1fr; } }
