@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!user) return;
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);
-  OlhoDigitalAccount.initProfileMenu();
 
   const courseCompleted = Number(OlhoDigitalAccount.getCourseValue(user, 'fundamentos', 'Progress')) >= 100;
   const courseStarted = OlhoDigitalAccount.getCourseValue(user, 'fundamentos', 'Started') === 'true';
@@ -98,16 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
       completion.hidden = false;
       completion.textContent = 'Não concluído';
     }
-  });
-
-  const profileDropdown = document.getElementById('profileDropdown');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    document.getElementById('logoutDialog').showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    OlhoDigitalAuth.signOut();
   });
 
   const search = document.getElementById('learningSearch');

@@ -3,16 +3,6 @@ const account = OlhoDigitalAccount.requireAuthentication();
 if (account) {
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(account));
   OlhoDigitalAccount.updateProfileAvatars(account);
-  OlhoDigitalAccount.initProfileMenu();
-  const profileDropdown = document.getElementById('profileDropdown');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    document.getElementById('logoutDialog').showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    OlhoDigitalAuth.signOut();
-  });
   const gallery = document.getElementById('avatarGallery');
   const preview = document.getElementById('avatarPreview');
   const fileInput = document.getElementById('avatarFile');

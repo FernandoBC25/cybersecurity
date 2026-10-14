@@ -1,11 +1,4 @@
 const homeData = window.homeData;
-const profileToggle = document.getElementById('profileToggle');
-const profileDropdown = document.getElementById('profileDropdown');
-const notificationToggle = document.getElementById('notificationToggle');
-const notificationDropdown = document.getElementById('notificationDropdown');
-const menuToggle = document.getElementById('menuToggle');
-const sidebar = document.getElementById('sidebar');
-const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 const searchInput = document.getElementById('searchInput');
 const courseCarousel = document.getElementById('courseCarousel');
 
@@ -222,58 +215,13 @@ function updateCarouselButtons() {
   document.getElementById('carouselNext').disabled = courseCarousel.scrollLeft + courseCarousel.clientWidth >= courseCarousel.scrollWidth - 2;
 }
 
-function closeHeaderPopovers() {
-  profileDropdown.hidden = true;
-  notificationDropdown.hidden = true;
-  profileToggle.setAttribute('aria-expanded', 'false');
-  notificationToggle.setAttribute('aria-expanded', 'false');
-}
-
-function togglePopover(button, popover) {
-  const shouldOpen = popover.hidden;
-  closeHeaderPopovers();
-  if (shouldOpen) {
-    popover.hidden = false;
-    button.setAttribute('aria-expanded', 'true');
-  }
-}
-
-function toggleMobileMenu(open) {
-  sidebar.classList.toggle('is-open', open);
-  sidebarBackdrop.hidden = !open;
-  menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-  document.body.classList.toggle('menu-open', open);
-}
-
 function setupInteractions() {
-  profileToggle.addEventListener('click', () => togglePopover(profileToggle, profileDropdown));
-  notificationToggle.addEventListener('click', () => togglePopover(notificationToggle, notificationDropdown));
-  document.addEventListener('click', (event) => {
-    if (!(event.target instanceof Node)) return;
-    if (!profileToggle.contains(event.target) && !profileDropdown.contains(event.target) && !notificationToggle.contains(event.target) && !notificationDropdown.contains(event.target)) closeHeaderPopovers();
-  });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      closeHeaderPopovers();
-      toggleMobileMenu(false);
-    }
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault();
       searchInput.focus();
     }
   });
-  const logoutDialog = document.getElementById('logoutDialog');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    closeHeaderPopovers();
-    logoutDialog.showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    OlhoDigitalAuth.signOut();
-  });
-  menuToggle.addEventListener('click', () => toggleMobileMenu(!sidebar.classList.contains('is-open')));
-  sidebarBackdrop.addEventListener('click', () => toggleMobileMenu(false));
-  sidebar.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => toggleMobileMenu(false)));
   document.getElementById('carouselPrevious').addEventListener('click', () => courseCarousel.scrollBy({ left: -courseCarousel.clientWidth * 0.72, behavior: 'smooth' }));
   document.getElementById('carouselNext').addEventListener('click', () => courseCarousel.scrollBy({ left: courseCarousel.clientWidth * 0.72, behavior: 'smooth' }));
   courseCarousel.addEventListener('scroll', updateCarouselButtons, { passive: true });

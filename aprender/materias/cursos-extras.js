@@ -151,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);
-  OlhoDigitalAccount.initProfileMenu();
   OlhoDigitalAccount.setCourseValue(user, courseKey, 'Started', 'true');
 
   const create = (tag, className, text) => {

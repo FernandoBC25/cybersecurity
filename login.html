@@ -52,16 +52,19 @@
         </div>
 
         <form id="loginForm" novalidate>
-          <div id="errorBox" class="error-box hidden"></div>
+          <div id="errorBox" class="error-box hidden" role="alert"></div>
 
           <label>
             <span>Email</span>
-            <input type="email" id="email" placeholder="seu@email.com" required />
+            <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required />
           </label>
 
           <label>
             <span>Senha</span>
-            <input type="password" id="password" placeholder="••••••••" required />
+            <span class="password-field">
+              <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required />
+              <button type="button" class="password-toggle" data-password-toggle="password" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+            </span>
           </label>
 
           <button type="submit" class="primary-btn block">Entrar</button>
@@ -82,6 +85,7 @@
     <script src="./scripts/supabase-config.js"></script>
     <script src="./scripts/auth.js"></script>
     <script src="./scripts/data.js"></script>
+    <script src="./scripts/password-toggle.js"></script>
     <script src="./scripts/login.js"></script>
   </body>
 </html>

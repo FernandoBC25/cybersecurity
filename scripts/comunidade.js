@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!user) return;
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);
-  OlhoDigitalAccount.initProfileMenu();
 
   const Community = OlhoDigitalCommunity;
   const CATEGORY_LABELS = { geral: 'Geral', duvidas: 'Dúvidas', tutoriais: 'Tutoriais', projetos: 'Projetos', noticias: 'Notícias' };

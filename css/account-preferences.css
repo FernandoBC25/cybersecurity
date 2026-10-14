@@ -23,10 +23,10 @@ body.spacing-compact .dashboard-grid { gap: 12px; }
 
 body.theme-dark {
   color-scheme: dark;
-  background: linear-gradient(180deg, #0f172a 0%, #111c30 100%) !important;
+  background: linear-gradient(180deg, #0f172a 0%, #0f172a 100%) !important;
   color: #e2e8f0 !important;
 }
-body.theme-dark .topbar { background: #111c30 !important; border-color: #334155 !important; }
+body.theme-dark .topbar { background: #0f172a !important; border-color: #334155 !important; }
 body.theme-dark .brand { color: #f8fafc !important; }
 body.theme-dark :where(.panel, .course-body, .video-info, .lab-item, .post-card, .side-nav, .side-panel, .category-bar, .comment-body, .modal, .news-card, .hero-card, .stat-card, .current-course-content, .recommended-card, .settings-card, .avatar-card, .avatar-preview-card, .settings-actions, .unsaved-dialog) {
   background-color: #172338 !important;
@@ -47,7 +47,7 @@ body.theme-dark .page-card {
 }
 body.theme-dark :where(.search-box, input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), textarea, select, .filter-btn, .outline-btn, .reply-input, .reply-form input, .reply-form textarea) {
   border-color: #475569 !important;
-  background-color: #111c30 !important;
+  background-color: #0f172a !important;
   color: #e2e8f0 !important;
 }
 body.theme-dark input::placeholder,
@@ -57,7 +57,7 @@ body.theme-dark :where(p, li, time, strong, small, label, legend, .meta-row, .ca
 body.theme-dark a:not(.brand):not(.primary-btn):not(.button-primary):not(.btn-primary):not(.primary-button):not(.profile-btn) { color: #93c5fd !important; }
 body.theme-dark :where(.course-body, .video-info, .comment-body, .category-bar, .side-nav, .side-panel, .search-box) { border-color: #334155 !important; }
 body.theme-dark :where(.section, .page-shell, .learning-section, .community-layout, .feed, .hero) { color: #e2e8f0; }
-body.theme-dark .hero { background-color: #111c30 !important; }
+body.theme-dark .hero { background-color: #0f172a !important; }
 body.theme-dark .highlight-banner,
 body.theme-dark .stats-section { background-color: #172338 !important; color: #e2e8f0 !important; }
 body.theme-dark .news-card:hover { background-color: #1e293b !important; }
@@ -134,9 +134,9 @@ body.theme-dark .logout-dialog-actions button:not(.logout-confirm) { border-colo
 body.theme-dark {
   --dark-page: #0b1220;
   --dark-surface: #151f30;
-  --dark-surface-raised: #1d2a3e;
-  --dark-surface-muted: #24344b;
-  --dark-border: #35445a;
+  --dark-surface-raised: #172338;
+  --dark-surface-muted: #24344e;
+  --dark-border: #334155;
   --dark-text: #e2e8f0;
   --dark-text-muted: #b8c4d4;
   --dark-link: #93c5fd;
@@ -302,7 +302,7 @@ body.theme-dark .brand img {
   object-fit: cover;
   mix-blend-mode: screen;
 }
-body.theme-dark .daily-message { background-image: linear-gradient(115deg, #172338 0%, #1d2a3e 58%, #24344b 100%) !important; }
+body.theme-dark .daily-message { background-image: linear-gradient(115deg, #172338 0%, #172338 58%, #24344e 100%) !important; }
 body.theme-dark .daily-message :where(.daily-label, h2, p) { color: #f1f5f9 !important; }
 body.theme-dark .section-title .nav-links a:hover { background-color: #30415a !important; }
 body.theme-dark .featured-label { background-color: #713f12 !important; color: #fef3c7 !important; }
@@ -340,11 +340,11 @@ body.theme-dark .current-course-content .last-access {
   color: #cbd5e1 !important;
 }
 body.theme-dark .current-course-content .progress-track {
-  background: #35445a !important;
+  background: #334155 !important;
 }
 body.theme-dark .recommendations-panel .recommended-card {
   background: #151f30 !important;
-  border-color: #35445a !important;
+  border-color: #334155 !important;
 }
 body.theme-dark .recommendations-panel .recommended-content h3 {
   color: #f8fafc !important;
@@ -364,7 +364,7 @@ body.theme-dark .recommendations-panel .carousel-actions .text-link {
   color: #93c5fd !important;
 }
 body.theme-dark .recommendations-panel .carousel-actions button {
-  background: #24344b !important;
+  background: #24344e !important;
   border-color: #475569 !important;
   color: #e2e8f0 !important;
 }

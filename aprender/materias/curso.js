@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const user = OlhoDigitalAccount.requireAuthentication();
   if (!course || !user) return;
 
-  const profileToggle = document.getElementById('profileToggle');
   const advanceCourse = document.getElementById('advanceCourse');
   const quizForm = document.getElementById('quizForm');
   const quizFeedback = document.getElementById('quizFeedback');
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   OlhoDigitalAccount.setCourseValue(user, courseKey, 'Started', 'true');
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
-  if (profileToggle) profileToggle.textContent = (user.name || 'U').charAt(0).toUpperCase();
 
   // Nas páginas do curso de fundamentos o HTML não traz o destino dos botões das últimas etapas.
   if (course.setsFinalSteps && advanceCourse) {

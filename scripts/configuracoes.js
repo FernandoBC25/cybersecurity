@@ -7,7 +7,6 @@ if (account) {
   const passwordForm = document.getElementById('passwordForm');
   const passwordStatus = document.getElementById('passwordStatus');
   const unsavedDialog = document.getElementById('unsavedDialog');
-  const profileDropdown = document.getElementById('profileDropdown');
   let pendingHref = null;
   let pendingLogout = false;
   let awaitingHistoryChoice = false;
@@ -164,19 +163,12 @@ if (account) {
   document.getElementById('accountName').textContent = account.name || 'Não informado';
   document.getElementById('accountEmail').textContent = account.email;
   OlhoDigitalAccount.updateProfileAvatars(account);
-  OlhoDigitalAccount.initProfileMenu();
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    if (OlhoDigitalAccount.hasUnsavedSettings(account)) {
-      openUnsavedDialog(null, false, true);
-    } else {
-      document.getElementById('logoutDialog').showModal();
-    }
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    OlhoDigitalAuth.signOut();
-  });
+  // Sair com alterações não salvas abre o aviso de descarte antes do logout.
+  window.OlhoDigitalSiteHeader.onLogout = () => {
+    if (!OlhoDigitalAccount.hasUnsavedSettings(account)) return false;
+    openUnsavedDialog(null, false, true);
+    return true;
+  };
   populate(OlhoDigitalAccount.getEffectiveSettings(account));
   refreshPreferencePreviews(OlhoDigitalAccount.getEffectiveSettings(account));
   refreshChangesStatus();

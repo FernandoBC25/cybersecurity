@@ -11,6 +11,15 @@ function showError(message) {
 }
 
 if (form) {
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  // Restaura o botão quando o cadastro não é concluído, para o usuário poder tentar de novo.
+  function resetSubmitButton() {
+    if (!submitButton) return;
+    submitButton.disabled = false;
+    submitButton.textContent = 'Criar conta';
+  }
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     errorBox.classList.add('hidden');
@@ -30,6 +39,11 @@ if (form) {
       return;
     }
 
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Criando conta...';
+    }
+
     const { data, error } = await supabaseClient.auth.signUp({
       email,
       password,
@@ -38,11 +52,13 @@ if (form) {
 
     if (error) {
       showError(error.message.includes('registered') ? 'Este email já está cadastrado' : error.message);
+      resetSubmitButton();
       return;
     }
 
     if (data.user && data.user.identities?.length === 0) {
       showError('Este email já está cadastrado');
+      resetSubmitButton();
       return;
     }
 

@@ -4,16 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);
-  OlhoDigitalAccount.initProfileMenu();
-  const profileDropdown = document.getElementById('profileDropdown');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    document.getElementById('logoutDialog').showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    OlhoDigitalAuth.signOut();
-  });
   document.getElementById('activityUserName').textContent = user.name || 'Minha conta';
   document.getElementById('activityUserEmail').textContent = user.email;
 

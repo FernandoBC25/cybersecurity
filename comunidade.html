@@ -6,43 +6,11 @@
     <title>Olho Digital | Comunidade</title>
     <link rel="stylesheet" href="./css/comunidade.css" />
     <link rel="stylesheet" href="./css/account-preferences.css" />
+      <link rel="stylesheet" href="./css/site-header.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="container nav-wrap">
-        <div class="nav-left">
-          <a href="./home.html" class="brand">
-            <img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="Olho Digital" />
-            <span>Olho Digital</span>
-          </a>
-
-          <nav class="main-nav" aria-label="Menu principal">
-            <a href="./home.html">Início</a>
-            <a href="./aprender.html">Aprender</a>
-            <a href="./noticias.html">Notícias</a>
-            <a href="./comunidade.html" class="active">Comunidade</a>
-          </nav>
-        </div>
-
-        <div class="nav-right">
-          <label class="search-box" for="communitySearch">
-            <span aria-hidden="true">⌕</span>
-            <input type="text" id="communitySearch" placeholder="Buscar na comunidade..." />
-          </label>
-          <button class="icon-btn" aria-label="Notificações">🔔</button>
-          <div class="profile-menu-wrap">
-            <button class="profile-btn" id="profileToggle" type="button" aria-label="Perfil" aria-expanded="false" aria-controls="profileDropdown">
-              <span class="profile-avatar" data-profile-avatar>U</span>
-            </button>
-            <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
-              <a role="menuitem" href="./atividade.html">Meu perfil</a>
-              <a role="menuitem" href="./configuracoes.html">Configurações</a>
-              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <header class="topbar" data-site-header data-active="comunidade" data-search-id="communitySearch" data-search-placeholder="Buscar na comunidade..."></header>
+    <script src="./scripts/site-header.js"></script>
 
     <main class="container page-shell">
       <section class="community-header">

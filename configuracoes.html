@@ -8,29 +8,11 @@
     <link rel="stylesheet" href="./css/home.css" />
     <link rel="stylesheet" href="./css/account-preferences.css" />
     <link rel="stylesheet" href="./css/configuracoes.css" />
+      <link rel="stylesheet" href="./css/site-header.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="container settings-nav">
-        <a href="./home.html" class="brand"><img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="" /><span>Olho Digital</span></a>
-        <nav aria-label="Navegação principal">
-          <a href="./home.html">Início</a>
-          <a href="./aprender.html">Aprender</a>
-          <a href="./noticias.html">Notícias</a>
-          <a href="./comunidade.html">Comunidade</a>
-        </nav>
-        <div class="profile-menu-wrap settings-profile-menu">
-          <button class="profile-btn" id="profileToggle" type="button" aria-label="Abrir opções do perfil" aria-expanded="false" aria-controls="profileDropdown">
-            <span class="avatar" data-profile-avatar>U</span>
-          </button>
-          <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
-            <a role="menuitem" href="./atividade.html">Meu perfil</a>
-            <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
-            <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
-          </div>
-        </div>
-      </div>
-    </header>
+    <header class="topbar" data-site-header ></header>
+    <script src="./scripts/site-header.js"></script>
     <main class="settings-page">
       <div class="settings-heading">
         <a class="back-link" href="./home.html">← Voltar ao início</a>
@@ -131,16 +113,6 @@
           <button type="button" class="primary-button" id="saveAndLeave">Salvar e sair</button>
         </div>
       </section>
-    </dialog>
-    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
-      <form method="dialog" class="logout-dialog-card">
-        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
-        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
-        <div class="logout-dialog-actions">
-          <button class="logout-cancel" value="cancel">Cancelar</button>
-          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
-        </div>
-      </form>
     </dialog>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
     <script src="./scripts/supabase-config.js"></script>
