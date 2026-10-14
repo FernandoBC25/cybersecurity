@@ -140,7 +140,7 @@ const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5502,http:/
 app.use(cors({ origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)) }));
 
 // Arquivos do projeto que nunca devem ser servidos pelo site.
-const PRIVATE_PATHS = /^\/(\.|node_modules|supabase|package(-lock)?\.json|scripts\/(server\.js|news\.json))/i;
+const PRIVATE_PATHS = /^\/(\.|node_modules|supabase|package(-lock)?\.json|scripts\/server\.js)/i;
 app.use((req, res, next) => (PRIVATE_PATHS.test(req.path) ? res.status(404).end() : next()));
 app.use(express.static(PROJECT_ROOT));
 
