@@ -28,15 +28,13 @@ if (form) {
       return;
     }
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
     if (error) {
       showError(error.message.includes('not confirmed') ? 'Confirme seu email antes de entrar' : 'Email ou senha incorretos');
       return;
     }
 
-    const foundUser = data.user;
-    localStorage.setItem('user', JSON.stringify({ name: foundUser.user_metadata?.name || '', email: foundUser.email }));
     window.location.href = './home.html';
   });
 }

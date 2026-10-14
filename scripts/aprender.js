@@ -107,9 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logoutDialog').showModal();
   });
   document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
+    OlhoDigitalAuth.signOut();
   });
 
   const search = document.getElementById('learningSearch');

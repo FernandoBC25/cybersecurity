@@ -78,9 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutDialog.showModal();
   });
   document.getElementById('courseLogoutConfirm').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('../../../login.html');
+    OlhoDigitalAuth.signOut();
   });
 
   const search = document.getElementById('courseSearch');

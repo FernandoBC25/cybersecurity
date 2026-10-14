@@ -165,9 +165,7 @@ function setupInteractions() {
     logoutDialog.showModal();
   });
   document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
+    OlhoDigitalAuth.signOut();
   });
   menuToggle.addEventListener('click', () => toggleMobileMenu(!sidebar.classList.contains('is-open')));
   sidebarBackdrop.addEventListener('click', () => toggleMobileMenu(false));

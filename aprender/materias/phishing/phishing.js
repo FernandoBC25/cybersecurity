@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const evaluationCommentLabel = evaluationForm?.querySelector('label[for="course-comment"]');
   const progressValue = document.querySelector('.progress-heading span');
   const progressBar = document.querySelector('.progress-track span');
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const user = OlhoDigitalAccount.getCurrentUser();
   const pageProgress = Number(document.body.dataset.courseProgress || 0);
 
   if (!user) {

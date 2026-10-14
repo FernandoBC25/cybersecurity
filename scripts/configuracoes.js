@@ -175,9 +175,7 @@ if (account) {
     }
   });
   document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
+    OlhoDigitalAuth.signOut();
   });
   populate(OlhoDigitalAccount.getEffectiveSettings(account));
   refreshPreferencePreviews(OlhoDigitalAccount.getEffectiveSettings(account));
@@ -263,7 +261,7 @@ if (account) {
     event.returnValue = '';
   });
 
-  passwordForm.addEventListener('submit', (event) => {
+  passwordForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword = document.getElementById('newPassword').value;
@@ -279,15 +277,16 @@ if (account) {
     }
 
     try {
-      if (!OlhoDigitalAccount.setUserPassword(account, currentPassword, newPassword)) {
-        showStatus(passwordStatus, 'A senha atual não confere ou esta conta não possui cadastro local.', true);
+      const result = await OlhoDigitalAccount.setUserPassword(currentPassword, newPassword);
+      if (!result.ok) {
+        showStatus(passwordStatus, result.reason, true);
         return;
       }
       passwordForm.reset();
-      showStatus(passwordStatus, 'Senha atualizada no cadastro local deste navegador.');
+      showStatus(passwordStatus, 'Senha atualizada com sucesso.');
     } catch (error) {
       console.error(error);
-      showStatus(passwordStatus, 'Não foi possível atualizar a senha armazenada neste navegador.', true);
+      showStatus(passwordStatus, 'Não foi possível atualizar a senha.', true);
     }
   });
 }

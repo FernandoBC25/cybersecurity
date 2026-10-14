@@ -26,19 +26,13 @@
   };
 
   function getCurrentUser() {
-    try {
-      const user = JSON.parse(localStorage.getItem('user') || 'null');
-      return user && typeof user.email === 'string' && user.email.trim()
-        ? { ...user, email: user.email.trim() }
-        : null;
-    } catch {
-      return null;
-    }
+    return OlhoDigitalAuth.getCurrentUser();
   }
 
   function requireAuthentication() {
     const user = getCurrentUser();
-    if (!user) window.location.replace('./login.html');
+    if (!user) OlhoDigitalAuth.goToLogin();
+    else OlhoDigitalAuth.verifySession();
     return user;
   }
 
@@ -329,15 +323,8 @@
     });
   }
 
-  function setUserPassword(user, currentPassword, newPassword) {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const registeredUser = users.find((item) =>
-      String(item.email).trim() === user.email
-    );
-    if (!registeredUser || registeredUser.password !== currentPassword) return false;
-    registeredUser.password = newPassword;
-    localStorage.setItem('users', JSON.stringify(users));
-    return true;
+  function setUserPassword(currentPassword, newPassword) {
+    return OlhoDigitalAuth.changePassword(currentPassword, newPassword);
   }
 
   window.OlhoDigitalAccount = {

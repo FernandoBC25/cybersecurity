@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const evaluationComment = evaluationForm?.querySelector('#course-comment');
   const evaluationCommentLabel = evaluationForm?.querySelector('label[for="course-comment"]');
   const pageProgress = Number(document.body.dataset.courseProgress || 0);
-  const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const user = OlhoDigitalAccount.getCurrentUser();
 
   if (!user) {
     window.location.href = '../../../login.html';

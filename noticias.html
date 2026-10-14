@@ -167,6 +167,9 @@
       </form>
     </dialog>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+    <script src="./scripts/supabase-config.js"></script>
+    <script src="./scripts/auth.js"></script>
     <script src="./scripts/account.js"></script>
     <script>
       const newsUser = OlhoDigitalAccount.requireAuthentication();
@@ -180,9 +183,7 @@
         document.getElementById('logoutDialog').showModal();
       });
       document.getElementById('confirmLogout').addEventListener('click', () => {
-        localStorage.removeItem('user');
-        sessionStorage.clear();
-        window.location.replace('./login.html');
+        OlhoDigitalAuth.signOut();
       });
       const recentesArticles = [
         {

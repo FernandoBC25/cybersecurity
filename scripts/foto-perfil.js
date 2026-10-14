@@ -11,9 +11,7 @@ if (account) {
     document.getElementById('logoutDialog').showModal();
   });
   document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
+    OlhoDigitalAuth.signOut();
   });
   const gallery = document.getElementById('avatarGallery');
   const preview = document.getElementById('avatarPreview');
