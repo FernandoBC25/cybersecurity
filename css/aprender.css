@@ -255,9 +255,10 @@ body.theme-dark .course-completion.is-incomplete { color: #fca5a5; }
   padding: 18px 18px 20px;
   color: var(--white);
 }
-.course-banner.blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-.course-banner.purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
-.course-banner.red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+/* Tons da mesma família (azul, índigo, ardósia). A dificuldade fica no selo .level. */
+.course-banner.blue { background: linear-gradient(135deg, #2563eb, #1e40af); }
+.course-banner.purple { background: linear-gradient(135deg, #4f46e5, #3730a3); }
+.course-banner.red { background: linear-gradient(135deg, #475569, #1e293b); }
 .level {
   display: inline-block;
   padding: 6px 10px;
