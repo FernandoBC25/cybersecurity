@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div><span class="tag ${post.category}">${label(post.category)}</span>${own ? `<button class="post-menu" data-delete-post="${post.id}" aria-label="Excluir publicação">⋯</button>` : ''}</div></div>
       <p>${escapeHtml(post.text)}</p>
       ${post.image ? `<img class="post-image" src="${escapeHtml(post.image)}" alt="Imagem da publicação">` : ''}
-      <div class="post-stats"><span>♡ ${post.likes} curtidas</span><span>💬 ${countComments(post.comments)} comentários</span></div>
+      <div class="post-stats"><span>♡ ${post.likes} curtida${post.likes === 1 ? "" : "s"}</span><span>💬 ${countComments(post.comments)} comentário${countComments(post.comments) === 1 ? "" : "s"}</span></div>
       <div class="post-actions">
         <button class="${post.likedByMe ? 'active' : ''}" data-like="${post.id}">👍 Curtir</button>
         <button data-comments="${post.id}">💬 Comentar</button>

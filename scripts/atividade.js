@@ -54,18 +54,26 @@ document.addEventListener('DOMContentLoaded', () => {
   renderActivityList('communitySaves', activity.community.saves, 'Você ainda não salvou publicações.');
   renderActivityList('communityComments', activity.community.comments, 'Você ainda não comentou ou respondeu publicações.', (entry) => entry.kind || 'Comentário');
   renderActivityList('newsComments', activity.news.comments, 'Você ainda não comentou notícias.', (entry) => entry.kind || 'Comentário');
-  renderActivityList('learningVideos', activity.learning.videos, 'Você ainda não iniciou videoaulas.', (entry) => entry.status === 'completed' ? 'Concluída' : 'Em andamento');
+  // Cursos iniciados, a partir do progresso salvo (mais recentes primeiro).
+  const savedCourses = OlhoDigitalData.getCourses(user);
+  const learning = window.homeData.cursos
+    .map((course) => ({ title: course.nome, ...savedCourses[course.chave] }))
+    .filter((course) => course.started)
+    .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  renderActivityList('learningVideos', learning, 'Você ainda não iniciou cursos.', (entry) => entry.progress >= 100
+    ? `Concluído${entry.rating ? ` · nota ${entry.rating}/5` : ''}`
+    : `Em andamento · ${entry.progress || 0}%`);
 
   const communityCount = activity.community.likes.length + activity.community.saves.length + activity.community.comments.length;
   document.getElementById('communityActivityCount').textContent = communityCount;
   document.getElementById('newsActivityCount').textContent = activity.news.comments.length;
-  document.getElementById('learningActivityCount').textContent = activity.learning.videos.length;
+  document.getElementById('learningActivityCount').textContent = learning.length;
 
   const tabs = [...document.querySelectorAll('[data-activity-tab]')];
   const selectionHints = {
     activityTabCommunity: 'Curtidas, itens salvos e conversas na comunidade.',
     activityTabNews: 'Comentários e respostas que você fez nas notícias.',
-    activityTabLearning: 'Videoaulas que você marcou como em andamento ou concluídas.'
+    activityTabLearning: 'Cursos que você começou ou concluiu.'
   };
   function selectTab(tab, moveFocus = false) {
     tabs.forEach((item) => {

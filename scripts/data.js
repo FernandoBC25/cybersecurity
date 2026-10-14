@@ -24,6 +24,16 @@
     localStorage.setItem(cacheKey(kind, user), JSON.stringify(value));
   }
 
+  // Texto que representa o conteúdo sem depender da ordem: o JSONB do Postgres
+  // devolve as chaves em outra ordem, e isso não pode contar como "mudou".
+  function canonical(value) {
+    if (Array.isArray(value)) return `[${value.map(canonical).sort().join(',')}]`;
+    if (value && typeof value === 'object') {
+      return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`;
+    }
+    return JSON.stringify(value ?? null);
+  }
+
   // Escritas no servidor não bloqueiam a tela; falhas ficam no console.
   function report(label, error) {
     if (error) console.error(`Não foi possível sincronizar ${label} com o servidor.`, error);
@@ -50,9 +60,13 @@
   function setCourseValue(user, course, field, value) {
     const courses = readCache('courses', user) || {};
     const data = courses[course] || { started: false, progress: 0, rating: null };
+    // Abrir de novo um curso já iniciado não muda nada; evita uma escrita a cada página.
+    if (field === 'Started' && data.started && (value === true || value === 'true')) return Promise.resolve();
     if (field === 'Started') data.started = value === true || value === 'true';
     else if (field === 'Progress') data.progress = Math.max(0, Math.min(100, Number(value) || 0));
     else data.rating = Number(value) || null;
+    const now = new Date();
+    data.updatedAt = now.getTime();
     courses[course] = data;
     writeCache('courses', user, courses);
     // Quem vai trocar de página logo em seguida deve esperar esta promessa,
@@ -63,7 +77,7 @@
       iniciado: data.started,
       progresso: data.progress,
       nota: data.rating,
-      atualizado_em: new Date().toISOString()
+      atualizado_em: now.toISOString()
     }));
   }
 
@@ -126,19 +140,31 @@
       return false;
     }
 
-    const before = JSON.stringify([readCache('courses', user), readCache('settings', user), readCache('activity', user)]);
+    const snapshot = () => canonical([readCache('courses', user), readCache('settings', user), readCache('activity', user)]);
+    const before = snapshot();
 
-    if (courses.data.length) {
-      writeCache('courses', user, Object.fromEntries(courses.data.map((row) => [
-        row.curso, { started: row.iniciado, progress: row.progresso, rating: row.nota }
-      ])));
-    } else {
-      Object.entries(readCache('courses', user) || {}).forEach(([course, data]) => {
-        setCourseValue(user, course, 'Started', data.started);
-        setCourseValue(user, course, 'Progress', data.progress);
-        if (data.rating) setCourseValue(user, course, 'Rating', data.rating);
-      });
-    }
+    // Curso a curso, vale a versão mais recente. Uma escrita local ainda a caminho
+    // do servidor não é sobrescrita pelo dado antigo, e o que só existe aqui é enviado.
+    const localCourses = readCache('courses', user) || {};
+    const mergedCourses = { ...localCourses };
+    const serverTimes = {};
+    courses.data.forEach((row) => {
+      const server = { started: row.iniciado, progress: row.progresso, rating: row.nota, updatedAt: Date.parse(row.atualizado_em) };
+      serverTimes[row.curso] = server.updatedAt;
+      if ((localCourses[row.curso]?.updatedAt || 0) <= server.updatedAt) mergedCourses[row.curso] = server;
+    });
+    writeCache('courses', user, mergedCourses);
+    const pending = Object.entries(localCourses)
+      .filter(([course, data]) => !(course in serverTimes) || (data.updatedAt || 0) > serverTimes[course])
+      .map(([course, data]) => ({
+        user_id: user.id,
+        curso: course,
+        iniciado: Boolean(data.started),
+        progresso: data.progress || 0,
+        nota: data.rating || null,
+        atualizado_em: new Date(data.updatedAt || Date.now()).toISOString()
+      }));
+    if (pending.length) push('o progresso do curso', supabaseClient.from('progresso_cursos').upsert(pending));
 
     if (settings.data) writeCache('settings', user, settings.data.preferencias);
     else if (readCache('settings', user)) saveSettings(user, readCache('settings', user));
@@ -154,12 +180,13 @@
         list.forEach((entry) => saveActivityEntry(user, area, action, entry))));
     }
 
-    const after = JSON.stringify([readCache('courses', user), readCache('settings', user), readCache('activity', user)]);
+    const after = snapshot();
     return before !== after;
   }
 
   window.OlhoDigitalData = {
     hydrate,
+    getCourses: (user) => readCache('courses', user) || {},
     getCourseValue,
     setCourseValue,
     getSettingsCache,

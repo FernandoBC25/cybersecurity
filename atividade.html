@@ -53,9 +53,9 @@
         <div class="activity-card-heading">
           <div>
             <h2 id="activityTitle">Sua atividade por área</h2>
-            <p class="settings-help">Selecione uma área para consultar seus registros. Eles ficam associados à sua conta neste navegador.</p>
+            <p class="settings-help">Selecione uma área para consultar seus registros. Eles ficam salvos na sua conta.</p>
           </div>
-          <p class="activity-local-note">Visível somente neste navegador</p>
+          <p class="activity-local-note">Visível somente para você</p>
         </div>
         <div class="activity-tabs" role="tablist" aria-label="Atividade por área">
           <button type="button" role="tab" id="activityTabCommunity" aria-controls="activityCommunity" aria-selected="true" data-activity-tab>
@@ -82,8 +82,8 @@
           <ul id="newsComments" class="activity-list"></ul>
         </div>
         <div id="activityLearning" class="activity-panel" role="tabpanel" aria-labelledby="activityTabLearning" tabindex="0" hidden>
-          <h3>Seu progresso nas videoaulas</h3>
-          <p class="activity-panel-description">Acompanhe as aulas que marcou como em andamento ou concluídas.</p>
+          <h3>Seu progresso nos cursos</h3>
+          <p class="activity-panel-description">Acompanhe os cursos que você começou ou concluiu.</p>
           <ul id="learningVideos" class="activity-list"></ul>
         </div>
       </section>
@@ -103,6 +103,7 @@
     <script src="./scripts/auth.js"></script>
     <script src="./scripts/data.js"></script>
     <script src="./scripts/account.js"></script>
+    <script src="./scripts/home-data.js"></script>
     <script src="./scripts/atividade.js"></script>
   </body>
 </html>

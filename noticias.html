@@ -423,8 +423,8 @@
             category: activeArticleCategory
           });
         } catch (error) {
-          console.error('Não foi possível salvar sua atividade de notícias neste navegador.', error);
-          window.alert('Sua interação não pôde ser salva neste navegador. Verifique o espaço disponível.');
+          console.error('Não foi possível salvar sua atividade de notícias.', error);
+          window.alert('Sua interação não pôde ser salva. Tente novamente.');
         }
       }
       const modal = document.getElementById('articleModal');
@@ -848,6 +848,5 @@
       renderCards();
       loadAutoNews();
     </script>
-    <script src="./scripts/aprender.js"></script>
   </body>
 </html>

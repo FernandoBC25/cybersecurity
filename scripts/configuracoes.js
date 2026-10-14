@@ -82,7 +82,7 @@ if (account) {
       console.error(error);
       populate(OlhoDigitalAccount.getEffectiveSettings(account));
       refreshPreferencePreviews(OlhoDigitalAccount.getEffectiveSettings(account));
-      showStatus(status, 'Não foi possível atualizar a prévia temporária neste navegador.', true);
+      showStatus(status, 'Não foi possível atualizar a prévia temporária.', true);
     }
   }
 
@@ -138,7 +138,7 @@ if (account) {
       OlhoDigitalAccount.applySettings(settings);
       refreshPreferencePreviews(settings);
       refreshChangesStatus();
-      showStatus(status, 'Configurações salvas neste navegador.');
+      showStatus(status, 'Configurações salvas na sua conta.');
     } catch (error) {
       console.error(error);
       showStatus(status, 'Não foi possível salvar as configurações. Você continua nesta página; tente novamente.', true);
@@ -189,10 +189,10 @@ if (account) {
       OlhoDigitalAccount.discardDraftSettings(account);
       OlhoDigitalAccount.applySettings(settings);
       refreshChangesStatus();
-      showStatus(status, 'Configurações salvas neste navegador para esta conta.');
+      showStatus(status, 'Configurações salvas na sua conta.');
     } catch (error) {
       console.error(error);
-      showStatus(status, 'Não foi possível salvar as configurações neste navegador.', true);
+      showStatus(status, 'Não foi possível salvar as configurações.', true);
     }
   });
 
