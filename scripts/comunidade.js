@@ -124,7 +124,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       ? visible.map(renderPost).join('')
       : activeView === 'salvos'
         ? '<div class="empty-state panel"><strong>Nenhuma publicação salva.</strong><span>Use o botão 🔖 Salvar em uma publicação para guardá-la aqui.</span></div>'
-        : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
+        : posts.length === 0
+          ? '<div class="empty-state panel"><strong>Ainda não há publicações.</strong><span>Compartilhe uma dúvida, uma dica ou uma notícia para começar a conversa.</span><button class="primary-btn" type="button" onclick="document.getElementById(&quot;openComposerSidebar&quot;).click()">Criar a primeira publicação</button></div>'
+          : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
   }
 
   function renderMemberSummary() {

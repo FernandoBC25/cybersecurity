@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/noticias.css" />
     <link rel="stylesheet" href="./css/account-preferences.css" />
       <link rel="stylesheet" href="./css/site-header.css" />
+      <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
   <body>
     <header class="topbar" data-site-header data-active="noticias" data-search-id="newsSearch" data-search-placeholder="Buscar notícias..."></header>
@@ -40,7 +41,7 @@
             Novas políticas públicas impulsionam a educação digital em escolas
             brasileiras.
           </p>
-          <span>Atualizado hoje</span>
+          <span data-news-freshness>Atualizado automaticamente</span>
         </div>
       </div>
     </section>
@@ -558,30 +559,61 @@
         filterNewsCards();
       }
 
+      // Notícias automáticas: lidas do Supabase (atualizadas todo dia pela função /api/atualizar-noticias).
+      // Se o banco não responder ou estiver vazio, usa o arquivo scripts/news.json como reserva.
+      function toAutoArticle(item) {
+        const content = item.content || item.description || 'Conteúdo atualizado automaticamente.';
+
+        return normalizeArticle({
+          title: item.title || 'Notícia atualizada',
+          image: item.image || getImageForText(`${item.title || ''} ${item.description || ''}`),
+          content,
+          summary: summarizeText(content),
+          link: item.link || '',
+          fullText: item.fullText === true,
+          source: item.source || 'Fonte confiável',
+          date: item.publishedAt || item.date || new Date().toLocaleDateString('pt-BR'),
+          comments: []
+        });
+      }
+
+      async function fetchNewsRows() {
+        const { data, error } = await supabaseClient
+          .from('noticias')
+          .select('titulo, resumo, fonte, imagem, link, publicado_em')
+          .order('publicado_em', { ascending: false })
+          .limit(12);
+        if (error) throw error;
+        return (data || []).map((row) => ({
+          title: row.titulo,
+          content: row.resumo,
+          source: row.fonte,
+          image: row.imagem,
+          link: row.link,
+          publishedAt: row.publicado_em
+        }));
+      }
+
+      async function fetchBackupNews() {
+        const response = await fetch('./scripts/news.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Arquivo automático de notícias indisponível.');
+        return response.json();
+      }
+
       async function loadAutoNews() {
         try {
-          const response = await fetch('./scripts/news.json', { cache: 'no-store' });
-          if (!response.ok) throw new Error('Arquivo automático de notícias indisponível.');
-
-          const data = await response.json();
+          let data = [];
+          try {
+            data = await fetchNewsRows();
+          } catch (error) {
+            console.warn('Notícias do banco indisponíveis, usando a reserva:', error);
+          }
+          if (!data.length) data = await fetchBackupNews();
 
           if (!Array.isArray(data) || !data.length) return;
 
-          articles = data.map((item) => {
-            const content = item.content || item.description || 'Conteúdo atualizado automaticamente.';
-
-            return normalizeArticle({
-              title: item.title || 'Notícia atualizada',
-              image: item.image || getImageForText(`${item.title || ''} ${item.description || ''}`),
-              content,
-              summary: summarizeText(content),
-              link: item.link || '',
-              fullText: item.fullText === true,
-              source: item.source || 'Fonte confiável',
-              date: item.publishedAt || item.date || new Date().toLocaleDateString('pt-BR'),
-              comments: []
-            });
-          });
+          articles = data.map(toAutoArticle);
+          updateNewsFreshness(data);
 
           renderCards();
 
@@ -591,6 +623,16 @@
         } catch (error) {
           console.warn('Não foi possível carregar notícias automáticas:', error);
         }
+      }
+
+      // Mostra quando as notícias foram atualizadas pela última vez (data da notícia mais recente).
+      function updateNewsFreshness(list) {
+        const latest = list.map((article) => new Date(article.publishedAt || article.date)).filter((date) => !Number.isNaN(date.getTime())).sort((a, b) => b - a)[0];
+        document.querySelectorAll('[data-news-freshness]').forEach((element) => {
+          element.textContent = latest
+            ? `Atualizado em ${latest.toLocaleDateString('pt-BR')}`
+            : 'Atualizado automaticamente';
+        });
       }
 
       function getActiveArticle() {

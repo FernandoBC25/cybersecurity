@@ -1,0 +1,19 @@
+/* Alvos de toque: os controles pequenos ganham uma área de toque de 44px sem mudar o visual. */
+.back-link, .text-link, .text-btn, .section-footer-link, .carousel-actions a, .carousel-actions button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+#carouselPrevious, #carouselNext, #previewPrevious, #previewNext, .preview-dot, .post-menu {
+  position: relative;
+}
+#carouselPrevious::after, #carouselNext::after, #previewPrevious::after, #previewNext::after,
+.preview-dot::after, .post-menu::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+}
+
+/* Contraste no tema escuro para textos que ficaram abaixo de 4,5:1. */
+body.theme-dark .activity-local-note { color: #cbd5e1 !important; }
+body.theme-dark .eyebrow { color: #93c5fd !important; }
