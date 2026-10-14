@@ -168,3 +168,4 @@ body.theme-dark .course-topbar .profile-dropdown a:hover { background: #24344e; 
   .course-layout { grid-template-columns: minmax(0, 1fr); }
   .principles-grid { grid-template-columns: 1fr; }
 }
+body.theme-dark .security-tips code { color: #bfdbfe; background: #1e3a8a; }
