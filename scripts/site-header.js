@@ -1,4 +1,4 @@
-// Cabeçalho único do site: navegação, busca, notificações, perfil e logout.
+// Cabeçalho único do site (busca, notificações, perfil e logout) e barra lateral de navegação.
 // Uso na página (logo depois do cabeçalho):
 //   <header class="topbar site-topbar" data-site-header data-active="aprender"
 //           data-search-id="learningSearch" data-search-placeholder="Buscar conteúdo..."></header>
@@ -8,12 +8,17 @@
   const root = new URL('../', document.currentScript.src);
   const url = (file) => new URL(file, root).href;
 
-  const NAV = [
-    { key: 'home', label: 'Início', file: 'home.html' },
-    { key: 'aprender', label: 'Aprender', file: 'aprender.html' },
-    { key: 'noticias', label: 'Notícias', file: 'noticias.html' },
-    { key: 'comunidade', label: 'Comunidade', file: 'comunidade.html' }
+  // Barra lateral: faixa de ícones que se expande com os nomes ao passar o mouse (e vira
+  // painel deslizante no celular). Os ícones são os mesmos da versão antiga do site.
+  const SIDEBAR = [
+    { key: 'home', label: 'Início', file: 'home.html', icon: '<svg class="house-icon" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5.5 8.5V21h13V8.5M9.5 21v-6h5v6" /></svg>' },
+    { key: 'aprender', label: 'Aprender', file: 'aprender.html', icon: '<svg viewBox="0 0 24 24"><path d="M12 6.5C9.2 4.7 6.2 4.7 3.5 5.8v13c2.7-1.1 5.7-1.1 8.5.7m0-13c2.8-1.8 5.8-1.8 8.5-.7v13c-2.7-1.1-5.7-1.1-8.5.7m0-13v13" /></svg>' },
+    { key: 'noticias', label: 'Notícias', file: 'noticias.html', icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M8 4v16M11 9h7M11 13h7M11 17h4" /></svg>' },
+    { key: 'comunidade', label: 'Comunidade', file: 'comunidade.html', icon: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" /><path d="M3.5 19v-1.5a5.5 5.5 0 0 1 11 0V19zM16 5.5a3 3 0 0 1 0 5.8M17 14a4.5 4.5 0 0 1 3.5 4.4V19H17" /></svg>' },
+    { key: 'laboratorios', label: 'Laboratórios', file: 'aprender.html#laboratorios', icon: '<svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.4 8.8A2.1 2.1 0 0 0 6.4 21h11.2a2.1 2.1 0 0 0 1.8-3.2L14 9V3" /><path d="M7.6 15h8.8M9.4 12h5.2" /></svg>' },
+    { key: 'conquistas', label: 'Conquistas', file: 'home.html#achievements', icon: '<svg viewBox="0 0 24 24"><path d="M8 4h8v3h4v2a5 5 0 0 1-5 5h-1v3h4v3H6v-3h4v-3H9a5 5 0 0 1-5-5V7h4z" /><path d="M8 7H5v2a4 4 0 0 0 4 4m7-6h3v2a4 4 0 0 1-4 4" /></svg>' }
   ];
+  const SETTINGS = { key: 'configuracoes', label: 'Configurações', file: 'configuracoes.html', icon: '⚙' };
 
   const PROFILE_LINKS = [
     { label: 'Meu perfil', file: 'atividade.html' },
@@ -50,11 +55,6 @@
     const logo = url('assets/logo.png');
     const logoDark = url('assets/logo-escuro-header.png');
 
-    const navHtml = NAV.map((item) => {
-      const current = item.key === active ? ' class="is-active" aria-current="page"' : '';
-      return `<a href="${url(item.file)}"${current}>${item.label}</a>`;
-    }).join('');
-
     const profileHtml = PROFILE_LINKS.map((item) => `<a role="menuitem" href="${url(item.file)}">${item.label}</a>`).join('');
 
     const searchHtml = searchId
@@ -64,9 +64,8 @@
     host.classList.add('site-topbar');
     host.innerHTML = `
       <div class="site-nav-wrap">
-        <button class="site-menu-toggle" id="siteMenuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+        <button class="site-menu-toggle" id="siteMenuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="siteSidebar"><span></span><span></span><span></span></button>
         <a class="site-brand" href="${url('home.html')}"><img src="${logo}" data-logo-light="${logo}" data-logo-dark="${logoDark}" alt="" /><span>Olho Digital</span></a>
-        <nav class="site-nav" id="siteNav" aria-label="Menu principal">${navHtml}</nav>
         <div class="site-actions">
           ${searchHtml}
           <div class="site-popover-wrap">
@@ -89,9 +88,36 @@
       </div>`;
   }
 
-  function wire(host, dialog) {
+  function renderSidebar(active) {
+    const link = (item, extra = '') => {
+      const current = item.key === active ? ' is-active' : '';
+      const aria = item.key === active ? ' aria-current="page"' : '';
+      return `<a class="site-sidebar-link${extra}${current}" href="${url(item.file)}"${aria} title="${item.label}"><span aria-hidden="true">${item.icon}</span><b>${item.label}</b></a>`;
+    };
+    const aside = document.createElement('aside');
+    aside.className = 'site-sidebar';
+    aside.id = 'siteSidebar';
+    aside.setAttribute('aria-label', 'Navegação');
+    aside.innerHTML = `
+      <div class="site-sidebar-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" focusable="false"><path d="M3 16c3.1-5.1 7.4-7.7 13-7.7s9.9 2.6 13 7.7c-3.1 5.1-7.4 7.7-13 7.7S6.1 21.1 3 16Z" /><circle cx="16" cy="16" r="4.4" /><circle class="eye-pupil" cx="16" cy="16" r="1.7" /></svg>
+      </div>
+      <nav class="site-sidebar-nav">${SIDEBAR.map((item) => link(item)).join('')}</nav>
+      ${link(SETTINGS, ' site-sidebar-settings')}`;
+    const backdrop = document.createElement('button');
+    backdrop.className = 'site-sidebar-backdrop';
+    backdrop.id = 'siteSidebarBackdrop';
+    backdrop.type = 'button';
+    backdrop.setAttribute('aria-label', 'Fechar menu');
+    backdrop.hidden = true;
+    document.body.classList.add('has-site-sidebar');
+    document.body.append(aside, backdrop);
+    return { aside, backdrop };
+  }
+
+  function wire(host, dialog, sidebar) {
     const menuToggle = host.querySelector('#siteMenuToggle');
-    const nav = host.querySelector('#siteNav');
+    const { aside, backdrop } = sidebar;
     const popovers = [
       [host.querySelector('#notificationToggle'), host.querySelector('#notificationDropdown')],
       [host.querySelector('#profileToggle'), host.querySelector('#profileDropdown')]
@@ -105,11 +131,13 @@
       });
     };
 
-    const closeMenu = () => {
-      nav.classList.remove('is-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menuToggle.setAttribute('aria-label', 'Abrir menu');
+    const setMenu = (open) => {
+      aside.classList.toggle('is-open', open);
+      backdrop.hidden = !open;
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
     };
+    const closeMenu = () => setMenu(false);
 
     popovers.forEach(([toggle, panel]) => {
       toggle.addEventListener('click', () => {
@@ -120,13 +148,9 @@
       });
     });
 
-    menuToggle.addEventListener('click', () => {
-      const open = !nav.classList.contains('is-open');
-      nav.classList.toggle('is-open', open);
-      menuToggle.setAttribute('aria-expanded', String(open));
-      menuToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-    });
-    nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    menuToggle.addEventListener('click', () => setMenu(!aside.classList.contains('is-open')));
+    backdrop.addEventListener('click', closeMenu);
+    aside.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 
     host.querySelector('#logoutBtn').addEventListener('click', () => {
       closePopovers(null);
@@ -137,7 +161,6 @@
 
     document.addEventListener('click', (event) => {
       if (!event.target.closest('.site-popover-wrap')) closePopovers(null);
-      if (!event.target.closest('.site-nav-wrap')) closeMenu();
     });
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape') return;
@@ -157,8 +180,10 @@
   const host = document.querySelector('[data-site-header]');
   if (host) {
     render(host);
+    const active = host.dataset.active || (/configuracoes/.test(location.pathname) ? 'configuracoes' : '');
+    const sidebar = renderSidebar(active);
     const dialog = renderLogoutDialog();
-    wire(host, dialog);
+    wire(host, dialog, sidebar);
     document.addEventListener('DOMContentLoaded', fillUser);
   }
 

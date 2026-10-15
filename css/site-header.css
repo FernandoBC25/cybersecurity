@@ -40,18 +40,6 @@
   text-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
 }
 
-/* Menu de navegação */
-.site-nav { display: flex; flex: 1 1 auto; gap: 26px; }
-.site-nav a {
-  padding: 6px 2px;
-  border-bottom: 2px solid transparent;
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-.site-nav a:hover { color: #fff; border-bottom-color: rgba(255, 255, 255, 0.5); }
-.site-nav a.is-active { color: #fff; border-bottom-color: #fff; font-weight: 800; }
-
 /* Ações da direita */
 .site-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 .site-search {
@@ -182,31 +170,102 @@ body.theme-dark .site-panel a:hover, body.theme-dark .site-panel button:hover { 
 body.theme-dark .site-notifications strong { color: #f8fafc; }
 body.theme-dark .site-notifications p { color: #cbd5e1; }
 
-/* Celular e tablet: menu em painel, busca em linha própria */
+/* Barra lateral (ver scripts/site-header.js) */
+body.has-site-sidebar { padding-left: 96px; }
+body.has-site-sidebar .site-topbar { margin-left: -96px; }
+.site-sidebar {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  position: fixed;
+  top: 88px;
+  left: 12px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: 72px;
+  height: min(680px, calc(100vh - 104px));
+  min-height: 400px;
+  padding: 12px 9px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.07);
+  transition: width 220ms ease, box-shadow 220ms ease;
+}
+.site-sidebar:hover, .site-sidebar:focus-within { width: 218px; box-shadow: 0 12px 28px rgba(37, 99, 235, 0.13); }
+.site-sidebar-mark { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; margin: 1px auto 20px; border-radius: 10px; background: #ed8a39; pointer-events: none; user-select: none; }
+.site-sidebar-mark svg { width: 34px; height: 34px; overflow: visible; fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.site-sidebar-mark .eye-pupil { fill: #fff; stroke: none; }
+.site-sidebar-nav { display: grid; gap: 14px; }
+.site-sidebar-link {
+  display: flex;
+  align-items: center;
+  flex: 0 0 44px;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border-radius: 8px;
+  color: #52677f;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-sidebar-link > span { display: grid; flex: 0 0 22px; place-items: center; width: 22px; font-size: 1.25rem; }
+.site-sidebar-link > span svg { display: block; width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.site-sidebar-link > span svg.house-icon { width: 28px; height: 28px; stroke-width: 1.9; }
+.site-sidebar-link > b { max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; font-weight: inherit; transition: max-width 200ms ease, opacity 140ms ease; }
+.site-sidebar:hover .site-sidebar-link, .site-sidebar:focus-within .site-sidebar-link { justify-content: flex-start; min-width: 194px; padding: 0 12px; }
+.site-sidebar:hover .site-sidebar-link > b, .site-sidebar:focus-within .site-sidebar-link > b { max-width: 145px; opacity: 1; visibility: visible; }
+.site-sidebar-link:hover { background: #eff6ff; color: #1d4ed8; }
+.site-sidebar-link.is-active { background: #dbeafe; color: #1d4ed8; font-weight: 700; }
+.site-sidebar-link:focus-visible { outline: 3px solid #60a5fa; outline-offset: 2px; }
+.site-sidebar-settings { margin-top: auto; }
+.site-sidebar-backdrop { display: none; }
+body.theme-dark .site-sidebar { border-color: #334155; background: #172338; box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3); }
+body.theme-dark .site-sidebar-link { color: #b8c4d4; }
+body.theme-dark .site-sidebar-link:hover { background: #24344e; color: #fff; }
+body.theme-dark .site-sidebar-link.is-active { background: #1e3a8a; color: #fff; }
+
+/* Tablet: faixa um pouco menor */
+@media (max-width: 1100px) {
+  body.has-site-sidebar { padding-left: 84px; }
+  body.has-site-sidebar .site-topbar { margin-left: -84px; }
+  .site-sidebar { left: 10px; width: 64px; }
+  .site-sidebar:hover, .site-sidebar:focus-within { width: 204px; }
+}
+
+/* Celular: a barra vira um painel que desliza pelo botão do menu; busca em linha própria */
 @media (max-width: 900px) {
+  body.has-site-sidebar { padding-left: 0; }
+  body.has-site-sidebar .site-topbar { margin-left: 0; }
   .site-nav-wrap { flex-wrap: wrap; gap: 8px 12px; min-height: 0; padding: 10px 0; }
   .site-menu-toggle { display: flex; order: 1; }
   .site-brand { order: 2; }
   .site-actions { order: 3; flex: 1 0 100%; margin-left: 0; }
   .site-search { flex: 1; width: auto; min-width: 0; }
-  .site-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
+  .site-sidebar {
+    top: 0;
+    bottom: 0;
     left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    padding: 8px 20px 12px;
-    border-bottom: 1px solid #dbeafe;
-    background: #fff;
-    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.14);
+    z-index: 90;
+    width: 258px;
+    height: 100vh;
+    min-height: 0;
+    padding: 72px 13px 18px;
+    border-radius: 0 12px 12px 0;
+    box-shadow: 12px 0 32px rgba(15, 23, 42, 0.16);
+    transform: translateX(-110%);
+    transition: transform 220ms ease;
   }
-  .site-nav.is-open { display: flex; }
-  .site-nav a { padding: 13px 4px; border-bottom: 1px solid #eef2f7; color: #1e293b; font-size: 0.98rem; }
-  .site-nav a:hover { border-bottom-color: #eef2f7; color: #1d4ed8; }
-  .site-nav a.is-active { border-bottom-color: #eef2f7; color: #1d4ed8; }
-  .site-nav a:last-child { border-bottom: 0; }
+  .site-sidebar:hover, .site-sidebar:focus-within { width: 258px; }
+  .site-sidebar.is-open { transform: translateX(0); }
+  .site-sidebar-mark { position: absolute; top: 14px; left: 14px; margin: 0; }
+  .site-sidebar-link { justify-content: flex-start; min-width: 0; padding: 0 12px; }
+  .site-sidebar-link > b { max-width: 145px; opacity: 1; visibility: visible; }
+  .site-sidebar-backdrop:not([hidden]) { position: fixed; inset: 0; z-index: 85; display: block; border: 0; background: rgba(15, 23, 42, 0.32); }
   .site-topbar { position: sticky; }
 }
 @media (max-width: 560px) {
@@ -218,4 +277,7 @@ body.theme-dark .site-notifications p { color: #cbd5e1; }
   .site-search { height: 40px; }
   .site-search input { font-size: 0.8rem; }
   .site-notifications { width: min(290px, calc(100vw - 32px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-sidebar, .site-sidebar-link > b { transition: none; }
 }
