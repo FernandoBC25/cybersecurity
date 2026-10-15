@@ -214,8 +214,8 @@ body.has-site-sidebar .site-topbar { margin-left: -96px; }
   white-space: nowrap;
 }
 .site-sidebar-link > span { display: grid; flex: 0 0 22px; place-items: center; width: 22px; font-size: 1.25rem; }
-.site-sidebar-link > span svg { display: block; width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
-.site-sidebar-link > span svg.house-icon { width: 28px; height: 28px; stroke-width: 1.9; }
+.site-sidebar-link > span svg { display: block; width: 23px; height: 23px; margin: 0 -0.5px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+.site-sidebar-link > span svg.house-icon { width: 28px; height: 28px; margin: 0 -3px; stroke-width: 1.9; }
 .site-sidebar-link > b { max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; font-weight: inherit; transition: max-width 200ms ease, opacity 140ms ease; }
 .site-sidebar:hover .site-sidebar-link, .site-sidebar:focus-within .site-sidebar-link { justify-content: flex-start; min-width: 194px; gap: 14px; padding: 0 12px; }
 .site-sidebar:hover .site-sidebar-link > b, .site-sidebar:focus-within .site-sidebar-link > b { max-width: 145px; opacity: 1; visibility: visible; }
