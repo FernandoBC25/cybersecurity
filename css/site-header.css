@@ -202,7 +202,7 @@ body.has-site-sidebar .site-topbar { margin-left: -96px; }
   align-items: center;
   flex: 0 0 44px;
   justify-content: center;
-  gap: 14px;
+  gap: 0;
   width: 100%;
   min-width: 0;
   padding: 0;
@@ -217,7 +217,7 @@ body.has-site-sidebar .site-topbar { margin-left: -96px; }
 .site-sidebar-link > span svg { display: block; width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .site-sidebar-link > span svg.house-icon { width: 28px; height: 28px; stroke-width: 1.9; }
 .site-sidebar-link > b { max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; font-weight: inherit; transition: max-width 200ms ease, opacity 140ms ease; }
-.site-sidebar:hover .site-sidebar-link, .site-sidebar:focus-within .site-sidebar-link { justify-content: flex-start; min-width: 194px; padding: 0 12px; }
+.site-sidebar:hover .site-sidebar-link, .site-sidebar:focus-within .site-sidebar-link { justify-content: flex-start; min-width: 194px; gap: 14px; padding: 0 12px; }
 .site-sidebar:hover .site-sidebar-link > b, .site-sidebar:focus-within .site-sidebar-link > b { max-width: 145px; opacity: 1; visibility: visible; }
 .site-sidebar-link:hover { background: #eff6ff; color: #1d4ed8; }
 .site-sidebar-link.is-active { background: #dbeafe; color: #1d4ed8; font-weight: 700; }
@@ -233,7 +233,7 @@ body.theme-dark .site-sidebar-link.is-active { background: #1e3a8a; color: #fff;
 @media (max-width: 1100px) {
   body.has-site-sidebar { padding-left: 84px; }
   body.has-site-sidebar .site-topbar { margin-left: -84px; }
-  .site-sidebar { left: 10px; width: 64px; }
+  .site-sidebar { left: 10px; width: 64px; padding-left: 7px; padding-right: 7px; }
   .site-sidebar:hover, .site-sidebar:focus-within { width: 204px; }
 }
 
@@ -263,7 +263,7 @@ body.theme-dark .site-sidebar-link.is-active { background: #1e3a8a; color: #fff;
   .site-sidebar:hover, .site-sidebar:focus-within { width: 258px; }
   .site-sidebar.is-open { transform: translateX(0); }
   .site-sidebar-mark { position: absolute; top: 14px; left: 14px; margin: 0; }
-  .site-sidebar-link { justify-content: flex-start; min-width: 0; padding: 0 12px; }
+  .site-sidebar-link { justify-content: flex-start; min-width: 0; gap: 14px; padding: 0 12px; }
   .site-sidebar-link > b { max-width: 145px; opacity: 1; visibility: visible; }
   .site-sidebar-backdrop:not([hidden]) { position: fixed; inset: 0; z-index: 85; display: block; border: 0; background: rgba(15, 23, 42, 0.32); }
   .site-topbar { position: sticky; }
