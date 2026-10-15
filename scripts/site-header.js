@@ -14,9 +14,7 @@
     { key: 'home', label: 'Início', file: 'home.html', icon: '<svg class="house-icon" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5.5 8.5V21h13V8.5M9.5 21v-6h5v6" /></svg>' },
     { key: 'aprender', label: 'Aprender', file: 'aprender.html', icon: '<svg viewBox="0 0 24 24"><path d="M12 6.5C9.2 4.7 6.2 4.7 3.5 5.8v13c2.7-1.1 5.7-1.1 8.5.7m0-13c2.8-1.8 5.8-1.8 8.5-.7v13c-2.7-1.1-5.7-1.1-8.5.7m0-13v13" /></svg>' },
     { key: 'noticias', label: 'Notícias', file: 'noticias.html', icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M8 4v16M11 9h7M11 13h7M11 17h4" /></svg>' },
-    { key: 'comunidade', label: 'Comunidade', file: 'comunidade.html', icon: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" /><path d="M3.5 19v-1.5a5.5 5.5 0 0 1 11 0V19zM16 5.5a3 3 0 0 1 0 5.8M17 14a4.5 4.5 0 0 1 3.5 4.4V19H17" /></svg>' },
-    { key: 'laboratorios', label: 'Laboratórios', file: 'aprender.html#laboratorios', icon: '<svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.4 8.8A2.1 2.1 0 0 0 6.4 21h11.2a2.1 2.1 0 0 0 1.8-3.2L14 9V3" /><path d="M7.6 15h8.8M9.4 12h5.2" /></svg>' },
-    { key: 'conquistas', label: 'Conquistas', file: 'home.html#achievements', icon: '<svg viewBox="0 0 24 24"><path d="M8 4h8v3h4v2a5 5 0 0 1-5 5h-1v3h4v3H6v-3h4v-3H9a5 5 0 0 1-5-5V7h4z" /><path d="M8 7H5v2a4 4 0 0 0 4 4m7-6h3v2a4 4 0 0 1-4 4" /></svg>' }
+    { key: 'comunidade', label: 'Comunidade', file: 'comunidade.html', icon: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" /><path d="M3.5 19v-1.5a5.5 5.5 0 0 1 11 0V19zM16 5.5a3 3 0 0 1 0 5.8M17 14a4.5 4.5 0 0 1 3.5 4.4V19H17" /></svg>' }
   ];
   const SETTINGS = { key: 'configuracoes', label: 'Configurações', file: 'configuracoes.html', icon: '⚙' };
 
