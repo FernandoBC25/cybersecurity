@@ -3,18 +3,6 @@ const account = OlhoDigitalAccount.requireAuthentication();
 if (account) {
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(account));
   OlhoDigitalAccount.updateProfileAvatars(account);
-  OlhoDigitalAccount.initProfileMenu();
-  const profileDropdown = document.getElementById('profileDropdown');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    document.getElementById('logoutDialog').showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
-  });
   const gallery = document.getElementById('avatarGallery');
   const communityGallery = document.getElementById('communityAvatarGallery');
   const standardAvatars = document.getElementById('standardAvatars');
@@ -163,6 +151,24 @@ if (account) {
     ...avatarNames.map((name) => ({ seed: name, style: 'adventurer', gender: femaleNames.has(name) ? 'female' : maleNames.has(name) ? 'male' : 'neutral' })),
     ...extraCharacters.map((character) => ({ ...character, gender: 'neutral' }))
   ];
+  async function toRaster(blob) {
+    if (blob.type !== 'image/svg+xml') return blob;
+    const url = URL.createObjectURL(blob);
+    try {
+      const image = new Image();
+      image.src = url;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      canvas.getContext('2d').drawImage(image, 0, 0, 512, 512);
+      return await new Promise((resolve, reject) => {
+        canvas.toBlob((result) => result ? resolve(result) : reject(new Error('Não foi possível preparar o avatar.')), 'image/webp', 0.9);
+      });
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
   characterChoices.forEach((character, index) => {
     const option = document.createElement('button');
     option.type = 'button';
@@ -314,7 +320,7 @@ if (account) {
     cancelUpload.disabled = true;
     document.querySelectorAll('.avatar-option').forEach((option) => { option.disabled = true; });
     try {
-      await OlhoDigitalAccount.saveAvatar(account, blobToSave);
+      await OlhoDigitalAccount.saveAvatar(account, await toRaster(blobToSave));
       await OlhoDigitalAccount.updateProfileAvatars(account);
       if (savedUrl) URL.revokeObjectURL(savedUrl);
       savedUrl = URL.createObjectURL(blobToSave);
@@ -322,10 +328,10 @@ if (account) {
       selectedBlob = null;
       preview.src = savedUrl;
       cancelUpload.hidden = true;
-      setStatus('Foto de perfil salva neste navegador para esta conta.');
+      setStatus('Foto de perfil salva na sua conta.');
     } catch (error) {
       console.error(error);
-      setStatus(error.message || 'Não foi possível salvar a foto neste navegador.', true);
+      setStatus(error.message || 'Não foi possível salvar a foto.', true);
     } finally {
       isSaving = false;
       fileInput.disabled = false;
@@ -335,7 +341,14 @@ if (account) {
     }
   });
 
-  OlhoDigitalAccount.getAvatar(account).then(async (avatar) => {
+  OlhoDigitalAccount.refreshAvatar(account).catch(() => false).then(() => OlhoDigitalAccount.getAvatar(account)).then(async (avatar) => {
+    if (!avatar?.blob) return;
+    if (await isTransparentImage(avatar.blob)) {
+      setStatus('A foto salva anteriormente ficou vazia por um erro no recorte. Escolha outra foto e confirme para substituí-la.', true);
+      return;
+    }
+    ...
+  });
     if (!avatar?.blob) return;
     if (await isTransparentImage(avatar.blob)) {
       setStatus('A foto salva anteriormente ficou vazia por um erro no recorte. Escolha outra foto e confirme para substituí-la.', true);

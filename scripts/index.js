@@ -233,3 +233,13 @@ if (previewCarousel && previewSlides.length) {
   });
   startPreviewTimer();
 }
+
+// Quem já entrou na conta vê o atalho para o site, em vez do botão de login.
+(function () {
+  const hasSession = Object.keys(localStorage).some((key) => /^sb-.+-auth-token$/.test(key));
+  if (!hasSession) return;
+  document.querySelectorAll('a[href="./login.html"]').forEach((link) => {
+    link.href = './home.html';
+    link.textContent = 'Início';
+  });
+})();

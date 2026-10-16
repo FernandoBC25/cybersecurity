@@ -6,6 +6,7 @@
     <title>Olho Digital | Cadastro</title>
     <script src="./scripts/auth-theme.js"></script>
     <link rel="stylesheet" href="./css/register.css" />
+      <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
   <body>
     <main class="auth-shell">
@@ -52,26 +53,33 @@
         </div>
 
         <form id="registerForm" novalidate>
-          <div id="errorBox" class="error-box hidden"></div>
+          <div id="errorBox" class="error-box hidden" role="alert"></div>
 
           <label>
             <span>Nome completo</span>
-            <input type="text" id="name" placeholder="João Silva" required />
+            <input type="text" id="name" placeholder="João Silva" autocomplete="name" required />
           </label>
 
           <label>
             <span>Email</span>
-            <input type="email" id="email" placeholder="seu@email.com" required />
+            <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required />
           </label>
 
           <label>
             <span>Senha</span>
-            <input type="password" id="password" placeholder="••••••••" required />
+            <span class="password-field">
+              <input type="password" id="password" placeholder="••••••••" autocomplete="new-password" aria-describedby="passwordHint" required />
+              <button type="button" class="password-toggle" data-password-toggle="password" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+            </span>
+            <small class="field-hint" id="passwordHint">Use pelo menos 6 caracteres.</small>
           </label>
 
           <label>
             <span>Confirmar senha</span>
-            <input type="password" id="confirmPassword" placeholder="••••••••" required />
+            <span class="password-field">
+              <input type="password" id="confirmPassword" placeholder="••••••••" autocomplete="new-password" required />
+              <button type="button" class="password-toggle" data-password-toggle="confirmPassword" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button>
+            </span>
           </label>
 
           <button type="submit" class="primary-btn block">Criar conta</button>
@@ -90,6 +98,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
     <script src="./scripts/supabase-config.js"></script>
+    <script src="./scripts/password-toggle.js"></script>
     <script src="./scripts/register.js"></script>
   </body>
 </html>
