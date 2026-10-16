@@ -4,6 +4,23 @@ document.addEventListener('DOMContentLoaded', () => {
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);
 
+  const feed = document.getElementById('feed');
+  const searchInput = document.getElementById('communitySearch');
+  const profileToggle = document.getElementById('profileToggle');
+  const profileDropdown = document.getElementById('profileDropdown');
+  const memberCount = document.getElementById('memberCount');
+  const memberStack = document.getElementById('memberStack');
+  const modal = document.getElementById('composerModal');
+  const imageInput = document.getElementById('postImage');
+  const newPost = document.getElementById('newPost');
+  const publishBtn = document.getElementById('publishBtn');
+  const imageName = document.getElementById('imageName');
+  const openComposerSidebar = document.getElementById('openComposerSidebar');
+  const closeComposer = document.getElementById('closeComposer');
+
+  if (!feed || !searchInput || !profileToggle || !profileDropdown || !memberCount || !memberStack) return;
+  if (!modal || !imageInput || !newPost || !publishBtn || !imageName || !openComposerSidebar || !closeComposer) return;
+
   const categories = ['Todos', 'Geral', 'Dúvidas', 'Tutoriais', 'Projetos', 'Notícias'];
   const categoryKeys = { Geral: 'geral', Dúvidas: 'duvidas', Tutoriais: 'tutoriais', Projetos: 'projetos', Notícias: 'noticias' };
   const seedPosts = [
@@ -89,13 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!registeredMembers.some((member) => member.email.toLowerCase() === user.email.toLowerCase())) {
     registeredMembers.push({ name: getName(), email: user.email });
   }
-  document.getElementById('memberCount').textContent = `${registeredMembers.length} conta${registeredMembers.length === 1 ? '' : 's'} cadastrada${registeredMembers.length === 1 ? '' : 's'} neste navegador; presença online não está disponível.`;
-  document.getElementById('memberStack').innerHTML = registeredMembers.slice(0, 5)
+  memberCount.textContent = `${registeredMembers.length} conta${registeredMembers.length === 1 ? '' : 's'} cadastrada${registeredMembers.length === 1 ? '' : 's'} neste navegador; presença online não está disponível.`;
+  memberStack.innerHTML = registeredMembers.slice(0, 5)
     .map((member, index) => `<span class="avatar ${['blue', 'pink', 'green'][index % 3]}">${escapeHtml(initials(member.name))}</span>`)
     .join('') + (registeredMembers.length > 5 ? `<span class="more-members">+${registeredMembers.length - 5}</span>` : '');
 
-  const profileToggle = document.getElementById('profileToggle');
-  const profileDropdown = document.getElementById('profileDropdown');
   const closeProfileMenu = () => {
     profileDropdown.hidden = true;
     profileToggle.setAttribute('aria-expanded', 'false');
@@ -117,10 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderComment = (comment, postId, parentId = '') => `<div class="comment">${avatarMarkup(comment.author, comment.initial)}<div class="comment-body"><div class="comment-head"><strong>${escapeHtml(comment.author)}</strong><small>${timeAgo(comment.createdAt)}</small></div><p>${escapeHtml(comment.text)}</p><div class="comment-tools"><button data-reply="${postId}" data-parent="${parentId || comment.id}">Responder</button>${comment.author === getName() ? `<button data-delete-comment="${postId}" data-comment="${comment.id}" data-parent="${parentId}">Excluir</button>` : ''}</div>${(comment.replies || []).map((reply) => renderComment(reply, postId, comment.id)).join('')}<div class="reply-form" data-reply-form="${comment.id}"><input placeholder="Escreva uma resposta..."><button data-send-reply="${postId}" data-parent="${comment.id}">Enviar</button></div></div></div>`;
   const render = () => {
-    const query = document.getElementById('communitySearch').value.trim().toLowerCase();
+    const query = searchInput.value.trim().toLowerCase();
     if (activeView === 'membros') {
       const members = registeredMembers.filter((member) => member.name.toLowerCase().includes(query));
-      document.getElementById('feed').innerHTML = '<h2 class="view-heading">Membros cadastrados neste navegador</h2><p class="settings-help">A lista contém somente as contas salvas localmente neste navegador; e-mails não são exibidos.</p>' +
+      feed.innerHTML = '<h2 class="view-heading">Membros cadastrados neste navegador</h2><p class="settings-help">A lista contém somente as contas salvas localmente neste navegador; e-mails não são exibidos.</p>' +
         (members.length
           ? `<div class="member-directory">${members.map((member) => `<article class="member-directory-card panel">${memberAvatarMarkup(member.name)}<div><strong>${escapeHtml(member.name)}</strong><small>${member.email.toLowerCase() === user.email.toLowerCase() ? 'Você' : 'Membro'}</small></div></article>`).join('')}</div>`
           : '<div class="empty-state panel"><strong>Nenhum membro encontrado.</strong><span>Experimente outro nome na busca.</span></div>');
@@ -130,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let heading = '';
     if (activeView === 'salvos') { visible = visible.filter((post) => savedPosts.has(post.id)); heading = '<h2 class="view-heading">Publicações salvas</h2>'; }
     if (activeView === 'discussoes') { visible = visible.filter((post) => post.category === 'duvidas' || post.comments.length >= 3); heading = '<h2 class="view-heading">Discussões da comunidade</h2>'; }
-    document.getElementById('feed').innerHTML = heading + (visible.length ? visible.map((post) => { post.likedBy = post.likedBy || []; post.comments = post.comments || []; return `<article class="post-card panel ${post.featured ? 'featured' : ''}" data-post="${post.id}">${post.featured ? '<span class="featured-label">📌 PUBLICAÇÃO EM DESTAQUE</span>' : ''}<div class="post-meta"><div class="author">${avatarMarkup(post.author, post.initial, post.color || 'blue')}<div><strong>${escapeHtml(post.author)}</strong><small>${timeAgo(post.createdAt)}</small></div></div><div><span class="tag ${post.category}">${label(post.category)}</span>${post.author === getName() ? `<button class="post-menu" data-delete-post="${post.id}" aria-label="Excluir publicação">⋯</button>` : ''}</div></div><p>${escapeHtml(post.text)}</p>${post.image ? `<img class="post-image" src="${post.image}" alt="Imagem da publicação">` : ''}<div class="post-stats"><span>♡ ${post.likes} curtidas</span><span>◉ ${post.views || 0} visualizações</span><span>💬 ${post.comments.length} comentários</span></div><div class="post-actions"><button class="${post.likedBy.includes(getName()) ? 'active' : ''}" data-like="${post.id}">👍 Curtir</button><button data-comments="${post.id}">💬 Comentar</button><button class="${savedPosts.has(post.id) ? 'saved' : ''}" data-save="${post.id}">${savedPosts.has(post.id) ? '🔖 Salvo' : '🔖 Salvar'}</button></div><div class="comments" data-comments-box="${post.id}">${post.comments.map((comment) => renderComment(comment, post.id)).join('')}<form class="comment-form" data-comment-form="${post.id}"><input required placeholder="Escreva um comentário..."><button>Enviar</button></form></div></article>`; }).join('') : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Tente outra categoria ou palavra-chave.</span></div>');
+    feed.innerHTML = heading + (visible.length ? visible.map((post) => { post.likedBy = post.likedBy || []; post.comments = post.comments || []; return `<article class="post-card panel ${post.featured ? 'featured' : ''}" data-post="${post.id}">${post.featured ? '<span class="featured-label">📌 PUBLICAÇÃO EM DESTAQUE</span>' : ''}<div class="post-meta"><div class="author">${avatarMarkup(post.author, post.initial, post.color || 'blue')}<div><strong>${escapeHtml(post.author)}</strong><small>${timeAgo(post.createdAt)}</small></div></div><div><span class="tag ${post.category}">${label(post.category)}</span>${post.author === getName() ? `<button class="post-menu" data-delete-post="${post.id}" aria-label="Excluir publicação">⋯</button>` : ''}</div></div><p>${escapeHtml(post.text)}</p>${post.image ? `<img class="post-image" src="${post.image}" alt="Imagem da publicação">` : ''}<div class="post-stats"><span>♡ ${post.likes} curtidas</span><span>◉ ${post.views || 0} visualizações</span><span>💬 ${post.comments.length} comentários</span></div><div class="post-actions"><button class="${post.likedBy.includes(getName()) ? 'active' : ''}" data-like="${post.id}">👍 Curtir</button><button data-comments="${post.id}">💬 Comentar</button><button class="${savedPosts.has(post.id) ? 'saved' : ''}" data-save="${post.id}">${savedPosts.has(post.id) ? '🔖 Salvo' : '🔖 Salvar'}</button></div><div class="comments" data-comments-box="${post.id}">${post.comments.map((comment) => renderComment(comment, post.id)).join('')}<form class="comment-form" data-comment-form="${post.id}"><input required placeholder="Escreva um comentário..."><button>Enviar</button></form></div></article>`; }).join('') : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Tente outra categoria ou palavra-chave.</span></div>');
   };
   render();
 
@@ -154,10 +169,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('submit', (event) => { const form = event.target; if (form.matches('[data-comment-form]')) { event.preventDefault(); const post = posts.find((item) => item.id === form.dataset.commentForm); const text = form.querySelector('input').value.trim(); if (!text) return; const id = `c-${Date.now()}`; post.comments.push({ id, author: getName(), initial: initials(getName()), text, createdAt: Date.now(), replies: [] }); track('community', 'comments', { id, postId: post.id, title: post.text, text, kind: 'Comentário' }); save(); render(); document.querySelector(`[data-comments-box="${post.id}"]`).classList.add('open'); } });
   document.addEventListener('click', (event) => { const send = event.target.closest('[data-send-reply]'); if (!send) return; const form = send.parentElement; const post = posts.find((item) => item.id === send.dataset.sendReply); const locate = (list) => { for (const item of list) { if (item.id === send.dataset.parent) return item; const found = locate(item.replies || []); if (found) return found; } }; const comment = locate(post.comments); const text = form.querySelector('input').value.trim(); if (comment && text) { const id = `r-${Date.now()}`; comment.replies.push({ id, author: getName(), initial: initials(getName()), text, createdAt: Date.now(), likes: 0, replies: [] }); track('community', 'comments', { id, postId: post.id, title: post.text, text, kind: 'Resposta' }); } save(); render(); document.querySelector(`[data-comments-box="${post.id}"]`).classList.add('open'); });
-  document.getElementById('communitySearch').addEventListener('input', render);
+  searchInput.addEventListener('input', render);
 
-  const modal = document.getElementById('composerModal'); const imageInput = document.getElementById('postImage'); let imageData = '';
-  const openComposer = () => { modal.hidden = false; document.getElementById('newPost').focus(); }; document.getElementById('openComposerSidebar').onclick = openComposer; document.getElementById('closeComposer').onclick = () => { modal.hidden = true; };
-  imageInput.onchange = () => { const file = imageInput.files[0]; document.getElementById('imageName').textContent = file ? file.name : 'Nenhuma imagem selecionada'; if (file) { const reader = new FileReader(); reader.onload = () => { imageData = reader.result; }; reader.readAsDataURL(file); } };
-  document.getElementById('publishBtn').onclick = () => { const text = document.getElementById('newPost').value.trim(); if (!text) return; posts.unshift({ id: `p-${Date.now()}`, author: getName(), initial: initials(getName()), color: 'blue', category: document.getElementById('postType').value, text, image: imageData, likes: 0, likedBy: [], createdAt: Date.now(), comments: [] }); save(); render(); modal.hidden = true; document.getElementById('newPost').value = ''; imageData = ''; imageInput.value = ''; document.getElementById('imageName').textContent = 'Nenhuma imagem selecionada'; };
+  let imageData = '';
+  const openComposer = () => { modal.hidden = false; newPost.focus(); }; openComposerSidebar.onclick = openComposer; closeComposer.onclick = () => { modal.hidden = true; };
+  imageInput.onchange = () => { const file = imageInput.files[0]; imageName.textContent = file ? file.name : 'Nenhuma imagem selecionada'; if (file) { const reader = new FileReader(); reader.onload = () => { imageData = reader.result; }; reader.readAsDataURL(file); } };
+  publishBtn.onclick = () => { const text = newPost.value.trim(); if (!text) return; posts.unshift({ id: `p-${Date.now()}`, author: getName(), initial: initials(getName()), color: 'blue', category: document.getElementById('postType').value, text, image: imageData, likes: 0, likedBy: [], createdAt: Date.now(), comments: [] }); save(); render(); modal.hidden = true; newPost.value = ''; imageData = ''; imageInput.value = ''; imageName.textContent = 'Nenhuma imagem selecionada'; };
 });

@@ -4,23 +4,33 @@ if (account) {
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(account));
   OlhoDigitalAccount.updateProfileAvatars(account);
   OlhoDigitalAccount.initProfileMenu();
+
+  const profileToggle = document.getElementById('profileToggle');
   const profileDropdown = document.getElementById('profileDropdown');
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    profileDropdown.hidden = true;
-    document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-    document.getElementById('logoutDialog').showModal();
-  });
-  document.getElementById('confirmLogout').addEventListener('click', () => {
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-    window.location.replace('./login.html');
-  });
+  const logoutBtn = document.getElementById('logoutBtn');
+  const logoutDialog = document.getElementById('logoutDialog');
+  const confirmLogout = document.getElementById('confirmLogout');
   const gallery = document.getElementById('avatarGallery');
   const preview = document.getElementById('avatarPreview');
   const fileInput = document.getElementById('avatarFile');
   const cancelUpload = document.getElementById('cancelUpload');
   const saveButton = document.getElementById('saveAvatar');
   const status = document.getElementById('avatarStatus');
+
+  if (!profileToggle || !profileDropdown || !logoutBtn || !logoutDialog || !confirmLogout || !gallery || !preview || !fileInput || !cancelUpload || !saveButton || !status) {
+    return;
+  }
+
+  logoutBtn.addEventListener('click', () => {
+    profileDropdown.hidden = true;
+    profileToggle.setAttribute('aria-expanded', 'false');
+    logoutDialog.showModal();
+  });
+  confirmLogout.addEventListener('click', () => {
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+    window.location.replace('./login.html');
+  });
   const avatars = [
     { name: 'Escudo azul', background: '#dbeafe', color: '#1d4ed8', icon: '<path d="M48 13 76 23v21c0 19-12 31-28 41C32 75 20 63 20 44V23l28-10Z"/><path d="m35 47 9 9 18-20"/>' },
     { name: 'Robô digital', background: '#dcfce7', color: '#15803d', icon: '<rect x="22" y="28" width="52" height="43" rx="12"/><path d="M48 17v11M35 45h1m24 0h1M37 58h22M15 42h7m52 0h7"/><circle cx="48" cy="16" r="3"/>' },
