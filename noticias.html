@@ -16,45 +16,12 @@
     />
     <link rel="stylesheet" href="css/noticias.css" />
     <link rel="stylesheet" href="./css/account-preferences.css" />
+      <link rel="stylesheet" href="./css/site-header.css" />
+      <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="container nav-wrap">
-        <div class="nav-left">
-          <a href="./home.html" class="brand">
-            <img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="Olho Digital" />
-            <span>Olho Digital</span>
-          </a>
-
-          <nav class="main-nav" aria-label="Menu principal">
-            <a href="./home.html">Início</a>
-            <a href="./aprender.html">Aprender</a>
-            <a href="./noticias.html" class="active">Notícias</a>
-            <a href="./comunidade.html">Comunidade</a>
-          </nav>
-        </div>
-
-        <div class="nav-right">
-          <label class="search-box" for="newsSearch">
-            <span aria-hidden="true">⌕</span>
-            <input type="search" id="newsSearch" placeholder="Buscar notícias..." />
-          </label>
-
-          <button class="icon-btn" aria-label="Notificações">🔔</button>
-          <div class="profile-menu-wrap">
-            <button class="profile-btn" id="profileToggle" type="button" aria-label="Perfil" aria-expanded="false" aria-controls="profileDropdown">
-              <span class="profile-avatar" data-profile-avatar>U</span>
-            </button>
-            <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
-              <a role="menuitem" href="./atividade.html">Meu perfil</a>
-              <a role="menuitem" href="./configuracoes.html">Configurações</a>
-              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
-              <button role="menuitem" type="button" id="logoutBtn">Sair da conta</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <header class="topbar" data-site-header data-active="noticias" data-search-id="newsSearch" data-search-placeholder="Buscar notícias..."></header>
+    <script src="./scripts/site-header.js"></script>
 
     <section class="hero">
 
@@ -74,7 +41,7 @@
             Novas políticas públicas impulsionam a educação digital em escolas
             brasileiras.
           </p>
-          <span>Atualizado hoje</span>
+          <span data-news-freshness>Atualizado automaticamente</span>
         </div>
       </div>
     </section>
@@ -156,34 +123,17 @@
         <div id="modalContent"></div>
       </div>
     </div>
-    <dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle" aria-describedby="logoutMessage">
-      <form method="dialog" class="logout-dialog-card">
-        <h2 id="logoutTitle">Deseja sair da sua conta?</h2>
-        <p id="logoutMessage">Você está prestes a encerrar sua sessão no Olho Digital. Será necessário entrar novamente para acessar as áreas restritas. Sua foto de perfil e suas configurações salvas serão mantidas.</p>
-        <div class="logout-dialog-actions">
-          <button class="logout-cancel" value="cancel">Cancelar</button>
-          <button class="logout-confirm" id="confirmLogout" type="button">Sim, sair da conta</button>
-        </div>
-      </form>
-    </dialog>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+    <script src="./scripts/supabase-config.js"></script>
+    <script src="./scripts/auth.js"></script>
+    <script src="./scripts/data.js"></script>
     <script src="./scripts/account.js"></script>
     <script>
       const newsUser = OlhoDigitalAccount.requireAuthentication();
       const newsSettings = newsUser ? OlhoDigitalAccount.getEffectiveSettings(newsUser) : OlhoDigitalAccount.defaults;
       OlhoDigitalAccount.applySettings(newsSettings);
       if (newsUser) OlhoDigitalAccount.updateProfileAvatars(newsUser);
-      OlhoDigitalAccount.initProfileMenu();
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        document.getElementById('profileDropdown').hidden = true;
-        document.getElementById('profileToggle').setAttribute('aria-expanded', 'false');
-        document.getElementById('logoutDialog').showModal();
-      });
-      document.getElementById('confirmLogout').addEventListener('click', () => {
-        localStorage.removeItem('user');
-        sessionStorage.clear();
-        window.location.replace('./login.html');
-      });
       const recentesArticles = [
         {
           title: 'Escolas investem em alfabetização digital para reduzir riscos online',
@@ -310,6 +260,11 @@
         }
       ];
 
+      // Tudo o que vem de usuários ou de feeds externos entra na página como texto.
+      function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+      }
+
       function normalizeComment(comment = {}) {
         return {
           author: comment.author || 'Leitor',
@@ -421,8 +376,8 @@
             category: activeArticleCategory
           });
         } catch (error) {
-          console.error('Não foi possível salvar sua atividade de notícias neste navegador.', error);
-          window.alert('Sua interação não pôde ser salva neste navegador. Verifique o espaço disponível.');
+          console.error('Não foi possível salvar sua atividade de notícias.', error);
+          window.alert('Sua interação não pôde ser salva. Tente novamente.');
         }
       }
       const modal = document.getElementById('articleModal');
@@ -578,7 +533,7 @@
               return `
                 <article class="news-card" data-content-topics="${topics}">
                   <div class="news-card-media">
-                    <img src="${article.image || getImageForText(article.title)}" alt="${article.title}" />
+                    <img src="${article.image || getImageForText(article.title)}" alt="${escapeHtml(article.title)}" />
                     <span class="news-tag">${category}</span>
                   </div>
                   <div class="card-content">
@@ -586,7 +541,7 @@
                       <span class="card-date">${formatArticleDate(article.date || 'Hoje')}</span>
                       <span>💬 ${comments.length}</span>
                     </div>
-                    <h3>${article.title}</h3>
+                    <h3>${escapeHtml(article.title)}</h3>
                     <p>${summaryText}</p>
                     <button class="read-more-btn" data-article="${index}">Leia mais</button>
                   </div>
@@ -604,30 +559,61 @@
         filterNewsCards();
       }
 
+      // Notícias automáticas: lidas do Supabase (atualizadas todo dia pela função /api/atualizar-noticias).
+      // Se o banco não responder ou estiver vazio, usa o arquivo scripts/news.json como reserva.
+      function toAutoArticle(item) {
+        const content = item.content || item.description || 'Conteúdo atualizado automaticamente.';
+
+        return normalizeArticle({
+          title: item.title || 'Notícia atualizada',
+          image: item.image || getImageForText(`${item.title || ''} ${item.description || ''}`),
+          content,
+          summary: summarizeText(content),
+          link: item.link || '',
+          fullText: item.fullText === true,
+          source: item.source || 'Fonte confiável',
+          date: item.publishedAt || item.date || new Date().toLocaleDateString('pt-BR'),
+          comments: []
+        });
+      }
+
+      async function fetchNewsRows() {
+        const { data, error } = await supabaseClient
+          .from('noticias')
+          .select('titulo, resumo, fonte, imagem, link, publicado_em')
+          .order('publicado_em', { ascending: false })
+          .limit(12);
+        if (error) throw error;
+        return (data || []).map((row) => ({
+          title: row.titulo,
+          content: row.resumo,
+          source: row.fonte,
+          image: row.imagem,
+          link: row.link,
+          publishedAt: row.publicado_em
+        }));
+      }
+
+      async function fetchBackupNews() {
+        const response = await fetch('./scripts/news.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Arquivo automático de notícias indisponível.');
+        return response.json();
+      }
+
       async function loadAutoNews() {
         try {
-          const response = await fetch('./scripts/news.json', { cache: 'no-store' });
-          if (!response.ok) throw new Error('Arquivo automático de notícias indisponível.');
-
-          const data = await response.json();
+          let data = [];
+          try {
+            data = await fetchNewsRows();
+          } catch (error) {
+            console.warn('Notícias do banco indisponíveis, usando a reserva:', error);
+          }
+          if (!data.length) data = await fetchBackupNews();
 
           if (!Array.isArray(data) || !data.length) return;
 
-          articles = data.map((item) => {
-            const content = item.content || item.description || 'Conteúdo atualizado automaticamente.';
-
-            return normalizeArticle({
-              title: item.title || 'Notícia atualizada',
-              image: item.image || getImageForText(`${item.title || ''} ${item.description || ''}`),
-              content,
-              summary: summarizeText(content),
-              link: item.link || '',
-              fullText: item.fullText === true,
-              source: item.source || 'Fonte confiável',
-              date: item.publishedAt || item.date || new Date().toLocaleDateString('pt-BR'),
-              comments: []
-            });
-          });
+          articles = data.map(toAutoArticle);
+          updateNewsFreshness(data);
 
           renderCards();
 
@@ -637,6 +623,16 @@
         } catch (error) {
           console.warn('Não foi possível carregar notícias automáticas:', error);
         }
+      }
+
+      // Mostra quando as notícias foram atualizadas pela última vez (data da notícia mais recente).
+      function updateNewsFreshness(list) {
+        const latest = list.map((article) => new Date(article.publishedAt || article.date)).filter((date) => !Number.isNaN(date.getTime())).sort((a, b) => b - a)[0];
+        document.querySelectorAll('[data-news-freshness]').forEach((element) => {
+          element.textContent = latest
+            ? `Atualizado em ${latest.toLocaleDateString('pt-BR')}`
+            : 'Atualizado automaticamente';
+        });
       }
 
       function getActiveArticle() {
@@ -664,9 +660,9 @@
         modalContent.innerHTML = `
           <div class="modal-header">
             <p class="eyebrow">Resumo da notícia</p>
-            <h2>${article.title}</h2>
+            <h2>${escapeHtml(article.title)}</h2>
           </div>
-          <img src="${article.image || getImageForText(article.title)}" alt="${article.title}" class="modal-image" />
+          <img src="${article.image || getImageForText(article.title)}" alt="${escapeHtml(article.title)}" class="modal-image" />
           <div class="modal-text">${formatModalParagraphs(summary)}</div>
           ${hasMoreContent ? `
             <details class="full-article">
@@ -689,9 +685,9 @@
                 ? article.comments.map((comment, commentIndex) => `
                   <div class="comment-item">
                     <div class="comment-header">
-                      <strong>${comment.author}</strong>
+                      <strong>${escapeHtml(comment.author)}</strong>
                     </div>
-                    <p>${comment.text}</p>
+                    <p>${escapeHtml(comment.text)}</p>
 
                     ${
                       Array.isArray(comment.replies) && comment.replies.length
@@ -699,8 +695,8 @@
                           <div class="comment-replies" data-comment-index="${commentIndex}">
                             ${comment.replies.map((reply) => `
                               <div class="reply-item">
-                                <strong>${reply.author}</strong>
-                                <p>${reply.text}</p>
+                                <strong>${escapeHtml(reply.author)}</strong>
+                                <p>${escapeHtml(reply.text)}</p>
                               </div>
                             `).join('')}
                           </div>
@@ -729,7 +725,7 @@
           </div>
           <div class="source-box">
             <h3>Fonte</h3>
-            <p>${article.source}</p>
+            <p>${escapeHtml(article.source)}</p>
             ${article.link ? `<a class="source-link" href="${article.link}" target="_blank" rel="noopener noreferrer">Abrir matéria original</a>` : ''}
           </div>
         `;
@@ -846,6 +842,5 @@
       renderCards();
       loadAutoNews();
     </script>
-    <script src="./scripts/aprender.js"></script>
   </body>
 </html>

@@ -116,7 +116,6 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .profile-btn:hover { background: rgba(255, 255, 255, 0.2); }
 .avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--blue-700); font-weight: 700; }
 .profile-name { max-width: 130px; overflow: hidden; font-size: 0.8rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
-.profile-chevron { color: var(--slate-600); font-size: 1rem; }
 .profile-chevron { color: #fff; font-size: 1rem; }
 .profile-dropdown, .notification-dropdown {
   position: absolute;
@@ -204,11 +203,11 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 
 .welcome-row { display: grid; grid-template-columns: minmax(245px, 0.85fr) minmax(400px, 1.35fr); align-items: stretch; gap: 22px; margin-bottom: 25px; }
 .welcome-copy { align-self: center; padding: 5px 0; }
-.eyebrow, .section-label { margin: 0 0 8px; color: #64748b; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; }
+.eyebrow, .section-label { margin: 0 0 8px; color: #64748b; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; }
 .welcome-copy h1 { margin: 0; color: var(--blue-900); font-size: clamp(1.8rem, 2.5vw, 2.45rem); line-height: 1.2; }
 .welcome-copy > p:last-child { max-width: 390px; margin: 11px 0 0; color: var(--slate-600); font-size: 0.92rem; line-height: 1.6; }
 .daily-message { position: relative; display: flex; align-items: center; justify-content: space-between; min-height: 165px; gap: 18px; padding: 22px 25px; overflow: hidden; border: 1px solid #dbeafe; border-radius: 12px; background: linear-gradient(115deg, #fff 0%, #f8fbff 55%, #eff6ff 100%); }
-.daily-label { margin: 0 0 10px; color: var(--blue-600); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; }
+.daily-label { margin: 0 0 10px; color: var(--blue-600); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; }
 .daily-message h2 { max-width: 510px; margin: 0; color: var(--blue-900); font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.4; }
 .daily-message p:last-child { margin: 8px 0 0; color: var(--slate-600); font-size: 0.76rem; }
 .daily-shield { display: grid; flex: 0 0 82px; place-items: center; width: 82px; height: 92px; margin-right: 5px; border: 2px solid #93c5fd; border-radius: 45% 45% 50% 50%; background: rgba(219, 234, 254, 0.7); color: var(--blue-600); font-size: 2.3rem; clip-path: polygon(50% 0, 96% 15%, 88% 70%, 50% 100%, 12% 70%, 4% 15%); }
@@ -223,19 +222,19 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .panel { min-width: 0; padding: 20px; border: 1px solid var(--slate-200); border-radius: 12px; background: #fff; box-shadow: var(--shadow); }
 .panel-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
 .panel-head h2 { margin: 0; color: var(--blue-900); font-size: 1.15rem; line-height: 1.3; }
-.panel-head .section-label { margin-bottom: 5px; font-size: 0.56rem; }
+.panel-head .section-label { margin-bottom: 5px; font-size: 0.7rem; }
 
 .current-course-card { display: grid; grid-template-columns: minmax(205px, 0.86fr) minmax(0, 1.25fr); min-height: 295px; overflow: hidden; border: 1px solid var(--slate-200); border-radius: 9px; }
 .current-course-image { position: relative; min-height: 295px; overflow: hidden; background: #dbeafe; }
 .current-course-image img, .news-image img, .recommended-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 350ms ease; }
 .current-course-card:hover .current-course-image img, .news-image:hover img, .recommended-card:hover .recommended-image img { transform: scale(1.035); }
 .image-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0.03), rgba(15, 23, 42, 0.58)); }
-.course-path-label { position: absolute; bottom: 18px; left: 17px; padding: 7px 10px; border: 1px solid rgba(255, 255, 255, 0.55); border-radius: 5px; background: rgba(15, 23, 42, 0.24); color: #fff; font-size: 0.68rem; font-weight: 700; }
+.course-path-label { position: absolute; bottom: 18px; left: 17px; padding: 7px 10px; border: 1px solid rgba(255, 255, 255, 0.55); border-radius: 5px; background: rgba(15, 23, 42, 0.24); color: #fff; font-size: 0.7rem; font-weight: 700; }
 .current-course-content { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 19px 21px; }
 .course-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.course-overline { margin: 0 0 6px; color: #64748b; font-size: 0.58rem; font-weight: 700; }
+.course-overline { margin: 0 0 6px; color: #64748b; font-size: 0.7rem; font-weight: 700; }
 .course-title-row h3 { margin: 0; color: var(--blue-900); font-size: 1.22rem; line-height: 1.35; }
-.last-access { flex: 0 0 auto; padding: 5px 8px; border-radius: 5px; background: var(--slate-50); color: var(--slate-600); font-size: 0.62rem; }
+.last-access { flex: 0 0 auto; padding: 5px 8px; border-radius: 5px; background: var(--slate-50); color: var(--slate-600); font-size: 0.7rem; }
 .module-line { margin: 10px 0 14px; color: var(--slate-600); font-size: 0.74rem; }
 .progress-line { display: flex; align-items: center; gap: 10px; }
 .progress-track { flex: 1; height: 8px; overflow: hidden; border-radius: 99px; background: var(--slate-200); }
@@ -244,7 +243,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .last-activity { display: flex; align-items: center; gap: 10px; margin: 16px 0; padding: 10px; border-radius: 7px; background: var(--slate-50); }
 .activity-icon { display: grid; flex: 0 0 30px; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--blue-100); color: var(--blue-700); font-size: 0.7rem; }
 .last-activity small, .last-activity strong { display: block; }
-.last-activity small { margin-bottom: 3px; color: #64748b; font-size: 0.55rem; font-weight: 700; }
+.last-activity small { margin-bottom: 3px; color: #64748b; font-size: 0.7rem; font-weight: 700; }
 .last-activity strong { color: var(--slate-800); font-size: 0.7rem; }
 .course-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
 .button-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 41px; padding: 0 15px; border: 0; border-radius: 7px; background: var(--blue-600); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.16); color: #fff; font-size: 0.75rem; font-weight: 700; transition: background 150ms ease, transform 150ms ease; }
@@ -267,35 +266,35 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .recommended-card { min-width: 0; overflow: hidden; border: 1px solid var(--slate-200); border-radius: 8px; background: #fff; scroll-snap-align: start; }
 .recommended-image { height: 105px; overflow: hidden; background: var(--blue-100); }
 .recommended-content { padding: 12px; }
-.course-tags { display: flex; align-items: center; gap: 9px; color: var(--slate-600); font-size: 0.61rem; }
+.course-tags { display: flex; align-items: center; gap: 9px; color: var(--slate-600); font-size: 0.7rem; }
 .course-tags span:first-child { padding: 4px 6px; border-radius: 4px; background: var(--blue-100); color: var(--blue-700); font-weight: 700; }
 .recommended-content h3 { margin: 9px 0 5px; color: var(--blue-900); font-size: 0.83rem; line-height: 1.35; }
-.recommended-content p { min-height: 36px; margin: 0 0 10px; color: var(--slate-600); font-size: 0.68rem; line-height: 1.5; }
-.recommended-content .text-link { font-size: 0.68rem; }
+.recommended-content p { min-height: 36px; margin: 0 0 10px; color: var(--slate-600); font-size: 0.7rem; line-height: 1.5; }
+.recommended-content .text-link { font-size: 0.7rem; }
 
 .news-card { overflow: hidden; border: 1px solid var(--slate-200); border-radius: 8px; background: #fff; }
 .news-image { position: relative; display: block; height: 155px; overflow: hidden; background: var(--blue-100); }
 .news-image::after { position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(15, 23, 42, 0.5)); content: ""; }
-.news-category { position: absolute; bottom: 12px; left: 13px; z-index: 1; color: #fff; font-size: 0.58rem; font-weight: 700; }
+.news-category { position: absolute; bottom: 12px; left: 13px; z-index: 1; color: #fff; font-size: 0.7rem; font-weight: 700; }
 .news-content { padding: 13px 14px 10px; }
-.news-meta { margin: 0 0 7px; color: #64748b; font-size: 0.58rem; font-weight: 700; }
+.news-meta { margin: 0 0 7px; color: #64748b; font-size: 0.7rem; font-weight: 700; }
 .news-content h3 { margin: 0; color: var(--blue-900); font-size: 0.92rem; line-height: 1.4; }
 .news-content > p:not(.news-meta) { margin: 7px 0 11px; color: var(--slate-600); font-size: 0.72rem; line-height: 1.5; }
-.news-all-link { display: flex; justify-content: flex-end; gap: 5px; margin: 0 14px; padding: 10px 0; border-top: 1px solid var(--slate-200); color: var(--slate-600); font-size: 0.65rem; font-weight: 700; }
+.news-all-link { display: flex; justify-content: flex-end; gap: 5px; margin: 0 14px; padding: 10px 0; border-top: 1px solid var(--slate-200); color: var(--slate-600); font-size: 0.7rem; font-weight: 700; }
 .community-panel, .achievement-panel { padding-bottom: 15px; }
 .activity-card { display: flex; align-items: flex-start; gap: 10px; padding: 2px 0 13px; }
 .activity-avatar { display: grid; flex: 0 0 34px; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--blue-100); color: var(--blue-700); font-size: 0.75rem; font-weight: 700; }
 .activity-copy { min-width: 0; flex: 1; }
-.activity-copy p { margin: 0 0 5px; color: var(--slate-600); font-size: 0.68rem; line-height: 1.4; }
+.activity-copy p { margin: 0 0 5px; color: var(--slate-600); font-size: 0.7rem; line-height: 1.4; }
 .activity-copy p strong { color: var(--blue-900); }
 .activity-copy > a { display: block; overflow: hidden; color: var(--blue-600); font-size: 0.72rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
-.activity-copy time { display: block; margin-top: 6px; color: #64748b; font-size: 0.63rem; }
+.activity-copy time { display: block; margin-top: 6px; color: #64748b; font-size: 0.7rem; }
 .activity-arrow { color: #64748b; }
-.section-footer-link { display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--slate-200); color: var(--blue-600); font-size: 0.68rem; font-weight: 700; }
+.section-footer-link { display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--slate-200); color: var(--blue-600); font-size: 0.7rem; font-weight: 700; }
 .achievement-card { display: flex; align-items: center; gap: 11px; padding: 2px 0 13px; }
 .achievement-icon { display: grid; flex: 0 0 40px; place-items: center; width: 40px; height: 40px; border-radius: 9px; background: var(--blue-100); color: var(--blue-700); font-size: 1.35rem; }
 .achievement-card h3 { margin: 0; color: var(--blue-900); font-size: 0.78rem; }
-.achievement-card p { margin: 4px 0 0; color: var(--slate-600); font-size: 0.66rem; line-height: 1.45; }
+.achievement-card p { margin: 4px 0 0; color: var(--slate-600); font-size: 0.7rem; line-height: 1.45; }
 
 .logout-dialog { position: fixed; inset: 0; margin: auto; max-height: calc(100dvh - 32px); overflow: auto; width: min(460px, calc(100% - 32px)); padding: 0; border: 0; border-radius: 16px; color: var(--slate-800); box-shadow: 0 24px 70px rgba(15, 23, 42, 0.3); }
 .logout-dialog::backdrop { background: rgba(15, 23, 42, 0.58); backdrop-filter: blur(3px); }
@@ -383,7 +382,7 @@ body.theme-dark .logout-dialog-actions button:not(.logout-confirm) { border-colo
   .course-carousel { grid-auto-columns: 82%; gap: 11px; }
   .recommended-image { height: 120px; }
   .carousel-actions { gap: 5px; }
-  .carousel-actions .text-link { margin-right: 0; font-size: 0.65rem; }
+  .carousel-actions .text-link { margin-right: 0; font-size: 0.7rem; }
   .carousel-actions button { width: 29px; height: 29px; }
   .secondary-column { grid-template-columns: 1fr; }
   .featured-panel { grid-column: auto; }
@@ -398,4 +397,9 @@ body.theme-dark .logout-dialog-actions button:not(.logout-confirm) { border-colo
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+/* Sem sidebar: o conteúdo ocupa a largura toda (navegação agora fica no cabeçalho). */
+.app-shell { display: block; width: min(1320px, calc(100% - 40px)); margin: 0 auto; padding: 24px 0 48px; }
+@media (max-width: 560px) {
+  .app-shell { padding: 16px 0 30px; }
 }

@@ -16,27 +16,39 @@ function clearError() {
 }
 
 if (form) {
+  const submitButton = form.querySelector('button[type="submit"]');
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearError();
 
     const email = emailInput?.value.trim() || '';
-    const password = passwordInput?.value.trim() || '';
+    // A senha não é "trimada": o cadastro salva exatamente o que foi digitado.
+    const password = passwordInput?.value || '';
 
     if (!email || !password) {
       showError('Por favor, preencha todos os campos');
       return;
     }
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    // Evita envios duplicados enquanto o Supabase responde.
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Entrando...';
+    }
+
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
     if (error) {
       showError(error.message.includes('not confirmed') ? 'Confirme seu email antes de entrar' : 'Email ou senha incorretos');
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Entrar';
+      }
       return;
     }
 
-    const foundUser = data.user;
-    localStorage.setItem('user', JSON.stringify({ name: foundUser.user_metadata?.name || '', email: foundUser.email }));
+    await OlhoDigitalData.hydrate();
     window.location.href = './home.html';
   });
 }

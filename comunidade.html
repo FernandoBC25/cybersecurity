@@ -6,43 +6,12 @@
     <title>Olho Digital | Comunidade</title>
     <link rel="stylesheet" href="./css/comunidade.css" />
     <link rel="stylesheet" href="./css/account-preferences.css" />
+      <link rel="stylesheet" href="./css/site-header.css" />
+      <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
   <body>
-    <header class="topbar">
-      <div class="container nav-wrap">
-        <div class="nav-left">
-          <a href="./home.html" class="brand">
-            <img src="./assets/logo.png" data-logo-light="./assets/logo.png" data-logo-dark="./assets/logo-escuro-header.png" alt="Olho Digital" />
-            <span>Olho Digital</span>
-          </a>
-
-          <nav class="main-nav" aria-label="Menu principal">
-            <a href="./home.html">Início</a>
-            <a href="./aprender.html">Aprender</a>
-            <a href="./noticias.html">Notícias</a>
-            <a href="./comunidade.html" class="active">Comunidade</a>
-          </nav>
-        </div>
-
-        <div class="nav-right">
-          <label class="search-box" for="communitySearch">
-            <span aria-hidden="true">⌕</span>
-            <input type="text" id="communitySearch" placeholder="Buscar na comunidade..." />
-          </label>
-          <button class="icon-btn" aria-label="Notificações">🔔</button>
-          <div class="profile-menu-wrap">
-            <button class="profile-btn" id="profileToggle" type="button" aria-label="Perfil" aria-expanded="false" aria-controls="profileDropdown">
-              <span class="profile-avatar" data-profile-avatar>U</span>
-            </button>
-            <div class="profile-dropdown" id="profileDropdown" role="menu" hidden>
-              <a role="menuitem" href="./atividade.html">Meu perfil</a>
-              <a role="menuitem" href="./configuracoes.html">Configurações</a>
-              <a role="menuitem" href="./foto-perfil.html">Foto de perfil</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <header class="topbar" data-site-header data-active="comunidade" data-search-id="communitySearch" data-search-placeholder="Buscar na comunidade..."></header>
+    <script src="./scripts/site-header.js"></script>
 
     <main class="container page-shell">
       <section class="community-header">
@@ -80,7 +49,7 @@
         <aside class="community-right">
           <section class="side-panel panel">
             <div class="panel-heading"><span class="side-icon">●</span><h2>Membros cadastrados</h2></div>
-            <p class="online-count" id="memberCount">Carregando contas deste navegador...</p>
+            <p class="online-count" id="memberCount">Carregando membros...</p>
             <div class="member-stack" id="memberStack" aria-hidden="true"></div>
             <button class="outline-btn" type="button" data-view="membros">Ver todos membros</button>
           </section>
@@ -89,12 +58,12 @@
             <div class="event-item"><strong>15 <small>JUN</small></strong><span><b>Workshop: Docker Avançado</b><small>15 de junho, 19:00<br>Online</small></span></div>
             <div class="event-item"><strong>22 <small>JUN</small></strong><span><b>Live: Carreira em Desenvolvimento</b><small>22 de junho, 20:00<br>Online</small></span></div>
             <div class="event-item"><strong>29 <small>JUN</small></strong><span><b>Meetup: Networking</b><small>29 de junho, 18:00<br>São Paulo, SP</small></span></div>
-            <button class="text-btn" type="button">Ver todos eventos</button>
+            <button class="text-btn" type="button" data-community-info="events">Ver todos eventos</button>
           </section>
           <section class="side-panel panel rules-panel">
             <div class="panel-heading"><span class="side-icon">✓</span><h2>Regras da Comunidade</h2></div>
             <ol><li>Respeite todos os membros</li><li>Não faça spam ou autopromoção</li><li>Use títulos descritivos</li><li>Pesquise antes de perguntar</li><li>Compartilhe conhecimento!</li></ol>
-            <button class="text-btn" type="button">Ver todas as regras</button>
+            <button class="text-btn" type="button" data-community-info="rules">Ver todas as regras</button>
           </section>
         </aside>
       </div>
@@ -103,13 +72,34 @@
     <div class="modal-backdrop" id="composerModal" hidden>
       <section class="composer modal panel" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
         <div class="modal-header"><div><span class="section-kicker">NOVA CONVERSA</span><h2 id="composerTitle">Criar publicação</h2></div><button class="close-btn" id="closeComposer" aria-label="Fechar">×</button></div>
-        <textarea id="newPost" rows="5" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
-        <div class="upload-row"><label class="upload-btn" for="postImage">▧ Adicionar imagem</label><input id="postImage" type="file" accept="image/*"><span id="imageName">Nenhuma imagem selecionada</span></div>
+        <div class="community-field">
+          <textarea id="newPost" rows="5" data-content-limit="5000" placeholder="Compartilhe uma experiência ou aviso importante..."></textarea>
+          <div class="community-field-meta"><small data-character-count>0 / 5.000 caracteres</small><small class="community-field-error" data-field-error role="alert" aria-live="polite"></small></div>
+        </div>
+        <div class="upload-row"><label class="upload-btn" for="postImage">▧ Adicionar imagem</label><input id="postImage" type="file" accept="image/jpeg,image/png,image/webp"><span id="imageName">Nenhuma imagem selecionada</span></div>
+        <p class="community-field-error image-error" id="imageError" role="alert" aria-live="polite"></p>
+        <img class="image-preview" id="imagePreview" alt="Prévia da imagem selecionada" hidden>
         <div class="composer-actions"><select id="postType" aria-label="Categoria da publicação"><option value="geral">Geral</option><option value="duvidas">Dúvidas</option><option value="tutoriais">Tutoriais</option><option value="projetos">Projetos</option><option value="noticias">Notícias</option></select><button type="button" class="primary-btn" id="publishBtn">Publicar agora</button></div>
       </section>
     </div>
 
+    <div class="modal-backdrop" id="communityInfoModal" hidden>
+      <section class="community-info-modal modal panel" role="dialog" aria-modal="true" aria-labelledby="communityInfoTitle">
+        <div class="modal-header">
+          <div><span class="section-kicker">OLHO DIGITAL</span><h2 id="communityInfoTitle"></h2></div>
+          <button class="close-btn" id="closeCommunityInfo" type="button" aria-label="Fechar">×</button>
+        </div>
+        <div id="communityInfoContent"></div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+    <script src="./scripts/supabase-config.js"></script>
+    <script src="./scripts/auth.js"></script>
+    <script src="./scripts/data.js"></script>
     <script src="./scripts/account.js"></script>
+    <script src="./scripts/community-validation.js"></script>
+    <script src="./scripts/community-data.js"></script>
     <script src="./scripts/comunidade.js"></script>
   </body>
 </html>
