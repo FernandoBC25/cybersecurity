@@ -31,11 +31,12 @@
 .upload-button:focus-within { outline: 3px solid #60a5fa; outline-offset: 3px; }
 #avatarFile { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 .cancel-upload { min-height: 42px; padding: 0 14px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #334155; font-weight: 700; cursor: pointer; }
-.avatar-preview-card { display: grid; justify-items: center; }
+.avatar-preview-card { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; }
 .avatar-preview-card h2, .avatar-preview-card .form-status { justify-self: start; width: 100%; }
-#avatarPreview { width: 132px; height: 132px; border: 4px solid #dbeafe; border-radius: 50%; background: #eff6ff; object-fit: cover; }
+.avatar-preview-frame { display: grid; place-items: center; width: 168px; height: 168px; padding: 10px; border: 1px solid #dbeafe; border-radius: 50%; background: #eff6ff; }
+#avatarPreview { display: block; width: 100%; height: 100%; max-width: none; border: 4px solid #dbeafe; border-radius: 50%; background: #eff6ff; object-fit: cover; object-position: center; }
 .avatar-preview-card .form-status { margin: 14px 0 0; }
-.avatar-actions { display: flex; justify-content: flex-end; width: 100%; gap: 10px; margin-top: 16px; }
+.avatar-actions { display: flex; justify-content: flex-end; width: min(100%, 420px); gap: 10px; margin-top: 16px; }
 .avatar-actions a { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 .primary-button, .secondary-button { min-height: 42px; padding: 0 16px; border: 1px solid #2563eb; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 700; cursor: pointer; }
 .secondary-button { border-color: #cbd5e1; background: #fff; color: #334155; }
@@ -50,6 +51,8 @@
 .theme-dark .avatar-option { background: #24344e; color: #e2e8f0; }
 .theme-dark .avatar-option:hover, .theme-dark .avatar-option[aria-pressed="true"] { background: #1e3a8a; }
 .theme-dark .cancel-upload, .theme-dark .secondary-button { border-color: #475569; background: #24344e; color: #e2e8f0; }
+.theme-dark .avatar-preview-frame { border-color: #334155; background: #0f172a; }
+.theme-dark #avatarPreview { border-color: #334155; background: #0f172a; }
 @media (max-width: 650px) {
   .settings-nav { display: flex; min-height: 66px; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 10px 0; }
   .settings-nav nav { order: 3; flex: 1 0 100%; justify-content: center; gap: 8px 13px; }

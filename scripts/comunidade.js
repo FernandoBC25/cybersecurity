@@ -135,12 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const findPost = (id) => posts.find((post) => post.id === id);
   const countComments = (list) => list.reduce((total, comment) => total + 1 + countComments(comment.replies), 0);
   const removeFrom = (list, id) => list.filter((item) => item.id !== id).map((item) => ({ ...item, replies: removeFrom(item.replies, id) }));
-  const findComment = (list, id) => {
-    for (const item of list) {
-      if (item.id === id) return item;
-      const found = findComment(item.replies, id);
-      if (found) return found;
-    }
+
   function renderComment(comment, postId, parentId = '') {
     const own = comment.author?.id === user.id || comment.author === getName();
     const authorName = typeof comment.author === 'string' ? comment.author : (comment.author?.name || 'Usuário');
@@ -195,31 +190,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       : activeView === 'salvos'
         ? '<div class="empty-state panel"><strong>Nenhuma publicação salva.</strong><span>Use o botão 🔖 Salvar em uma publicação para guardá-la aqui.</span></div>'
         : posts.length === 0
-          ? '<div class="empty-state panel"><strong>Ainda não há publicações.</strong><span>Compartilhe uma dúvida, uma dica ou uma notícia para começar a conversa.</span><button class="primary-btn" type="button" onclick="document.getElementById(&quot;openComposerSidebar&quot;).click()">Criar a primeira publicação</button></div>'
-          : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
-  }
-    if (activeView === 'membros') {
-      feed.innerHTML = renderMembers(query);
-      return;
-    }
-    let visible = posts.filter((post) => (activeCategory === 'Todos' || post.category === activeCategory)
-      && (!query || `${post.author.name} ${label(post.category)} ${post.text}`.toLowerCase().includes(query)));
-    let heading = '';
-    if (activeView === 'salvos') {
-      visible = visible.filter((post) => savedPosts.has(post.id));
-      heading = '<h2 class="view-heading">Publicações salvas</h2>';
-    }
-    if (activeView === 'discussoes') {
-      visible = visible.filter((post) => post.category === 'duvidas' || post.comments.length >= 3);
-      heading = '<h2 class="view-heading">Discussões da comunidade</h2>';
-    }
-    feed.innerHTML = heading + (visible.length
-      ? visible.map(renderPost).join('')
-      : activeView === 'salvos'
-        ? '<div class="empty-state panel"><strong>Nenhuma publicação salva.</strong><span>Use o botão 🔖 Salvar em uma publicação para guardá-la aqui.</span></div>'
-        : posts.length === 0
-          ? '<div class="empty-state panel"><strong>Ainda não há publicações.</strong><span>Compartilhe uma dúvida, uma dica ou uma notícia para começar a conversa.</span><button class="primary-btn" type="button" onclick="document.getElementById(&quot;openComposerSidebar&quot;).click()">Criar a primeira publicação</button></div>'
-          : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
+            ? '<div class="empty-state panel"><strong>Ainda não há publicações.</strong><span>Compartilhe uma dúvida, uma dica ou uma notícia para começar a conversa.</span><button class="primary-btn" type="button" onclick="document.getElementById(&quot;openComposerSidebar&quot;).click()">Criar a primeira publicação</button></div>'
+            : '<div class="empty-state panel"><strong>Nenhuma publicação encontrada.</strong><span>Seja o primeiro a publicar ou tente outra categoria.</span></div>');
   }
 
   function renderMemberSummary() {
@@ -250,7 +222,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const syncNavigation = () => {
     document.querySelectorAll('[data-view]').forEach((item) => item.classList.toggle('active', item.dataset.view === activeView));
     document.querySelectorAll('[data-filter]').forEach((item) => item.classList.toggle('active', item.dataset.filter === activeCategory));
-  };
   };
 
   document.addEventListener('click', async (event) => {
@@ -321,15 +292,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sendReply = target.closest('[data-send-reply]');
     if (sendReply) {
       const post = findPost(sendReply.dataset.sendReply);
-      const input = sendReply.parentElement.querySelector('input');
-      const text = input.value.trim();
-      if (!text) return;
+      const field = sendReply.parentElement.querySelector('[data-content-limit]');
+      const text = validateSubmission(field, 'reply', 'comment');
+      if (!post || !text) return;
       try {
         const id = await Community.addComment(post.id, sendReply.dataset.parent, text);
         track('community', 'comments', { id, postId: post.id, title: post.text, text, kind: 'Resposta' });
+        releaseDuplicateSubmission(text, 'comment');
         await load();
         openComments(post.id);
       } catch (error) {
+        releaseDuplicateSubmission(text, 'comment');
         showError('Não foi possível enviar a resposta.', error);
       }
       return;
@@ -373,11 +346,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const id = await Community.addComment(post.id, null, text);
       track('community', 'comments', { id, postId: post.id, title: post.text, text, kind: 'Comentário' });
+      releaseDuplicateSubmission(text, 'comment');
       await load();
       openComments(post.id);
     } catch (error) {
+      releaseDuplicateSubmission(text, 'comment');
       showError('Não foi possível enviar o comentário.', error);
     }
+  });
+
+  document.addEventListener('input', (event) => {
+    const field = event.target.closest('[data-content-limit]');
+    if (field) updateCharacterCount(field);
   });
 
   searchInput.addEventListener('input', render);
@@ -410,10 +390,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         text,
         imageFile: imageInput.files[0] || null
       });
+      releaseDuplicateSubmission(text, 'publication');
       modal.hidden = true;
       resetComposer();
       await load();
     } catch (error) {
+      releaseDuplicateSubmission(text, 'publication');
       showError(error.message || 'Não foi possível publicar.', error);
     } finally {
       publishButton.disabled = false;

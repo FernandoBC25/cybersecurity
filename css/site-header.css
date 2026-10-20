@@ -30,7 +30,8 @@
 
 /* Marca */
 .site-brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 12px; color: #fff; font-weight: 700; white-space: nowrap; }
-.site-brand img { width: 42px; height: 42px; padding: 3px; border-radius: 8px; background: #fff; object-fit: contain; }
+.site-brand img { width: 42px; height: 42px; padding: 0; border-radius: 8px; background: transparent; object-fit: contain; mix-blend-mode: multiply; }
+body.theme-dark .site-brand img { mix-blend-mode: screen; }
 .site-topbar .site-brand span {
   color: #fff;
   font-size: 1.05rem;
@@ -49,13 +50,16 @@
   width: min(300px, 26vw);
   height: 40px;
   padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 9px;
-  background: #fff;
-  color: #64748b;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
 }
 .site-search > span { font-size: 1.2rem; line-height: 1; }
-.site-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #1e293b; font-size: 0.85rem; }
-.site-search input::placeholder { color: #64748b; opacity: 1; }
+.site-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #fff; font-size: 0.85rem; }
+.site-search input::placeholder { color: #fff; opacity: 0.8; }
+body.theme-dark .site-search { border-color: #475569; background: #0f172a; }
+body.theme-dark .site-search input { background: transparent !important; color: #fff !important; }
 .site-popover-wrap { position: relative; }
 .site-icon-btn {
   display: grid;

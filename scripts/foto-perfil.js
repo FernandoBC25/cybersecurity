@@ -1,3 +1,4 @@
+(function () {
 const account = OlhoDigitalAccount.requireAuthentication();
 
 if (account) {
@@ -12,6 +13,11 @@ if (account) {
   const cancelUpload = document.getElementById('cancelUpload');
   const saveButton = document.getElementById('saveAvatar');
   const status = document.getElementById('avatarStatus');
+
+  if (!gallery || !communityGallery || !standardAvatars || !characterAvatars || !preview || !fileInput || !cancelUpload || !saveButton || !status) {
+    return;
+  }
+
   const avatars = [
     { name: 'Escudo azul', background: '#dbeafe', color: '#1d4ed8', icon: '<path d="M48 13 76 23v21c0 19-12 31-28 41C32 75 20 63 20 44V23l28-10Z"/><path d="m35 47 9 9 18-20"/>' },
     { name: 'Robô digital', background: '#dcfce7', color: '#15803d', icon: '<rect x="22" y="28" width="52" height="43" rx="12"/><path d="M48 17v11M35 45h1m24 0h1M37 58h22M15 42h7m52 0h7"/><circle cx="48" cy="16" r="3"/>' },
@@ -84,7 +90,13 @@ if (account) {
     cancelUpload.hidden = true;
     saveButton.disabled = true;
     document.querySelectorAll('.avatar-option').forEach((option) => option.setAttribute('aria-pressed', 'false'));
-    preview.src = savedUrl || '';
+    setPreview(savedUrl);
+  }
+
+  function setPreview(url) {
+    preview.hidden = !url;
+    if (url) preview.src = url;
+    else preview.removeAttribute('src');
   }
 
   function makeAvatarBlob(avatar) {
@@ -96,7 +108,7 @@ if (account) {
     releaseSelectedUrl();
     selectedBlob = blob;
     selectedUrl = URL.createObjectURL(blob);
-    preview.src = selectedUrl;
+    setPreview(selectedUrl);
     saveButton.disabled = false;
     cancelUpload.hidden = false;
     fileInput.value = '';
@@ -294,7 +306,7 @@ if (account) {
       releaseSelectedUrl();
       selectedBlob = squareBlob;
       selectedUrl = URL.createObjectURL(squareBlob);
-      preview.src = selectedUrl;
+      setPreview(selectedUrl);
       saveButton.disabled = false;
       cancelUpload.hidden = false;
       document.querySelectorAll('.avatar-option').forEach((option) => option.setAttribute('aria-pressed', 'false'));
@@ -326,7 +338,7 @@ if (account) {
       savedUrl = URL.createObjectURL(blobToSave);
       releaseSelectedUrl();
       selectedBlob = null;
-      preview.src = savedUrl;
+      setPreview(savedUrl);
       cancelUpload.hidden = true;
       setStatus('Foto de perfil salva na sua conta.');
     } catch (error) {
@@ -347,18 +359,12 @@ if (account) {
       setStatus('A foto salva anteriormente ficou vazia por um erro no recorte. Escolha outra foto e confirme para substituí-la.', true);
       return;
     }
-    ...
-  });
-    if (!avatar?.blob) return;
-    if (await isTransparentImage(avatar.blob)) {
-      setStatus('A foto salva anteriormente ficou vazia por um erro no recorte. Escolha outra foto e confirme para substituí-la.', true);
-      return;
-    }
     savedUrl = URL.createObjectURL(avatar.blob);
-    if (!selectedBlob) preview.src = savedUrl;
+    if (!selectedBlob) setPreview(savedUrl);
   }).catch((error) => {
     console.error(error);
     setStatus(error.message || 'Não foi possível carregar a foto salva.', true);
   });
   OlhoDigitalAccount.updateProfileAvatars(account);
 }
+})();

@@ -18,10 +18,26 @@ test('accepts normal text and rejects empty or invisible-only content', () => {
 });
 
 test('blocks configured offensive terms without matching inside unrelated words', () => {
-  assert.match(validation.validateText('Você é um IDIOTA!', 1000), /não é permitida/);
-  assert.match(validation.validateText('FILHO   DA   PUTA', 1000), /não é permitida/);
-  assert.match(validation.validateText('i d i o t a', 1000), /não é permitida/);
+  assert.match(validation.validateText('Você é um IDIOTA!', 1000), /não são permitidos/);
+  assert.match(validation.validateText('FILHO   DA   PUTA', 1000), /não são permitidos/);
+  assert.match(validation.validateText('i d i o t a', 1000), /não são permitidos/);
   assert.equal(validation.validateText('A palavra idiotal não deve ser bloqueada.', 1000), '');
+});
+
+test('blocks hate speech and prejudice terms, including accent and spacing variations', () => {
+  for (const text of [
+    'nazismo',
+    'N A Z I S T A',
+    'supremacia   branca',
+    'racista',
+    'homofóbico',
+    'transfobia',
+    'misógina',
+    'capacitismo',
+    'xenófoba'
+  ]) {
+    assert.match(validation.validateText(text, 1000), /não são permitidos/, text);
+  }
 });
 
 test('enforces character limits', () => {
