@@ -3,7 +3,15 @@
     'arrombado', 'arrombada', 'babaca', 'bosta', 'burro', 'burra',
     'cabrão', 'caralho', 'desgraçado', 'desgraçada', 'filho da puta', 'idiota',
     'imbecil', 'merda', 'otário', 'otária', 'porra', 'puta',
-    'puto', 'fdp', 'foda-se'
+    'puto', 'fdp', 'foda-se',
+    'nazismo', 'nazista', 'hitler', 'heil hitler', 'supremacia branca', 'ku klux klan',
+    'racismo', 'racista', 'macaco', 'preto imundo',
+    'homofobia', 'homofóbico', 'homofóbica', 'transfobia', 'transfóbico', 'transfóbica',
+    'viado', 'bicha', 'sapatão', 'traveco',
+    'misoginia', 'misógino', 'misógina', 'feminazi', 'vadia', 'vagabunda', 'vagabundo',
+    'machista', 'mulher no lugar dela',
+    'capacitismo', 'retardado', 'retardada', 'mongoloide', 'aleijado', 'aleijada',
+    'xenofobia', 'xenófobo', 'xenófoba'
   ].map((term) => normalizeText(term));
 
   function normalizeText(value) {
@@ -31,7 +39,7 @@
       return new RegExp(`(^|[^\\p{L}\\p{N}])${phrase}(?=$|[^\\p{L}\\p{N}])`, 'u').test(normalized);
     });
     return hasBlockedTerm
-      ? 'Este conteúdo contém uma palavra ou expressão que não é permitida. Revise o texto e tente novamente.'
+      ? 'Este conteúdo contém termos ofensivos ou discriminatórios que não são permitidos. Revise o texto e tente novamente.'
       : '';
   }
 

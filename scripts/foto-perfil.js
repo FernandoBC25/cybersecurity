@@ -1,3 +1,4 @@
+(function () {
 const account = OlhoDigitalAccount.requireAuthentication();
 
 if (account) {
@@ -89,7 +90,13 @@ if (account) {
     cancelUpload.hidden = true;
     saveButton.disabled = true;
     document.querySelectorAll('.avatar-option').forEach((option) => option.setAttribute('aria-pressed', 'false'));
-    preview.src = savedUrl || '';
+    setPreview(savedUrl);
+  }
+
+  function setPreview(url) {
+    preview.hidden = !url;
+    if (url) preview.src = url;
+    else preview.removeAttribute('src');
   }
 
   function makeAvatarBlob(avatar) {
@@ -101,7 +108,7 @@ if (account) {
     releaseSelectedUrl();
     selectedBlob = blob;
     selectedUrl = URL.createObjectURL(blob);
-    preview.src = selectedUrl;
+    setPreview(selectedUrl);
     saveButton.disabled = false;
     cancelUpload.hidden = false;
     fileInput.value = '';
@@ -299,7 +306,7 @@ if (account) {
       releaseSelectedUrl();
       selectedBlob = squareBlob;
       selectedUrl = URL.createObjectURL(squareBlob);
-      preview.src = selectedUrl;
+      setPreview(selectedUrl);
       saveButton.disabled = false;
       cancelUpload.hidden = false;
       document.querySelectorAll('.avatar-option').forEach((option) => option.setAttribute('aria-pressed', 'false'));
@@ -331,7 +338,7 @@ if (account) {
       savedUrl = URL.createObjectURL(blobToSave);
       releaseSelectedUrl();
       selectedBlob = null;
-      preview.src = savedUrl;
+      setPreview(savedUrl);
       cancelUpload.hidden = true;
       setStatus('Foto de perfil salva na sua conta.');
     } catch (error) {
@@ -353,10 +360,11 @@ if (account) {
       return;
     }
     savedUrl = URL.createObjectURL(avatar.blob);
-    if (!selectedBlob) preview.src = savedUrl;
+    if (!selectedBlob) setPreview(savedUrl);
   }).catch((error) => {
     console.error(error);
     setStatus(error.message || 'Não foi possível carregar a foto salva.', true);
   });
   OlhoDigitalAccount.updateProfileAvatars(account);
 }
+})();

@@ -223,7 +223,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelectorAll('[data-view]').forEach((item) => item.classList.toggle('active', item.dataset.view === activeView));
     document.querySelectorAll('[data-filter]').forEach((item) => item.classList.toggle('active', item.dataset.filter === activeCategory));
   };
-  };
 
   document.addEventListener('click', async (event) => {
     const target = event.target;

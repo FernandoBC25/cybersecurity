@@ -24,15 +24,15 @@
       <section class="avatar-card" aria-labelledby="galleryTitle">
         <h2 id="galleryTitle">Escolha um estilo de foto</h2>
         <div class="avatar-category-switch" role="group" aria-label="Categoria das fotos de perfil">
-          <button class="avatar-category-button" type="button" data-avatar-category="characters" aria-pressed="false">Fotos de personagens</button>
-          <button class="avatar-category-button" type="button" data-avatar-category="standard" aria-pressed="true">Fotos padrão</button>
+          <button class="avatar-category-button" type="button" data-avatar-category="characters" aria-pressed="true">Fotos de personagens</button>
+          <button class="avatar-category-button" type="button" data-avatar-category="standard" aria-pressed="false">Fotos padrão</button>
         </div>
-        <section id="characterAvatars" class="avatar-category-content" aria-labelledby="communityAvatarTitle" hidden>
+        <section id="characterAvatars" class="avatar-category-content" aria-labelledby="communityAvatarTitle">
           <h3 id="communityAvatarTitle">Fotos de personagens</h3>
           <p class="community-avatar-help">Avatares ilustrados usados para representar os membros da Comunidade.</p>
           <div id="communityAvatarGallery" class="avatar-gallery community-avatar-gallery" role="group" aria-label="Escolha uma foto de personagem"></div>
         </section>
-        <section id="standardAvatars" class="avatar-category-content" aria-labelledby="standardAvatarTitle">
+        <section id="standardAvatars" class="avatar-category-content" aria-labelledby="standardAvatarTitle" hidden>
           <h3 id="standardAvatarTitle">Fotos padrão</h3>
           <div id="avatarGallery" class="avatar-gallery" role="group" aria-label="Escolha uma foto padrão"></div>
         </section>
@@ -51,7 +51,9 @@
 
       <section class="avatar-preview-card" aria-labelledby="previewTitle">
         <h2 id="previewTitle">Prévia</h2>
-        <img id="avatarPreview" alt="Prévia da foto de perfil selecionada" />
+        <div class="avatar-preview-frame">
+          <img id="avatarPreview" alt="Prévia da foto de perfil selecionada" hidden />
+        </div>
         <p id="avatarStatus" class="form-status" role="status" aria-live="polite"></p>
         <div class="avatar-actions">
           <a class="secondary-button" href="./home.html">Cancelar</a>
