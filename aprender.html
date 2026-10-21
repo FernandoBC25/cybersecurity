@@ -9,26 +9,24 @@
       <link rel="stylesheet" href="./css/site-header.css" />
       <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
-  <body>
+  <body class="learning-page learning-home-page">
     <header class="topbar" data-site-header data-active="aprender" data-search-id="learningSearch" data-search-placeholder="Buscar conteúdo..."></header>
     <script src="./scripts/site-header.js"></script>
 
     <main class="container page-shell">
-      <section class="page-header">
+      <section class="page-header learning-home-header">
         <h1>Central de Aprendizado</h1>
-        <p>Expanda seus conhecimentos em cibersegurança.</p>
+        <p>Escolha uma trilha e avance curso por curso, no seu ritmo.</p>
       </section>
 
       <section class="learning-section" id="catalogo">
         <div class="section-head">
           <div class="section-title">
-            <span class="section-icon">🗂️</span>
-            <h2>Trilhas de aprendizado</h2>
+            <h2>Trilhas</h2>
           </div>
+          <span class="learning-trail-count" id="catalogSummary">Carregando catálogo...</span>
         </div>
-        <p class="learning-progress-note" id="catalogSummary">Carregando catálogo...</p>
-        <div class="catalog-filters" id="catalogFilters"></div>
-        <div class="learning-trails" id="catalogGrid"></div>
+        <div class="trail-overview-grid" id="catalogGrid"></div>
       </section>
 
     </main>
