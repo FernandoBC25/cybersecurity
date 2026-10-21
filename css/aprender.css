@@ -1266,3 +1266,124 @@ body.learning-home-page .trail-overview-card[data-trail-id] .trail-overview-link
 @media (max-width: 620px) {
   body.learning-page.trail-detail-page #trailContent .course-card { min-height: 0; }
 }
+
+body.learning-home-page:not(.theme-dark) {
+  background: #f5f7fa;
+  color: #26364a;
+}
+body.learning-home-page:not(.theme-dark) .learning-home-header h1 { color: #172b4d; }
+body.learning-home-page:not(.theme-dark) .learning-home-header p,
+body.learning-home-page:not(.theme-dark) .trail-overview-description { color: #526276; }
+body.learning-home-page:not(.theme-dark) .section-head { border-bottom-color: #dce3ea; }
+body.learning-home-page:not(.theme-dark) .section-head h2 { color: #24364b; }
+body.learning-home-page:not(.theme-dark) .learning-trail-count,
+body.learning-home-page:not(.theme-dark) .trail-overview-progress { color: #5d6d80; }
+body.learning-home-page:not(.theme-dark) .trail-overview-card {
+  border-color: #dce3ea;
+  border-top-color: var(--trail-accent);
+  background: #fff;
+}
+body.learning-home-page:not(.theme-dark) .trail-overview-card:hover {
+  border-color: #c5d0dc;
+  border-top-color: var(--trail-accent);
+  background: #fff;
+}
+body.learning-home-page:not(.theme-dark) .trail-overview-card h3 { color: #24364b; }
+body.learning-home-page:not(.theme-dark) .trail-overview-icon,
+body.learning-home-page:not(.theme-dark) .trail-overview-arrow { color: var(--trail-accent); }
+body.learning-home-page:not(.theme-dark) .trail-progress { background: #e7ebf0; }
+body.learning-home-page:not(.theme-dark) .trail-progress:not(.has-progress) { background: #edf0f4; }
+body.learning-home-page:not(.theme-dark) .trail-progress-bar { background: var(--trail-accent); }
+body.learning-home-page:not(.theme-dark) .trail-overview-link {
+  border-color: #d1dbe5;
+  background: #f7f9fb;
+  color: #315d8a;
+}
+body.learning-home-page:not(.theme-dark) .trail-overview-link:hover {
+  border-color: var(--trail-accent);
+  background: #f1f5f9;
+  color: #244d76;
+}
+body.learning-home-page:not(.theme-dark) .trail-overview-link:active { background: #eaf0f5; }
+body.learning-home-page:not(.theme-dark) .trail-overview-link:focus-visible {
+  outline-color: var(--trail-accent);
+}
+body.learning-home-page:not(.theme-dark) .catalog-empty { color: #526276; }
+
+body.learning-page.trail-detail-page:not(.theme-dark) {
+  background: #f5f7fa;
+  color: #26364a;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) {
+  --slate-200: #dce3ea;
+  --slate-300: #c5d0dc;
+  --slate-600: #526276;
+  --slate-800: #24364b;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-back-link { color: #315d8a; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-back-link:hover { color: #1e466f; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-eyebrow { color: #526276; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-detail-header h1 { color: #172b4d; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-detail-header p { color: #526276; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-progress-summary {
+  border-bottom-color: #dce3ea;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-progress-copy strong { color: #24364b; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-progress-copy span { color: #526276; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-progress-track { background: #dfe5eb; }
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .catalog-chip {
+  border-color: #cbd5df;
+  background: #fff;
+  color: #44566b;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .catalog-chip:hover {
+  border-color: #91a4b8;
+  background: #f4f7fa;
+  color: #26364a;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .catalog-chip[aria-pressed="true"] {
+  border-color: var(--trail-accent);
+  background: color-mix(in srgb, var(--trail-accent) 12%, white);
+  color: #26364a;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-card {
+  border-color: #dce3ea;
+  background: #fff;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-card:hover {
+  border-color: var(--trail-accent);
+  background: #fff;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-banner {
+  color: #24364b;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-step { color: #526276; }
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .level {
+  border-color: #d8e0e8;
+  background: #f1f4f7;
+  color: #46596f;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-banner h3 { color: #1e3045; }
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-summary {
+  border-top-color: #e4e9ee;
+  color: #526276;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-completion { color: #26734d; }
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-completion.is-incomplete { color: #9a4b32; }
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .course-rating { color: #526276; }
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .primary-btn {
+  border-color: #315d8a;
+  background: #315d8a;
+  color: #fff;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .primary-btn:hover {
+  border-color: var(--trail-accent);
+  background: #274d73;
+}
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .primary-btn:active { background: #1e466f; }
+body.learning-page.trail-detail-page:not(.theme-dark) .trail-back-link:focus-visible,
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .catalog-chip:focus-visible,
+body.learning-page.trail-detail-page:not(.theme-dark) #trailContent .primary-btn:focus-visible {
+  outline-color: var(--trail-accent);
+}
+body.learning-page.trail-detail-page:not(.theme-dark) .catalog-empty { color: #526276; }
