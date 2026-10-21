@@ -346,78 +346,124 @@ img { max-width: 100%; display: block; }
   line-height: 1.6;
 }
 
-.feature-grid {
+#recursos .fact-myths-section {
   display: grid;
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 24px;
   margin-top: 28px;
 }
-.feature-card {
+#recursos .did-you-know-card {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(300px, 1.2fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(150px, 0.85fr);
   align-items: center;
-  gap: 34px;
-  background: var(--white);
+  gap: 12px;
+  min-height: 100%;
+  padding: 30px;
+  overflow: hidden;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #eaf5ff 0%, #dbeafe 58%, #eff8ff 100%);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.09);
+}
+#recursos .fact-eyebrow {
+  margin: 0 0 14px;
+  color: #1d4ed8;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+#recursos .did-you-know-copy h2 {
+  margin: 0;
+  color: #102a46;
+  font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+  line-height: 1.14;
+}
+#recursos .fact-description {
+  margin: 16px 0 0;
+  color: #334e68;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+#recursos .fact-cta {
+  gap: 9px;
+  margin-top: 22px;
+  white-space: nowrap;
+}
+#recursos .https-illustration {
+  width: 100%;
+  max-width: 230px;
+  height: auto;
+  justify-self: center;
+  filter: drop-shadow(0 12px 14px rgba(37, 99, 235, 0.12));
+}
+#recursos .myths-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+#recursos .myths-heading h2 {
+  margin: 0;
+  color: var(--blue-900);
+  font-size: 1.7rem;
+}
+#recursos .myths-heading p {
+  margin: 7px 0 16px;
+  color: var(--slate-600);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+#recursos .myth-list {
+  display: grid;
+  flex: 1;
+  gap: 12px;
+}
+#recursos .myth-card {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 15px 16px;
   border: 1px solid var(--slate-200);
-  border-radius: 18px;
-  padding: 24px;
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
-  color: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 0 7px 18px rgba(15, 23, 42, 0.045);
 }
-.feature-card:hover {
-  border-color: var(--blue-500);
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
-  transform: translateY(-3px);
-}
-.feature-copy { min-width: 0; }
-.feature-icon {
+#recursos .myth-icon {
   display: inline-flex;
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
+  width: 46px;
+  height: 46px;
   align-items: center;
   justify-content: center;
-  color: var(--blue-600);
+  border-radius: 13px;
 }
-.feature-icon svg {
-  width: 27px;
-  height: 27px;
+#recursos .myth-icon svg {
+  width: 24px;
+  height: 24px;
 }
-.feature-icon.blue { background: #dbeafe; }
-.feature-icon.purple { background: #ede9fe; }
-.feature-icon.red { background: #fee2e2; }
-.feature-icon.green { background: #dcfce7; }
-.feature-icon.orange { background: #ffedd5; }
-.feature-icon.pink { background: #fce7f3; }
-.feature-card h3 {
-  margin: 16px 0 10px;
+#recursos .myth-icon-alert { background: #fee2e2; color: #b91c1c; }
+#recursos .myth-icon-lock { background: #dbeafe; color: #1d4ed8; }
+#recursos .myth-icon-wifi { background: #dcfce7; color: #15803d; }
+#recursos .myth-status {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+#recursos .myth-status.truth { background: #dcfce7; color: #166534; }
+#recursos .myth-status.myth { background: #fee2e2; color: #991b1b; }
+#recursos .myth-copy h3 {
+  margin: 6px 0 5px;
   color: var(--blue-900);
+  font-size: 0.94rem;
+  line-height: 1.35;
 }
-.feature-card p {
+#recursos .myth-copy p {
   margin: 0;
   color: var(--slate-600);
-  line-height: 1.7;
-}
-.feature-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 18px;
-  color: var(--blue-600);
-  font-size: 0.92rem;
-  font-weight: 700;
-}
-.feature-link span {
-  font-size: 1.1rem;
-  transition: transform 0.2s ease;
-}
-.feature-card:hover .feature-link span { transform: translateX(3px); }
-.feature-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-  background: #f8fafc;
+  font-size: 0.84rem;
+  line-height: 1.45;
 }
 .tool-section-header {
   margin-top: 58px;
@@ -754,7 +800,6 @@ body.theme-dark .section-header h2,
 body.theme-dark .split-grid h2,
 body.theme-dark .info-item h3,
 body.theme-dark .attack-card h3,
-body.theme-dark .feature-card h3,
 body.theme-dark .tool-section-header h3,
 body.theme-dark .tool-card h4,
 body.theme-dark .preview-copy h3,
@@ -768,7 +813,6 @@ body.theme-dark .lead,
 body.theme-dark .split-grid p,
 body.theme-dark .attack-card p,
 body.theme-dark .attack-summary p,
-body.theme-dark .feature-card p,
 body.theme-dark .tool-card p,
 body.theme-dark .preview-copy p,
 body.theme-dark .stats-block-heading p,
@@ -783,7 +827,6 @@ body.theme-dark .stats-section {
   background: #0f1a2b;
 }
 body.theme-dark .attack-card,
-body.theme-dark .feature-card,
 body.theme-dark .tool-card,
 body.theme-dark .preview-carousel,
 body.theme-dark .stats-environment,
@@ -814,7 +857,6 @@ body.theme-dark .preview-button:hover {
   color: #fff;
 }
 body.theme-dark .hero-copy h1 span,
-body.theme-dark .feature-link,
 body.theme-dark .link-btn,
 body.theme-dark .stats-context,
 body.theme-dark .stats-note {
@@ -824,6 +866,23 @@ body.theme-dark .icon-box,
 body.theme-dark .preview-button {
   color: #bfdbfe;
 }
+body.theme-dark #recursos .did-you-know-card {
+  border-color: #34577e;
+  background: linear-gradient(135deg, #172d49 0%, #1b3b60 58%, #172d49 100%);
+}
+body.theme-dark #recursos .fact-eyebrow { color: #93c5fd; }
+body.theme-dark #recursos .did-you-know-copy h2,
+body.theme-dark #recursos .myths-heading h2,
+body.theme-dark #recursos .myth-copy h3 { color: #f8fafc; }
+body.theme-dark #recursos .fact-description,
+body.theme-dark #recursos .myths-heading p,
+body.theme-dark #recursos .myth-copy p { color: #cbd5e1; }
+body.theme-dark #recursos .myth-card {
+  border-color: #334155;
+  background: #172338;
+}
+body.theme-dark #recursos .myth-status.truth { background: #14532d; color: #bbf7d0; }
+body.theme-dark #recursos .myth-status.myth { background: #7f1d1d; color: #fecaca; }
 body.theme-dark .footer { background: #070d18; }
 body.theme-dark .brand img { mix-blend-mode: screen; }
 
@@ -836,7 +895,7 @@ body.theme-dark .brand img { mix-blend-mode: screen; }
   .split-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .feature-card { grid-template-columns: minmax(0, 0.9fr) minmax(260px, 1.1fr); }
+  #recursos .fact-myths-section { grid-template-columns: 1fr; }
   .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .preview-slide { grid-template-columns: 1fr; gap: 22px; }
   .preview-copy { padding: 0; }
@@ -851,13 +910,14 @@ body.theme-dark .brand img { mix-blend-mode: screen; }
   .theme-toggle { min-height: 38px; padding: 0 9px; font-size: 0.78rem; }
   .nav-actions .link-btn { display: inline-flex; align-items: center; min-height: 40px; padding: 0 6px; font-size: 0.86rem; }
   .strip-grid,
-  .feature-grid,
   .attack-grid,
   .stats-grid,
   .split-grid {
     grid-template-columns: 1fr;
   }
-  .feature-card { grid-template-columns: 1fr; gap: 22px; }
+  #recursos .did-you-know-card { grid-template-columns: 1fr; padding: 24px; }
+  #recursos .https-illustration { width: min(210px, 72%); }
+  #recursos .myth-card { align-items: start; }
   .tool-grid { grid-template-columns: 1fr; }
   .preview-slide { padding: 24px; }
   .preview-slides { min-height: 0; }
