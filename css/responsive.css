@@ -1,0 +1,492 @@
+html {
+  overflow-x: clip;
+  scroll-padding-top: 16px;
+}
+
+body {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+video,
+iframe,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+@media (max-width: 760px) {
+  .container,
+  .settings-page,
+  .avatar-page,
+  .achievements-page {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .page-shell {
+    padding-top: 24px;
+    padding-bottom: 42px;
+  }
+
+  .course-hero {
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .course-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .course-content,
+  .course-sidebar {
+    gap: 16px;
+  }
+
+  .content-section,
+  .progress-card,
+  .contents-card {
+    padding: 18px;
+  }
+
+  .principles-grid,
+  .activity-columns,
+  .settings-checks,
+  .account-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .activity-profile-settings {
+    margin-left: 0;
+  }
+
+  .settings-card,
+  .avatar-card,
+  .avatar-preview-card {
+    padding: 18px;
+  }
+
+  .settings-card fieldset {
+    display: grid;
+    gap: 10px;
+  }
+
+  .settings-actions {
+    bottom: 8px;
+    padding: 10px;
+  }
+
+  .settings-actions button,
+  .unsaved-dialog-actions button,
+  .upload-actions button,
+  .upload-actions a {
+    min-height: 44px;
+  }
+
+  .community-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .community-left {
+    order: 0;
+    min-width: 0;
+  }
+
+  .community-left .side-nav {
+    display: flex;
+    gap: 6px;
+    padding: 8px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .community-left .side-nav-item,
+  .community-left .category-link {
+    flex: 0 0 auto;
+    width: auto;
+    min-height: 40px;
+    white-space: nowrap;
+  }
+
+  .community-left .side-nav-item span,
+  .community-left .category-link span {
+    flex: 0 0 auto;
+  }
+
+  .community-left .side-divider {
+    flex: 0 0 1px;
+    margin: 4px 3px;
+    border-top: 0;
+    border-left: 1px solid var(--slate-200);
+  }
+
+  .community-left .side-title {
+    display: none;
+  }
+
+  .community-left .sidebar-create {
+    min-height: 44px;
+  }
+
+  .feed {
+    order: 1;
+  }
+
+  .community-right {
+    order: 2;
+  }
+
+  .hero-content {
+    width: min(100%, 1200px);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .cards-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    padding: 0;
+  }
+
+  .timeline,
+  .important-list,
+  .stats-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stats-section {
+    padding: 18px;
+  }
+
+  .highlight-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modal {
+    padding: 12px;
+  }
+
+  .modal-content {
+    max-height: calc(100dvh - 24px);
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .modal-text p {
+    text-align: left;
+  }
+
+  .public-home .section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .split-grid,
+  #recursos .fact-myths-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  #recursos .did-you-know-card {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 22px;
+  }
+
+  #recursos .https-illustration {
+    max-width: 170px;
+  }
+
+  .attack-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .nav-links,
+  .section-title .nav-links {
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar,
+  .section-title .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .container,
+  .settings-page,
+  .avatar-page,
+  .achievements-page {
+    width: calc(100% - 24px);
+  }
+
+  .page-shell {
+    padding-top: 20px;
+    padding-bottom: 32px;
+  }
+
+  .site-nav-wrap {
+    width: calc(100% - 24px);
+    gap: 8px;
+  }
+
+  .site-actions {
+    gap: 6px;
+  }
+
+  .site-notifications {
+    right: -48px;
+    max-width: calc(100vw - 24px);
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  .app-shell {
+    width: 100%;
+    padding: 14px 12px 28px;
+  }
+
+  .welcome-copy h1 {
+    font-size: clamp(1.6rem, 8vw, 2rem);
+  }
+
+  .daily-message {
+    min-width: 0;
+  }
+
+  .primary-column,
+  .secondary-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .course-hero {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .course-hero h1 {
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+
+  .content-section,
+  .progress-card,
+  .contents-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .trail-overview-grid,
+  .trail-course-grid,
+  .course-grid,
+  .video-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .community-header,
+  .activity-card-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .community-right {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .community-layout {
+    gap: 12px;
+  }
+
+  .category-filters {
+    justify-content: flex-start;
+  }
+
+  .comment-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .comment-form button,
+  .composer-actions button,
+  .composer-actions select {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .post-card {
+    padding: 15px;
+  }
+
+  .post-card p {
+    margin-block: 12px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .news-card {
+    border-radius: 16px;
+  }
+
+  .news-card img {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .section-title h2,
+  #recursos .myths-heading h2 {
+    font-size: 1.4rem;
+  }
+
+  .section-title .nav-links {
+    display: flex;
+    width: 100%;
+    padding: 6px;
+  }
+
+  .section-title .nav-links a {
+    flex: 0 0 auto;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .attack-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .attack-card {
+    padding: 18px;
+  }
+
+  .hero-actions,
+  .upload-actions,
+  .avatar-actions,
+  .logout-dialog-actions,
+  .unsaved-dialog-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .hero-actions a,
+  .avatar-actions a,
+  .avatar-actions button,
+  .upload-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .activity-profile {
+    align-items: flex-start;
+    padding: 13px;
+  }
+
+  .activity-profile-settings {
+    width: 100%;
+    min-height: 44px;
+    text-align: center;
+  }
+
+  .activity-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .activity-tabs button {
+    min-height: 46px;
+  }
+
+  .avatar-gallery,
+  .community-avatar-gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .avatar-option {
+    min-height: 96px;
+  }
+
+  .settings-actions {
+    position: static;
+    margin-top: 14px;
+  }
+
+  .settings-actions button {
+    width: 100%;
+  }
+
+  .overview-stats div {
+    width: 100%;
+  }
+
+  .achievement-overview {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .achievement-filters {
+    flex-wrap: nowrap;
+    margin-right: -12px;
+    padding-right: 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .achievement-filter {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-brand span {
+    font-size: 0.88rem;
+  }
+
+  .site-icon-btn {
+    width: 36px;
+  }
+
+  .site-avatar {
+    width: 31px;
+    height: 31px;
+  }
+
+  .site-profile-btn {
+    min-height: 40px;
+  }
+
+  .panel,
+  .settings-card,
+  .avatar-card,
+  .avatar-preview-card {
+    padding: 14px;
+  }
+
+  .achievement-card {
+    gap: 11px;
+    padding: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  .public-home .attack-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

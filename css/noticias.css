@@ -928,3 +928,16 @@ footer {
     flex-wrap: wrap;
   }
 }
+
+@media (max-width: 760px) {
+  .hero { padding: 24px 16px 28px; }
+  .hero-content { width: min(100%, 1200px); }
+  main { width: min(100% - 32px, 1200px); padding: 20px 0 40px; }
+  .cards-grid { padding: 0; }
+  .section-title h2 { font-size: clamp(1.35rem, 6vw, 1.7rem); }
+  .stats-section { padding: 18px; }
+  .highlight-banner { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .modal { padding: 12px; }
+  .modal-content { max-height: calc(100dvh - 24px); padding: 20px 16px; }
+  .modal-text p { text-align: left; }
+}

@@ -1,3 +1,5 @@
+@import url("./responsive.css");
+
 /* Alvos de toque: os controles pequenos ganham uma área de toque de 44px sem mudar o visual. */
 .back-link, .text-link, .text-btn, .section-footer-link, .carousel-actions a, .carousel-actions button {
   min-height: 44px;
