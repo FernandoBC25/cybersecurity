@@ -194,7 +194,7 @@ function renderAchievement() {
       : { nome: 'Primeiros Passos', descricao: `Você concluiu ${completed} de ${total} cursos.` };
   document.getElementById('latestAchievement').innerHTML = `
     <article class="achievement-card"><span class="achievement-icon" aria-hidden="true">✧</span><div><h3>${escapeHTML(achievement.nome)}</h3><p>${escapeHTML(achievement.descricao)}</p></div></article>
-    <a class="section-footer-link" href="./aprender.html">Ver cursos <span aria-hidden="true">→</span></a>`;
+    <a class="section-footer-link" href="./conquistas.html">Ver conquistas <span aria-hidden="true">→</span></a>`;
 }
 
 function renderActivity() {
