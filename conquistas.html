@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Olho Digital | Conquistas</title>
+    <link rel="stylesheet" href="./css/site-header.css" />
+    <link rel="stylesheet" href="./css/account-preferences.css" />
+    <link rel="stylesheet" href="./css/conquistas.css" />
+    <link rel="stylesheet" href="./css/acessibilidade.css" />
+  </head>
+  <body>
+    <header class="topbar" data-site-header data-active="conquistas" data-search-id="achievementSearch" data-search-placeholder="Buscar conquistas..."></header>
+    <script src="./scripts/site-header.js"></script>
+
+    <main class="container achievements-page">
+      <header class="achievements-heading">
+        <p class="eyebrow">SEU PROGRESSO</p>
+        <h1>Minhas conquistas</h1>
+        <p>Acompanhe os marcos que você desbloqueou ao aprender e praticar segurança digital.</p>
+      </header>
+
+      <section class="achievement-overview" aria-labelledby="achievementOverviewTitle">
+        <div class="overview-copy">
+          <p class="section-label">SUA JORNADA</p>
+          <h2 id="achievementOverviewTitle"><span id="achievementCount">0</span> conquistas desbloqueadas</h2>
+          <p id="achievementProgressText">Carregando seu progresso...</p>
+          <div class="overview-progress" id="overallProgress" role="progressbar" aria-label="Conquistas disponíveis desbloqueadas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span id="overallProgressBar"></span>
+          </div>
+          <small id="overallProgressLabel"></small>
+        </div>
+        <div class="overview-medal" aria-hidden="true">🏆</div>
+        <div class="overview-stats" aria-label="Resumo do aprendizado">
+          <div><strong id="completedCourseCount">0</strong><span>cursos concluídos</span></div>
+          <div><strong id="completedTrailCount">0</strong><span>trilhas completas</span></div>
+        </div>
+      </section>
+
+      <section class="achievement-section" aria-labelledby="achievementListTitle">
+        <div class="achievement-section-heading">
+          <div>
+            <p class="section-label">COLEÇÃO</p>
+            <h2 id="achievementListTitle">Todas as conquistas</h2>
+          </div>
+          <span id="achievementResultCount" aria-live="polite"></span>
+        </div>
+        <div class="achievement-filters" role="group" aria-label="Filtrar conquistas">
+          <button type="button" class="achievement-filter is-active" data-filter="all" aria-pressed="true">Todas</button>
+          <button type="button" class="achievement-filter" data-filter="unlocked" aria-pressed="false">Desbloqueadas</button>
+          <button type="button" class="achievement-filter" data-filter="locked" aria-pressed="false">Bloqueadas</button>
+          <button type="button" class="achievement-filter" data-filter="aprendizagem" aria-pressed="false">Aprendizagem</button>
+          <button type="button" class="achievement-filter" data-filter="laboratorios" aria-pressed="false">Laboratórios</button>
+        </div>
+        <div class="achievement-grid" id="achievementGrid" aria-live="polite"></div>
+        <p class="achievement-empty" id="achievementEmpty" hidden>Nenhuma conquista corresponde a essa busca.</p>
+        <p class="lab-availability-note"><span aria-hidden="true">ⓘ</span> As conquistas de laboratório aparecerão como disponíveis quando os laboratórios forem adicionados ao sistema.</p>
+      </section>
+    </main>
+
+    <dialog class="achievement-dialog" id="achievementDialog" aria-labelledby="achievementDialogTitle">
+      <button class="achievement-dialog-close" type="button" id="closeAchievementDialog" aria-label="Fechar detalhes">×</button>
+      <div class="dialog-medal" id="dialogMedal" aria-hidden="true">🏅</div>
+      <p class="section-label" id="dialogCategory"></p>
+      <h2 id="achievementDialogTitle"></h2>
+      <p id="dialogDescription"></p>
+      <p class="dialog-motivation" id="dialogMotivation"></p>
+      <p class="dialog-requirement" id="dialogRequirement"></p>
+      <div class="dialog-progress" id="dialogProgressGroup">
+        <div class="dialog-progress-track"><span id="dialogProgressBar"></span></div>
+        <span id="dialogProgressText"></span>
+      </div>
+      <p class="dialog-status" id="dialogStatus"></p>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
+    <script src="./scripts/supabase-config.js"></script>
+    <script src="./scripts/auth.js"></script>
+    <script src="./scripts/data.js"></script>
+    <script src="./scripts/account.js"></script>
+    <script src="./scripts/home-data.js"></script>
+    <script src="./aprender/materias/catalogo/contas-dispositivos.js"></script>
+    <script src="./aprender/materias/catalogo/golpes.js"></script>
+    <script src="./aprender/materias/catalogo/privacidade-familia.js"></script>
+    <script src="./aprender/materias/catalogo/trabalho.js"></script>
+    <script src="./aprender/materias/catalogo/tecnico.js"></script>
+    <script src="./scripts/achievements.js"></script>
+    <script src="./scripts/conquistas.js"></script>
+  </body>
+</html>
