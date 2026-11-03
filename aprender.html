@@ -9,132 +9,26 @@
       <link rel="stylesheet" href="./css/site-header.css" />
       <link rel="stylesheet" href="./css/acessibilidade.css" />
   </head>
-  <body>
+  <body class="learning-page learning-home-page">
     <header class="topbar" data-site-header data-active="aprender" data-search-id="learningSearch" data-search-placeholder="Buscar conteúdo..."></header>
     <script src="./scripts/site-header.js"></script>
 
     <main class="container page-shell">
-      <section class="page-header">
+      <section class="page-header learning-home-header">
         <h1>Central de Aprendizado</h1>
-        <p>Expanda seus conhecimentos em cibersegurança.</p>
+        <p>Escolha uma trilha e avance curso por curso, no seu ritmo.</p>
       </section>
 
-      <section class="learning-section">
+      <section class="learning-section" id="catalogo">
         <div class="section-head">
           <div class="section-title">
-            <span class="section-icon">📘</span>
-            <h2>Cursos</h2>
+            <h2>Trilhas</h2>
           </div>
-          <button type="button" class="text-btn">Ver todos</button>
+          <span class="learning-trail-count" id="catalogSummary">Carregando catálogo...</span>
         </div>
-
-        <div class="course-grid">
-          <article class="course-card">
-            <div class="course-banner blue">
-              <span class="level">Fácil</span>
-              <h3>Fundamentos de Cibersegurança</h3>
-            </div>
-            <div class="course-body">
-              <p class="course-completion" id="courseCompletion" hidden>Curso concluído</p>
-              <div class="course-rating" id="courseRating" aria-live="polite"></div>
-              <a href="./aprender/materias/fundamentos/fundamentos.html" class="primary-btn block" id="startFundamentals">Começar</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner blue">
-              <span class="level">Fácil</span>
-              <h3>Proteção Contra Phishing</h3>
-            </div>
-            <div class="course-body">
-              <p class="course-completion is-incomplete" id="phishingCompletion" hidden>Não concluído</p>
-              <div class="course-rating" id="phishingRating" aria-live="polite"></div>
-              <a href="./aprender/materias/phishing/material.html" class="primary-btn block" id="startPhishing">Começar</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner purple">
-              <span class="level">Médio</span>
-              <h3>Segurança de Redes</h3>
-            </div>
-            <div class="course-body">
-              <p class="course-completion is-incomplete" id="redesCompletion" hidden>Não concluído</p>
-              <div class="course-rating" id="redesRating" aria-live="polite"></div>
-              <a href="./aprender/materias/redes/material.html" class="primary-btn block" id="startRedes">Começar</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner red">
-              <span class="level">Difícil</span>
-              <h3>Análise de Malware</h3>
-            </div>
-            <div class="course-body">
-              <p class="course-completion is-incomplete" id="malwareCompletion" hidden>Não concluído</p>
-              <div class="course-rating" id="malwareRating" aria-live="polite"></div>
-              <a href="./aprender/materias/malware/material.html" class="primary-btn block" id="startMalware">Começar</a>
-            </div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner purple"><span class="level">Médio</span><h3>Como Proteger Sites</h3></div>
-            <div class="course-body"><p class="course-completion is-incomplete" id="protegerSitesCompletion" hidden>Não concluído</p><div class="course-rating" id="protegerSitesRating" aria-live="polite"></div><a href="./aprender/materias/proteger-sites/material.html" class="primary-btn block" id="startProtegerSites">Começar</a></div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner purple"><span class="level">Médio</span><h3>Proteção de Dados e Senhas</h3></div>
-            <div class="course-body"><p class="course-completion is-incomplete" id="protecaoDadosCompletion" hidden>Não concluído</p><div class="course-rating" id="protecaoDadosRating" aria-live="polite"></div><a href="./aprender/materias/protecao-dados-senhas/material.html" class="primary-btn block" id="startProtecaoDados">Começar</a></div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner red"><span class="level">Difícil</span><h3>Como os Hackers Agem</h3></div>
-            <div class="course-body"><p class="course-completion is-incomplete" id="hackersAgemCompletion" hidden>Não concluído</p><div class="course-rating" id="hackersAgemRating" aria-live="polite"></div><a href="./aprender/materias/como-hackers-agem/material.html" class="primary-btn block" id="startHackersAgem">Começar</a></div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner purple"><span class="level">Médio</span><h3>Segurança na Nuvem</h3></div>
-            <div class="course-body"><p class="course-completion is-incomplete" id="segurancaNuvemCompletion" hidden>Não concluído</p><div class="course-rating" id="segurancaNuvemRating" aria-live="polite"></div><a href="./aprender/materias/seguranca-na-nuvem/material.html" class="primary-btn block" id="startSegurancaNuvem">Começar</a></div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner blue"><span class="level">Fácil</span><h3>Como Evitar Golpes na Internet</h3></div>
-            <div class="course-body"><p class="course-completion is-incomplete" id="evitarGolpesCompletion" hidden>Não concluído</p><div class="course-rating" id="evitarGolpesRating" aria-live="polite"></div><a href="./aprender/materias/evitar-golpes-internet/material.html" class="primary-btn block" id="startEvitarGolpes">Começar</a></div>
-          </article>
-
-          <article class="course-card">
-            <div class="course-banner red"><span class="level">Difícil</span><h3>Como Identificar e Combater Ataques</h3></div>
-            <div class="course-body"><p class="course-completion is-incomplete" id="combaterAtaquesCompletion" hidden>Não concluído</p><div class="course-rating" id="combaterAtaquesRating" aria-live="polite"></div><a href="./aprender/materias/identificar-combater-ataques/material.html" class="primary-btn block" id="startCombaterAtaques">Começar</a></div>
-          </article>
-        </div>
+        <div class="trail-overview-grid" id="catalogGrid"></div>
       </section>
 
-      <section class="learning-section">
-        <div class="section-head">
-          <div class="section-title">
-            <span class="section-icon">🧪</span>
-            <h2>Laboratórios</h2>
-          </div>
-        </div>
-
-        <div class="lab-list">
-          <div class="lab-item">
-            <h3>Simulação de Ataque de Phishing</h3>
-            <span class="difficulty easy">Fácil</span>
-            <p>Atividade guiada, com conceitos básicos e passos indicados.</p>
-          </div>
-          <div class="lab-item">
-            <h3>Análise de Tráfego de Rede</h3>
-            <span class="difficulty medium">Médio</span>
-            <p>Exige combinar conceitos conhecidos e interpretar os dados com alguma autonomia.</p>
-          </div>
-          <div class="lab-item">
-            <h3>Pen Testing Básico</h3>
-            <span class="difficulty hard">Difícil</span>
-            <p>Envolve várias etapas, análise independente e conhecimentos mais avançados.</p>
-          </div>
-        </div>
-      </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.min.js"></script>
@@ -142,6 +36,13 @@
     <script src="./scripts/auth.js"></script>
     <script src="./scripts/data.js"></script>
     <script src="./scripts/account.js"></script>
+    <script src="./scripts/home-data.js"></script>
+    <script src="./aprender/materias/catalogo/contas-dispositivos.js"></script>
+    <script src="./aprender/materias/catalogo/golpes.js"></script>
+    <script src="./aprender/materias/catalogo/privacidade-familia.js"></script>
+    <script src="./aprender/materias/catalogo/trabalho.js"></script>
+    <script src="./aprender/materias/catalogo/tecnico.js"></script>
     <script src="./scripts/aprender.js"></script>
+    <script src="./scripts/catalogo-aprender.js"></script>
   </body>
 </html>

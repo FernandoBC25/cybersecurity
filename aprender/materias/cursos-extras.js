@@ -142,12 +142,38 @@ const extraCourses = {
   }
 };
 
+// Cursos do catálogo (aprender/materias/catalogo/*.js). Cada um chega com a resposta certa
+// na primeira posição; aqui as alternativas são embaralhadas de forma determinística
+// (a mesma ordem sempre para o mesmo curso), para a posição certa variar.
+function seededRandom(seedText) {
+  let seed = 2166136261;
+  for (const char of seedText) seed = Math.imul(seed ^ char.charCodeAt(0), 16777619) >>> 0;
+  return () => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+}
+
+Object.entries(window.novosCursos || {}).forEach(([key, course]) => {
+  course.questions = course.questions.map(([question, options, correct], questionIndex) => {
+    const random = seededRandom(`${key}:${questionIndex}`);
+    const order = options.map((_, index) => index);
+    for (let i = order.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return [question, order.map((index) => options[index]), order.indexOf(correct)];
+  });
+  extraCourses[key] = course;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-  const courseKey = document.body.dataset.courseKey;
+  const courseKey = document.body.dataset.courseKey || new URLSearchParams(window.location.search).get('curso');
   const course = extraCourses[courseKey];
   const user = OlhoDigitalAccount.requireAuthentication();
   const app = document.getElementById('courseApp');
   if (!user || !course || !app) return;
+  document.title = `Olho Digital | ${course.title}`;
 
   OlhoDigitalAccount.applySettings(OlhoDigitalAccount.getEffectiveSettings(user));
   OlhoDigitalAccount.updateProfileAvatars(user);

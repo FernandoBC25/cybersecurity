@@ -53,8 +53,53 @@
   }
 
   // ---- Cursos -------------------------------------------------------
+  // Antes do login com Supabase, o progresso ficava em chaves globais do navegador
+  // (fundamentosProgress, redesStarted, phishingRating...). Na primeira vez que alguém
+  // entra depois da mudança, esse histórico vai para a conta e as chaves antigas somem.
+  const LEGACY_COURSES = [
+    'fundamentos', 'phishing', 'redes', 'malware', 'proteger-sites', 'protecao-dados-senhas',
+    'como-hackers-agem', 'seguranca-na-nuvem', 'evitar-golpes-internet', 'identificar-combater-ataques'
+  ];
+  const LEGACY_FIELDS = ['Started', 'Progress', 'Rating'];
+
+  function importLegacyCourses(user) {
+    const found = {};
+    LEGACY_COURSES.forEach((course) => {
+      const raw = Object.fromEntries(LEGACY_FIELDS.map((field) => [field, localStorage.getItem(`${course}${field}`)]));
+      if (Object.values(raw).some((value) => value !== null)) found[course] = raw;
+    });
+    if (!Object.keys(found).length) return;
+
+    const courses = readCache('courses', user) || {};
+    const rows = [];
+    const now = Date.now();
+    Object.entries(found).forEach(([course, raw]) => {
+      const data = courses[course] || { started: false, progress: 0, rating: null };
+      const progress = Math.max(0, Math.min(100, Number(raw.Progress) || 0));
+      const rating = Number(raw.Rating);
+      data.progress = Math.max(data.progress || 0, progress);
+      data.started = Boolean(data.started || raw.Started === 'true' || progress > 0);
+      if (!data.rating && rating >= 1 && rating <= 5) data.rating = rating;
+      data.updatedAt = now;
+      courses[course] = data;
+      rows.push({
+        user_id: user.id,
+        curso: course,
+        iniciado: data.started,
+        progresso: data.progress,
+        nota: data.rating,
+        atualizado_em: new Date(now).toISOString()
+      });
+    });
+    localWrites += 1;
+    writeCache('courses', user, courses);
+    LEGACY_COURSES.forEach((course) => LEGACY_FIELDS.forEach((field) => localStorage.removeItem(`${course}${field}`)));
+    push('o progresso dos cursos', supabaseClient.from('progresso_cursos').upsert(rows));
+  }
+
   // Valores como texto, no mesmo formato que o localStorage antigo usava.
   function getCourseValue(user, course, field) {
+    importLegacyCourses(user);
     const data = readCache('courses', user)?.[course] || {};
     if (field === 'Started') return data.started ? 'true' : 'false';
     if (field === 'Progress') return String(data.progress ?? 0);
@@ -62,6 +107,7 @@
   }
 
   function setCourseValue(user, course, field, value) {
+    importLegacyCourses(user);
     const courses = readCache('courses', user) || {};
     const data = courses[course] || { started: false, progress: 0, rating: null };
     // Abrir de novo um curso já iniciado não muda nada; evita uma escrita a cada página.
@@ -142,6 +188,7 @@
     const user = OlhoDigitalAuth.getCurrentUser();
     if (!user) return false;
 
+    importLegacyCourses(user);
     const writesBefore = localWrites;
     const [courses, settings, activity] = await Promise.all([
       supabaseClient.from('progresso_cursos').select('*'),
